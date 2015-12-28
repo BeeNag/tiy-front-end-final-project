@@ -141,6 +141,9 @@ var Application = React.createClass({
 						</div>
 					</div>
 				</div>
+				<div className="row">
+					<button type="button" className="btn btn-danger">Delete Profile</button>
+				</div>
 			</div>
 		);
 	}
