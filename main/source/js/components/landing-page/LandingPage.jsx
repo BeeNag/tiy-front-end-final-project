@@ -1,5 +1,7 @@
 var React = require('react');
 var LandingPageNavbar = require('./LandingPageNavbar.jsx');
+var SignInForm = require('./SignInForm.jsx');
+var SignUpForm = require('./SignUpForm.jsx');
 
 var LandingPage = React.createClass({
 	render: function () {
@@ -26,7 +28,10 @@ var LandingPage = React.createClass({
 						<button type="button" className="btn btn-primary">Employer</button>
 					</div>
 				</div>
+				<SignInForm />
+				<SignUpForm />
 			</div>
+
 	    );
 	}
 });
