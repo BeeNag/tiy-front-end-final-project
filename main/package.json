@@ -1,21 +1,21 @@
 {
-  "name": "tiy-frontend-final-project-landing-page",
+  "name": "tiy-front-end-final-project",
   "version": "1.0.0",
-  "description": "Landing page for final-project built with React.js.",
-  "main": "index.js",
+  "description": "Job finding site for Archaeologists built with React.js.",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BeeNag/tiy-frontend-final-project.git"
+    "url": "https://github.com/BeeNag/tiy-front-end-final-project.git"
   },
   "author": "Benedict Nagle-Rose",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fedosejev/shopping-list-react/issues"
+    "url": "https://github.com/BeeNag/tiy-front-end-final-project/issues"
   },
-  "homepage": "https://github.com/BeeNag/tiy-frontend-final-project",
+  "homepage": "https://github.com/BeeNag/tiy-front-end-final-project",
   "devDependencies": {
     "browserify": "^9.0.3",
     "gulp": "^3.8.11",
@@ -25,11 +25,13 @@
   },
   "dependencies": {
     "flux": "^2.1.1",
+    "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.1.0",
     "node-uuid": "^1.4.2",
     "object-assign": "^4.0.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.3",
+    "sass": "^0.5.0",
     "vinyl-buffer": "^1.0.0"
   }
 }
