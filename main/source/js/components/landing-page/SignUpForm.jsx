@@ -13,7 +13,7 @@ var SignUpForm = React.createClass({
 	        				<input name="user[password2]" type="password" placeholder="Confirm password" required="required" className="input pass"/>	
 	        				<input type="submit" value="Sign me up!" className="inputButton"/>
 	        				<div className="text-center">
-	            				already have an account? <a href="#" id="login_id">login</a>
+	            				Already Have an Account? <a href="#" id="login_id">Login</a>
 	        				</div>
 	      				</form>
 	    			</div>

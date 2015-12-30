@@ -12,7 +12,7 @@ var SignInForm = React.createClass({
         					<input name="user[password]" type="password" placeholder="enter your password" required="required" className="input pass"/>
         					<input type="submit" value="Sign me in!" className="inputButton"/>
         					<div className="text-center">
-                    			<a href="#" id="">create an account</a>
+                    			<a href="#" id="">Create an Account</a>
                 			</div>
       					</form>
     				</div>
