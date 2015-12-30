@@ -16,39 +16,39 @@ var CreateProfile = React.createClass({
 				<div className="row">
 					<form>
 						<div className="form-group">
-	                        <label for="inputFirstName">First Name</label>
+	                        <label htmlFor="inputFirstName">First Name</label>
 	                        <input type="text" className="form-control" id="inputFirstName" placeholder="First Name"></input>
 	                    </div>
 	                    <div className="form-group">
-	                        <label for="inputLastName">Last Name</label>
+	                        <label htmlFor="inputLastName">Last Name</label>
 	                        <input type="text" className="form-control" id="inputLastName" placeholder="Last Name"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputDateOfBirth">Date of Birth</label>
+	                    	<label htmlFor="inputDateOfBirth">Date of Birth</label>
 	                    	<input type="date" className="form-control" id="inputDateOfBirth" placeholder="Date of Birth"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineOne">Address Line 1</label>
+	                    	<label htmlFor="inputAddressLineOne">Address Line 1</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineOne" placeholder="Address Line 1"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineTwo">Address Line 2</label>
+	                    	<label htmlFor="inputAddressLineTwo">Address Line 2</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineTwo" placeholder="Address Line 2"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineThree">Address Line 3</label>
+	                    	<label htmlFor="inputAddressLineThree">Address Line 3</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineThree" placeholder="Address Line 3"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputCity">City</label>
+	                    	<label htmlFor="inputCity">City</label>
 	                    	<input type="text" className="form-control" id="inputCity" placeholder="City"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputPostcode">Postcode</label>
+	                    	<label htmlFor="inputPostcode">Postcode</label>
 	                    	<input type="postcode" className="form-control" id="inputPostcode" placeholder="Postcode"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="selectExperience">Years of Experience</label>
+	                    	<label htmlFor="selectExperience">Years of Experience</label>
 	                    	<select className="form-control" id="selectExperience">
 	                    		<option></option>
 	                    		<option>0-1</option>
@@ -58,7 +58,7 @@ var CreateProfile = React.createClass({
 	                    	</select>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="selectSpecialism">Specialism</label>
+	                    	<label htmlFor="selectSpecialism">Specialism</label>
 	                    	<select className="form-control" id="selectSpecialism">
 	                    		<option></option>
 	                    		<option>Bioarchaeology</option>
@@ -89,7 +89,7 @@ var CreateProfile = React.createClass({
 	                    	</label>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="describeYourself">Describe Yourself in 250 Words</label>
+	                    	<label htmlFor="describeYourself">Describe Yourself in 250 Words</label>
 	                    	<textarea className="form-control" id="describeYourself" rows="5" maxlength="250"></textarea>
 	                    </div>
 	                    <div className="form-group">

@@ -11,27 +11,27 @@ var CreateExcavation = React.createClass({
 				<div className="row">
 					<form>
 						<div className="form-group">
-							<label for="inputExcavationName">Excavation Name</label>
+							<label htmlFor="inputExcavationName">Excavation Name</label>
 							<input type="text" className="form-control" id="inputExcavationName" placeholder="Excavation Name"></input>
 						</div>
 						<div className="form-group">
-	                    	<label for="inputAddressLineOne">Address Line 1</label>
+	                    	<label htmlFor="inputAddressLineOne">Address Line 1</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineOne" placeholder="Address Line 1"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineTwo">Address Line 2</label>
+	                    	<label htmlFor="inputAddressLineTwo">Address Line 2</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineTwo" placeholder="Address Line 2"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineThree">Address Line 3</label>
+	                    	<label htmlFor="inputAddressLineThree">Address Line 3</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineThree" placeholder="Address Line 3"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputPostcode">Postcode</label>
+	                    	<label htmlFor="inputPostcode">Postcode</label>
 	                    	<input type="postcode" className="form-control" id="inputPostcode" placeholder="Postcode"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="selectDuration">Duration of Excavation</label>
+	                    	<label htmlFor="selectDuration">Duration of Excavation</label>
 	                    	<select className="form-control" id="selectDuration">
 	                    		<option></option>
 	                    		<option>1 Week</option>
@@ -44,11 +44,11 @@ var CreateExcavation = React.createClass({
 	                    	</select>
 	                    </div>
 	                    <div className="form-group">
-      						<label for="enterExcavationUrl">Excavation Home Page</label>
+      						<label htmlFor="enterExcavationUrl">Excavation Home Page</label>
       						<input type="url" className="form-control" id="enterExcavationUrl" placeholder="Excavation Home Page URL"></input>
     					</div>
     					<div className="form-group">
-	                    	<label for="describeExcavation">Please Enter a Brief Description of the Excavation (max. 250 words)</label>
+	                    	<label htmlFor="describeExcavation">Please Enter a Brief Description of the Excavation (max. 250 words)</label>
 	                    	<textarea className="form-control" id="describeExcavation" rows="5" maxlength="250"></textarea>
 	                    </div>
 					</form>

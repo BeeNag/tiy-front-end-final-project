@@ -16,35 +16,35 @@ var CreateCompanyProfile = React.createClass({
 				<div className="row">
 					<form>
 						<div className="form-group">
-							<label for="inputCompanyName">Company Name</label>
+							<label htmlFor="inputCompanyName">Company Name</label>
 							<input type="text" className="form-control" id="inputCompanyName" placeholder="Company Name"></input>
 						</div>
 						<div className="form-group">
-	                    	<label for="inputAddressLineOne">Address Line 1</label>
+	                    	<label htmlFor="inputAddressLineOne">Address Line 1</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineOne" placeholder="Address Line 1"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineTwo">Address Line 2</label>
+	                    	<label htmlFor="inputAddressLineTwo">Address Line 2</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineTwo" placeholder="Address Line 2"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputAddressLineThree">Address Line 3</label>
+	                    	<label htmlFor="inputAddressLineThree">Address Line 3</label>
 	                    	<input type="address" className="form-control" id="inputAddressLineThree" placeholder="Address Line 3"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputCity">City</label>
+	                    	<label htmlFor="inputCity">City</label>
 	                    	<input type="text" className="form-control" id="inputCity" placeholder="City"></input>
 	                    </div>
 	                    <div className="form-group">
-	                    	<label for="inputPostcode">Postcode</label>
+	                    	<label htmlFor="inputPostcode">Postcode</label>
 	                    	<input type="postcode" className="form-control" id="inputPostcode" placeholder="Postcode"></input>
 	                    </div>
 	                    <div className="form-group">
-      						<label for="enterUrl">Company Home Page</label>
+      						<label htmlFor="enterUrl">Company Home Page</label>
       						<input type="url" className="form-control" id="enterUrl" placeholder="Company Home Page URL"></input>
     					</div>
     					<div className="form-group">
-	                    	<label for="describeCompany">Please Enter a Brief Description of the Company (max. 250 words)</label>
+	                    	<label htmlFor="describeCompany">Please Enter a Brief Description of the Company (max. 250 words)</label>
 	                    	<textarea className="form-control" id="describeCompany" rows="5" maxlength="250"></textarea>
 	                    </div>
 					</form>
