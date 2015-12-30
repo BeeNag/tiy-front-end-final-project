@@ -10,4 +10,4 @@ var EmployerLandingPage = require('./components/employer-landing-page/EmployerLa
 var LandingPage = require('./components/landing-page/LandingPage.jsx');
 var Search = require('./components/search/Search.jsx');
 
-ReactDOM.render(<ArchLandingPage />, document.querySelector('[data-react-application]'));
+ReactDOM.render(<Search />, document.querySelector('[data-react-application]'));
