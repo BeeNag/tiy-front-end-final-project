@@ -13,3 +13,32 @@ var webPages = {
 	LANDING_PAGE: 'LANDING_PAGE',
 	SEARCH: 'SEARCH'
 };
+
+var Page = webPages.LANDING_PAGE;
+
+var PageStateStore = objectAssign({}, EventEmitter.prototype, {
+
+	getCurrentPage: function () {
+		return Page;
+	},
+
+	addChangeListener: function (changeEventHandler) {
+		this.on('change', changeEventHandler);
+	},
+
+	removeChangeListener: function (changeEventHandler) {
+		this.removeListener('change', changeEventHandler);
+	}
+});
+
+function handleAction(action) {
+	if (action.type === 'change_to_arch_landing_page') {
+
+	} else if (action.type === 'change_to_employer_landing_page') {
+		
+	}
+}
+
+PageStateStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = PageStateStore;
