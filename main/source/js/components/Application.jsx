@@ -19,11 +19,11 @@ var Application = React.createClass({
 	},
 
 	render: function () {
-		{if (this.state.page === 'LANDING_PAGE') {
+		if (this.state.page === 'LANDING_PAGE') {
 			return (
 			<LandingPage />
 			);
-		}}
+		}
 		
 	}
 });
