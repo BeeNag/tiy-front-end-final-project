@@ -32,11 +32,6 @@ var PageStateStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-	if (action.type === 'change_to_arch_landing_page') {
-
-	} else if (action.type === 'change_to_employer_landing_page') {
-		
-	}
 }
 
 PageStateStore.dispatchToken = Dispatcher.register(handleAction);
