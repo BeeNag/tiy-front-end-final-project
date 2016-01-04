@@ -14,10 +14,7 @@ var EmployerLandingPage = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-primary">Create A Company Profile</button>
-					</div>
-					<div className="col-xs-4 col-xs-offset-2">
+					<div className="col-xs-4 col-xs-offset-4">
 						<button type="button" className="btn btn-success">Create an Excavation Profile</button>
 					</div>
 				</div>

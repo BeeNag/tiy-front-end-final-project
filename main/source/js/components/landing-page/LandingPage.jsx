@@ -1,9 +1,72 @@
 var React = require('react');
 var LandingPageNavbar = require('./LandingPageNavbar.jsx');
-var SignInForm = require('./SignInForm.jsx');
-var SignUpForm = require('./SignUpForm.jsx');
+var ArchSignInForm = require('./ArchSignInForm.jsx');
+var CompanySignInForm = require('./CompanySignInForm.jsx');
+var ArchSignUpForm = require('./ArchSignUpForm.jsx');
+var CompanySignUpForm = require('./CompanySignUpForm.jsx');
+var MainButton = require('../MainButton.jsx');
 
 var LandingPage = React.createClass({
+	
+	getInitialState: function () {
+		return {
+			isArchSignIn: false,
+			isCompanySignIn: false,
+			isArchSignUp: false,
+			isCompanySignUp: false
+		};
+	},
+
+	showArchSignInForm: function () {
+		this.setState({
+			isArchSignIn: true
+		});
+	},
+
+	showCompanySignInForm: function () {
+		this.setState({
+			isCompanySignIn: true
+		});
+	},
+
+	hideArchSignInForm: function () {
+		this.setState({
+			isArchSignIn: false
+		});
+	},
+
+	hideCompanySignInForm: function () {
+		this.setState({
+			isCompanySignIn: false
+		});
+	},
+
+	showArchSignUpFormAndHideArchSignInForm: function () {
+		this.setState({
+			isArchSignUp: true,
+			isArchSignIn: false
+		});
+	},
+
+	showCompanySignUpFormAndHideCompanySignInForm: function () {
+		this.setState({
+			isCompanySignUp: true,
+			isCompanySignIn: false
+		});
+	},
+
+	hideArchSignUpForm: function () {
+		this.setState({
+			isArchSignUp: false
+		});
+	},
+
+	hideCompanySignUpForm: function () {
+		this.setState({
+			isCompanySignUp: false
+		});
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -19,14 +82,16 @@ var LandingPage = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-primary">Archaeologist</button>
+						<MainButton label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
 					</div>
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-primary">Employer</button>
+						<MainButton label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
 					</div>
 				</div>
-				<SignInForm />
-				<SignUpForm />
+				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
+				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
+				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} /> : null }
+				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} /> : null }
 			</div>
 
 	    );

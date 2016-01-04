@@ -45,7 +45,7 @@ var ArchaeologistProfileDetails = React.createClass({
             		<option>Yes</option>
             		<option>No</option>
             	</select>
-            	<textarea className="form-control input pass" placeholder="Describe Yourself in 250 Words..." rows="5" maxlength="250"></textarea>
+            	<textarea className="form-control input pass" placeholder="Describe Yourself in 250 Words..." rows="5" maxLength="250"></textarea>
             	<label htmlFor="upload-picture" className="upload">Upload a Picture of Yourself</label>
     			<input type="file" className="form-control input pass" id="upload-picture"></input>
 			</div>

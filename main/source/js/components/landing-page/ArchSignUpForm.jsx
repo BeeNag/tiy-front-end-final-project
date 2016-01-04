@@ -1,14 +1,19 @@
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
-var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
 
-var SignUpForm = React.createClass({
+var ArchSignUpForm = React.createClass({
+
+	handleArchSignUpFormSubmit: function (submitEvent) {
+	    submitEvent.preventDefault();
+	    this.props.handleArchSignUpForm();
+  	},
+
 	render: function () {
 		return (
 			<div className="container form">
 				<div className="col-xs-6 col-xs-offset-3">
 	    			<div id="logbox">
-	      				<form id="signup" method="post" action="/signup">
+	      				<form id="signup" method="post" action="/signup" onSubmit={this.handleArchSignUpFormSubmit}>
 	        				<h1>Create an Account</h1>
 	        				<ArchaeologistProfileDetails />
 	        				<input name="user[email]" type="email" placeholder="Email Address" className="form-control input pass"></input>
@@ -23,4 +28,4 @@ var SignUpForm = React.createClass({
 	}
 });
 
-module.exports = SignUpForm;
+module.exports = ArchSignUpForm;

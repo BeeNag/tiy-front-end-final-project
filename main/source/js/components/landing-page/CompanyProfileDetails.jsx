@@ -12,7 +12,7 @@ var CompanyProfileDetails = React.createClass({
 				<input type="postcode" placeholder="Postcode" className="form-control input pass"></input>
 				<input type="text" placeholder="Enter Phone Number" className="form-control input pass" data-format="(+44)ddd ddd dddd"></input>
 				<input type="url" placeholder="Company Home Page URL" className="form-control input pass"></input>
-				<textarea className="form-control input pass" placeholder="Please Enter a Brief Description of the Company (max. 250 words)" rows="5" maxlength="250"></textarea>
+				<textarea className="form-control input pass" placeholder="Please Enter a Brief Description of the Company (max. 250 words)" rows="5" maxLength="250"></textarea>
 			</div>
 		);
 	}
