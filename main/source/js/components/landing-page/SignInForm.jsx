@@ -3,7 +3,7 @@ var React = require('react');
 var SignInForm = React.createClass({
 	render: function () {
 		return (
-			<div className="container">
+			<div className="container form">
    				<div className="col-xs-6 col-xs-offset-3">
     				<div id="logbox">
       					<form id="signup" method="post" action="/signup">

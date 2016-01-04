@@ -4,7 +4,7 @@
 ::-moz-selection {
   background-color: #8ac7d8; }
 
-.container {
+.container .form {
   display: -webkit-flex;
   display: flex;
   height: 100%; }
