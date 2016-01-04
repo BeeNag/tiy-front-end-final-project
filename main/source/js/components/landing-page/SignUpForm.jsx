@@ -1,4 +1,6 @@
 var React = require('react');
+var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
+var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
 
 var SignUpForm = React.createClass({
 	render: function () {
@@ -8,10 +10,11 @@ var SignUpForm = React.createClass({
 	    			<div id="logbox">
 	      				<form id="signup" method="post" action="/signup">
 	        				<h1>Create an Account</h1>
-	        				<input name="user[email]" type="email" placeholder="Email address" className="input pass"/>
-	        				<input name="user[password]" type="password" placeholder="Choose a password" required="required" className="input pass"/>
-	        				<input name="user[password2]" type="password" placeholder="Confirm password" required="required" className="input pass"/>	
-	        				<input type="submit" value="Sign me up!" className="inputButton"/>
+	        				<ArchaeologistProfileDetails />
+	        				<input name="user[email]" type="email" placeholder="Email Address" className="form-control input pass"></input>
+	        				<input name="user[password]" type="password" placeholder="Choose a Password" required="required" className="form-control input pass"></input>
+	        				<input name="user[password2]" type="password" placeholder="Confirm Password" required="required" className="form-control input pass"></input>	
+	        				<input type="submit" value="Sign me up!" className="form-control inputButton"></input>
 	      				</form>
 	    			</div>
 	   			</div>

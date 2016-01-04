@@ -8,9 +8,6 @@ var LandingPage = React.createClass({
 		return (
 			<div className="container-fluid">
 				<div className="row">
-					<LandingPageNavbar />
-				</div>
-				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
 						<h1>Welcome to FreeArch</h1>
 					</div>

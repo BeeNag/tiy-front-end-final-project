@@ -30,6 +30,14 @@ h1 {
   border: none;
   border-bottom: 2px solid #ebebeb; }
 
+.upload {
+  width: 75%;
+  height: 50px;
+  display: block;
+  margin: 0 auto 15px;
+  padding: 0 15px;
+  border: none; }
+
 .input:focus {
   outline: none;
   border-bottom-color: #3CC !important; }
