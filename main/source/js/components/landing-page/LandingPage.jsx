@@ -89,8 +89,8 @@ var LandingPage = React.createClass({
 					</div>
 				</div>
 				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
-				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
 				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} /> : null }
+				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
 				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} /> : null }
 			</div>
 
