@@ -12,9 +12,6 @@ var SignUpForm = React.createClass({
 	        				<input name="user[password]" type="password" placeholder="Choose a password" required="required" className="input pass"/>
 	        				<input name="user[password2]" type="password" placeholder="Confirm password" required="required" className="input pass"/>	
 	        				<input type="submit" value="Sign me up!" className="inputButton"/>
-	        				<div className="text-center">
-	            				Already Have an Account? <a href="#" id="login_id">Login</a>
-	        				</div>
 	      				</form>
 	    			</div>
 	   			</div>
