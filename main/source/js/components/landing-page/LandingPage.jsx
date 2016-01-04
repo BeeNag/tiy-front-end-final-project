@@ -1,5 +1,4 @@
 var React = require('react');
-var LandingPageNavbar = require('./LandingPageNavbar.jsx');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
 var ArchSignUpForm = require('./ArchSignUpForm.jsx');
