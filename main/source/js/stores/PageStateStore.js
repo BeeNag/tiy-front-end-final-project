@@ -69,6 +69,16 @@ function handleAction(action) {
 		changeToArchLandingPage();
 	} else if (action.type === 'change-to-employer-landing-page') {
 		changeToEmployerLandingPage();
+	} else if (action.type === 'change-to-archaeologist-profile') {
+		changeToArchaeologistProfile();
+	} else if (action.type === 'change-to-company-profile') {
+		changeToCompanyProfile();
+	} else if (action.type === 'change-to-create-excavation') {
+		changeToCreateExcavation();
+	} else if (action.type === 'change-to-search') {
+		changeToSearch();
+	} else if (action.type === 'change-to-landing-page') {
+		changeToLandingPage();
 	}
 }
 
