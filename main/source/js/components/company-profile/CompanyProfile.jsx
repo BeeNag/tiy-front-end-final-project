@@ -1,7 +1,15 @@
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
+var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 
 var CompanyProfile = React.createClass({
+
+	handleDeleteCompanyProfile: function () {
+		event.preventDefault();
+
+		CompanyProfileActionCreators.changeToLandingPage();
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -138,7 +146,7 @@ var CompanyProfile = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<button type="button" className="btn btn-danger">Delete Profile</button>
+					<button onClick={this.handleDeleteCompanyProfile} type="button" className="btn btn-danger">Delete Profile</button>
 				</div>
 			</div>
 		);

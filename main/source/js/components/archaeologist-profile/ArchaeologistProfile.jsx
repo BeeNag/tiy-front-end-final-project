@@ -1,7 +1,15 @@
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
+var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
 var ArchaeologistProfile = React.createClass({
+
+	handleDeleteArchaeologistProfileClickEvent: function () {
+		event.preventDefault();
+
+		ArchaeologistProfileActionCreators.changeToLandingPage();
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -107,7 +115,7 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<button type="button" className="btn btn-danger">Delete Profile</button>
+					<button onClick={this.handleDeleteArchaeologistProfileClickEvent} type="button" className="btn btn-danger">Delete Profile</button>
 				</div>
 			</div>
 		);
