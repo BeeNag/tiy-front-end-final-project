@@ -1,7 +1,15 @@
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
+var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 
 var ArchLandingPage = React.createClass({
+
+	handleArchaeologistProfileClickEvent: function () {
+		event.preventDefault();
+
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -15,7 +23,7 @@ var ArchLandingPage = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-4">
-						<button type="button" className="btn btn-success">View Your Profile</button>
+						<button onClick={this.handleArchaeologistProfileClickEvent} type="button" className="btn btn-success">View Your Profile</button>
 					</div>
 				</div>
 				<div className="row">

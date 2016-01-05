@@ -1,7 +1,27 @@
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 
 var EmployerLandingPage = React.createClass({
+
+	handleCompanyProfileClickEvent: function () {
+		event.preventDefault();
+
+		EmployerLandingPageActionCreators.changeToCompanyProfile();
+	},
+
+	handleCreateExcavationClickEvent: function () {
+		event.preventDefault();
+
+		EmployerLandingPageActionCreators.changeToCreateExcavation();
+	},
+
+	handleSearchClickEvent: function () {
+		event.preventDefault();
+
+		EmployerLandingPageActionCreators.changeToSearch();
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -14,13 +34,16 @@ var EmployerLandingPage = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-4 col-xs-offset-4">
-						<button type="button" className="btn btn-success">Create an Excavation Profile</button>
+					<div className="col-xs-4 col-xs-offset-2">
+						<button onClick={this.handleCompanyProfileClickEvent} type="button" className="btn btn-success">View Company Profile</button>
+					</div>
+					<div className="col-xs-4 col-xs-offset-2">
+						<button onClick={this.handleCreateExcavationClickEvent} type="button" className="btn btn-success">Create an Excavation</button>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-info">Search for a Profile</button>
+						<button onClick={this.handleSearchClickEvent} type="button" className="btn btn-info">Search for a Profile</button>
 					</div>
 					<div className="col-xs-4 col-xs-offset-2">
 						<button type="button" className="btn btn-info">View Your List of Saved Profiles</button>
