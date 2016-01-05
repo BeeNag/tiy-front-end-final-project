@@ -14,6 +14,11 @@ var webPages = {
 
 var Page = webPages.LANDING_PAGE;
 
+function changeToLandingPage() {
+	Page = webPages.LANDING_PAGE;
+	PageStateStore.emit('change');
+}
+
 function changeToArchLandingPage() {
 	Page = webPages.ARCH_LANDING_PAGE;
 	PageStateStore.emit('change');
@@ -21,6 +26,26 @@ function changeToArchLandingPage() {
 
 function changeToEmployerLandingPage() {
 	Page = webPages.EMPLOYER_LANDING_PAGE;
+	PageStateStore.emit('change');
+}
+
+function changeToArchaeologistProfile() {
+	Page = webPages.ARCHAEOLOGIST_PROFILE;
+	PageStateStore.emit('change');
+}
+
+function changeToCompanyProfile() {
+	Page = webPages.COMPANY_PROFILE;
+	PageStateStore.emit('change');
+}
+
+function changeToCreateExcavation() {
+	Page = webPages.CREATE_EXCAVATION;
+	PageStateStore.emit('change');
+}
+
+function changeToSearch() {
+	Page = webPages.SEARCH;
 	PageStateStore.emit('change');
 }
 
