@@ -1,5 +1,6 @@
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
+var EditButton = require('./EditButton.jsx');
 var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var ExperienceAndSpecialismEdit = require('./ExperienceAndSpecialismEdit.jsx');
@@ -7,6 +8,63 @@ var DescriptionEdit = require('./DescriptionEdit.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
 var ArchaeologistProfile = React.createClass({
+
+	getInitialState: function () {
+		return {
+			isPhoto: false,
+			isContactDetails: false,
+			isExperienceAndSpecialism: false,
+			isDescription: false
+		};
+	},
+
+	showPhotoEdit: function () {
+		this.setState({
+			isPhoto: true
+		});
+	},
+
+	showContactDetailsEdit: function () {
+		this.setState({
+			isContactDetails: true
+		});
+	},
+
+	showExperienceAndSpecialismEdit: function () {
+		this.setState({
+			isExperienceAndSpecialism: true
+		});
+	},
+
+	showDescriptionEdit: function () {
+		this.setState({
+			isDescription: true
+		});
+	},
+
+	hidePhotoEdit: function () {
+		this.setState({
+			isPhoto: false
+		});
+	},
+
+	hideContactDetailsEdit: function () {
+		this.setState({
+			isContactDetails: false
+		});
+	},
+
+	hideExperienceAndSpecialismEdit: function () {
+		this.setState({
+			isExperienceAndSpecialism: false
+		});
+	},
+
+	hideDescriptionEdit: function () {
+		this.setState({
+			isDescription:false
+		});
+	},
 
 	handleDeleteArchaeologistProfileClickEvent: function () {
 		event.preventDefault();
@@ -34,8 +92,8 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 					<div className="col-xs-3">
 						<img src="http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg" alt="power switched off"></img>
-						<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-						<PhotoEdit />
+						<EditButton label="Edit" handleButtonClick={this.showPhotoEdit} />
+						{ this.state.isPhoto ? <PhotoEdit handlePhotoEditForm={this.hidePhotoEdit} /> : null }
 					</div>
 				</div>
 				<div className="row">
@@ -57,8 +115,8 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-								<ContactDetailsEdit />
+								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
+								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} /> : null }
 							</div>
 						</div>
 					</div>
@@ -75,8 +133,8 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-								<ExperienceAndSpecialismEdit />
+								<EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} />
+								{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} /> : null }
 							</div>
 						</div>
 					</div>
@@ -84,8 +142,8 @@ var ArchaeologistProfile = React.createClass({
 				<div className="row">
 					<div className="container">
 						<p>Description</p>
-						<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-						<DescriptionEdit />
+						<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
+						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} /> : null }
 					</div>
 				</div>
 				<div className="row">

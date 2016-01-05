@@ -1,8 +1,56 @@
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EditButton = require('./EditButton.jsx');
+var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
+var UrlEdit = require('./UrlEdit.jsx');
+var DescriptionEdit = require('./DescriptionEdit.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 
 var CompanyProfile = React.createClass({
+
+	getInitialState: function () {
+		return {
+			isContactDetails: false,
+			isUrl: false,
+			isDescription: false
+		};
+	},
+
+	showContactDetailsEdit: function () {
+		this.setState({
+			isContactDetails: true
+		});
+	},
+
+	showUrlEdit: function () {
+		this.setState({
+			isUrl: true
+		});
+	},
+
+	showDescriptionEdit: function () {
+		this.setState({
+			isDescription: true
+		});
+	},
+
+	hideContactDetailsEdit: function () {
+		this.setState({
+			isContactDetails: false
+		});
+	},
+
+	hideUrlEdit: function () {
+		this.setState({
+			isUrl: false
+		});
+	},
+
+	hideDescriptionEdit: function () {
+		this.setState({
+			isDescription: false
+		});
+	},
 
 	handleDeleteCompanyProfile: function () {
 		event.preventDefault();
@@ -45,7 +93,8 @@ var CompanyProfile = React.createClass({
 								</div>
 							</div>
 							<div className="row">
-								<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
+								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} /> : null }
 							</div>
 						</div>
 					</div>
@@ -59,7 +108,8 @@ var CompanyProfile = React.createClass({
 								</div>
 							</div>
 							<div className="row">
-								<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+								<EditButton label="Edit" handleButtonClick={this.showUrlEdit} />
+								{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} /> : null }
 							</div>
 						</div>
 					</div>
@@ -70,7 +120,8 @@ var CompanyProfile = React.createClass({
 							<p>Company Description</p>
 						</div>
 						<div className="row">
-							<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+							<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
+							{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} /> : null }
 						</div>
 					</div>
 				</div>

@@ -1,12 +1,18 @@
 var React = require('react');
 
 var ExperienceAndSpecialismEdit = React.createClass({
+
+      handleExperienceAndSpecialismEditFormSubmit: function (submitEvent) {
+            submitEvent.preventDefault();
+            this.props.handleExperienceAndSpecialismEditForm();
+      },
+
 	render: function () {
 		return (
 			<div className="container form">
 				<div className="col-xs-6 col-xs-offset-3">
 	    			<div id="logbox">
-	      				<form id="update" method="post" action="/update">
+	      				<form id="update" method="post" action="/update" onSubmit={this.handleExperienceAndSpecialismEditFormSubmit}>
 	        				<h1>Update Your Specialism and/or Experience</h1>
 	        				<select className="form-control input pass">
             					<option>Experience</option>
