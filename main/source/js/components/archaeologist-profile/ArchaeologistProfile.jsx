@@ -5,6 +5,8 @@ var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var ExperienceAndSpecialismEdit = require('./ExperienceAndSpecialismEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
+var DeleteButton = require('./DeleteButton.jsx');
+var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
 var ArchaeologistProfile = React.createClass({
@@ -64,12 +66,6 @@ var ArchaeologistProfile = React.createClass({
 		this.setState({
 			isDescription:false
 		});
-	},
-
-	handleDeleteArchaeologistProfileClickEvent: function () {
-		event.preventDefault();
-
-		ArchaeologistProfileActionCreators.changeToLandingPage();
 	},
 
 	render: function () {
@@ -181,7 +177,8 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<button onClick={this.handleDeleteArchaeologistProfileClickEvent} type="button" className="btn btn-danger">Delete Profile</button>
+					<DeleteButton />
+					<DeleteModal />
 				</div>
 			</div>
 		);

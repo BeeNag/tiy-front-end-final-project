@@ -4,6 +4,8 @@ var EditButton = require('./EditButton.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var UrlEdit = require('./UrlEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
+var DeleteButton = require('./DeleteButton.jsx');
+var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 
 var CompanyProfile = React.createClass({
@@ -50,12 +52,6 @@ var CompanyProfile = React.createClass({
 		this.setState({
 			isDescription: false
 		});
-	},
-
-	handleDeleteCompanyProfile: function () {
-		event.preventDefault();
-
-		CompanyProfileActionCreators.changeToLandingPage();
 	},
 
 	render: function () {
@@ -197,7 +193,8 @@ var CompanyProfile = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<button onClick={this.handleDeleteCompanyProfile} type="button" className="btn btn-danger">Delete Profile</button>
+					<DeleteButton />
+					<DeleteModal />
 				</div>
 			</div>
 		);
