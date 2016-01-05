@@ -46,6 +46,26 @@ var Application = React.createClass({
 				<EmployerLandingPage />
 			);
 		}
+		if (this.state.page === 'ARCHAEOLOGIST_PROFILE') {
+			return (
+				<ArchaeologistProfile />
+			);
+		}
+		if (this.state.page === 'COMPANY_PROFILE') {
+			return (
+				<CompanyProfile />
+			);
+		}
+		if (this.state.page === 'CREATE_EXCAVATION') {
+			return (
+				<CreateExcavation />
+			);
+		}
+		if (this.state.page === 'SEARCH') {
+			return (
+				<Search />
+			);
+		}
 	}
 });
 
