@@ -6,15 +6,23 @@ var webPages = {
 	ARCH_LANDING_PAGE: 'ARCH_LANDING_PAGE',
 	ARCHAEOLOGIST_PROFILE: 'ARCHAEOLOGIST_PROFILE',
 	COMPANY_PROFILE: 'COMPANY_PROFILE',
-	CREATE_COMPANY_PROFILE: 'CREATE_COMPANY_PROFILE',
 	CREATE_EXCAVATION: 'CREATE_EXCAVATION',
-	CREATE_PROFILE: 'CREATE_PROFILE',
 	EMPLOYER_LANDING_PAGE: 'EMPLOYER_LANDING_PAGE',
 	LANDING_PAGE: 'LANDING_PAGE',
 	SEARCH: 'SEARCH'
 };
 
 var Page = webPages.LANDING_PAGE;
+
+function changeToArchLandingPage() {
+	Page = webPages.ARCH_LANDING_PAGE;
+	PageStateStore.emit('change');
+}
+
+function changeToEmployerLandingPage() {
+	Page = webPages.EMPLOYER_LANDING_PAGE;
+	PageStateStore.emit('change');
+}
 
 var PageStateStore = objectAssign({}, EventEmitter.prototype, {
 
@@ -32,6 +40,11 @@ var PageStateStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
+	if (action.type === 'change-to-arch-landing-page') {
+		changeToArchLandingPage();
+	} else if (action.type === 'change-to-employer-landing-page') {
+		changeToEmployerLandingPage();
+	}
 }
 
 PageStateStore.dispatchToken = Dispatcher.register(handleAction);
