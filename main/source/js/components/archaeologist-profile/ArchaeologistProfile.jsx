@@ -1,5 +1,9 @@
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
+var PhotoEdit = require('./PhotoEdit.jsx');
+var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
+var ExperienceAndSpecialismEdit = require('./ExperienceAndSpecialismEdit.jsx');
+var DescriptionEdit = require('./DescriptionEdit.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
 var ArchaeologistProfile = React.createClass({
@@ -30,7 +34,8 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 					<div className="col-xs-3">
 						<img src="http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg" alt="power switched off"></img>
-						<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+						<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
+						<PhotoEdit />
 					</div>
 				</div>
 				<div className="row">
@@ -52,7 +57,8 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+								<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
+								<ContactDetailsEdit />
 							</div>
 						</div>
 					</div>
@@ -69,7 +75,8 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+								<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
+								<ExperienceAndSpecialismEdit />
 							</div>
 						</div>
 					</div>
@@ -77,7 +84,8 @@ var ArchaeologistProfile = React.createClass({
 				<div className="row">
 					<div className="container">
 						<p>Description</p>
-						<a href="#" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</a>
+						<button type="button" className="btn btn-xs btn-primary"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
+						<DescriptionEdit />
 					</div>
 				</div>
 				<div className="row">
