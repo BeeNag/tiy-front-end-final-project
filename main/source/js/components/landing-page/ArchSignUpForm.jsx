@@ -1,11 +1,14 @@
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 
 var ArchSignUpForm = React.createClass({
 
 	handleArchSignUpFormSubmit: function (submitEvent) {
 	    submitEvent.preventDefault();
 	    this.props.handleArchSignUpForm();
+
+	    LandingPageActionCreators.changeToArchLandingPage();
   	},
 
 	render: function () {

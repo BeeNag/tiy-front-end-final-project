@@ -1,12 +1,14 @@
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 
 var ArchSignInForm = React.createClass({
   
   	handleArchSignInFormSubmit: function (submitEvent) {
-  		console.log("Hello");
     	submitEvent.preventDefault();
     	this.props.handleArchSignInForm();
+
+    	LandingPageActionCreators.changeToArchLandingPage();
   	},
 
   	handleShowArchSignUpFormAndHideArchSignInForm: function () {

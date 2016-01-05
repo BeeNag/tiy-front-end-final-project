@@ -10,7 +10,7 @@ var ArchLandingPage = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
-						<h1>Welcome to the Homepage for Archaeologists <small>Here are the available options</small></h1>
+						<h1>Welcome to the Homepage for Archaeologists <br></br><small>Here are the available options</small></h1>
 					</div>
 				</div>
 				<div className="row">

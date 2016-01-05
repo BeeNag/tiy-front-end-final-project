@@ -1,11 +1,14 @@
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 
 var CompanySignUpForm = React.createClass({
 
 	handleCompanySignUpFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
 		this.props.handleCompanySignUpForm();
+
+		LandingPageActionCreators.changeToEmployerLandingPage();
 	},
 
 	render: function () {

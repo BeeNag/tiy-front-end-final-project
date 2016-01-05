@@ -1,12 +1,14 @@
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 
 var CompanySignInForm = React.createClass({
   
   	handleCompanySignInFormSubmit: function (submitEvent) {
-  		console.log("Hello");
     	submitEvent.preventDefault();
     	this.props.handleCompanySignInForm();
+
+    	LandingPageActionCreators.changeToEmployerLandingPage();
   	},
 
   	handleShowCompanySignUpFormAndHideCompanySignInForm: function () {
