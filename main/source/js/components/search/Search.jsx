@@ -41,7 +41,7 @@ var Search = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-8">
-						<h3>Your Saved Profiles</h3>
+						<h3 id="saved-profiles">Your Saved Profiles</h3>
 					</div>
 				</div>
 				<div className="row">

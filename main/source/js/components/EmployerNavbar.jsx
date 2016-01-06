@@ -16,7 +16,7 @@ var EmployerNavbar = React.createClass({
 	},
 
 	handleSavedProfilesClickEvent: function () {
-
+		EmployerLandingPageActionCreators.changeToSearch();
 	},
 
 	handleCreateExcavationClickEvent: function () {
@@ -44,7 +44,7 @@ var EmployerNavbar = React.createClass({
 						    		<button onClick={this.handleHomeClickEvent} type="button" className="btn btn-default navbar-btn pull-left">HOME</button>
 						    		<button onClick={this.handleViewCompanyProfileClickEvent} type="button" className="btn btn-default navbar-btn">View Company Profile</button>
 						    		<button onClick={this.handleSearchClickEvent} type="button" className="btn btn-default navbar-btn">Search</button>
-						    		<button onClick={this.handleSavedProfilesClickEvent} type="button" className="btn btn-default navbar-btn">Saved Profiles</button>
+						    		<a onClick={this.handleSavedProfilesClickEvent} className="btn btn-default navbar-btn" href="#saved-profiles" role="button">Saved Profiles</a>
 						    		<button onClick={this.handleCreateExcavationClickEvent} type="button" className="btn btn-default navbar-btn">Create Excavation</button>
 							        <button onClick={this.handleSignOutClickEvent} type="button" className="btn btn-default navbar-btn pull-right">Sign Out</button>
 							    </ul>
