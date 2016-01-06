@@ -50,7 +50,7 @@ var AdvancedSearch = React.createClass({
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <button type="button" className="btn btn-primary">Search<span className="glyphicon glyphicon-search"></span></button>
+                                    <a href="#search-results" role="button" className="btn btn-primary">Search<span className="glyphicon glyphicon-search"></span></a>
                                 </div>
                             </form>
                         </div>

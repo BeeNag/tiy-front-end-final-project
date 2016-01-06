@@ -2,7 +2,7 @@ var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
 var AdvancedSearch = require('./AdvancedSearch.jsx');
-var Thumbnail = require('./Thumbnail.jsx');
+var Thumbnail = require('../thumbnail/Thumbnail.jsx');
 
 var Search = React.createClass({
 	render: function () {
@@ -29,7 +29,7 @@ var Search = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-8">
-						<h3>Search Results</h3>
+						<h3 id="search-results">Search Results</h3>
 					</div>
 				</div>
 				<div className="row">
