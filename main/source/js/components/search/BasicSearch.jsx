@@ -7,8 +7,10 @@ var BasicSearch = React.createClass({
 				<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#basic-search">Basic Search</button>
 				<div className="collapse" id="basic-search">
 					<div className="col-xs-6 col-xs-offset-3">
-						<input type="text" className="form-control input-sm" maxlength="64" placeholder="Search"></input>
-						<button type="submit" className="btn btn-primary btn-sm">Search</button>
+						<div className="search">
+							<input type="text" className="form-control input-sm" maxlength="64" placeholder="Keyword Search"></input>
+ 							<button type="submit" className="btn btn-primary btn-sm basic-search-button">Search</button>
+						</div>
 					</div>
 				</div>
 			</div>
