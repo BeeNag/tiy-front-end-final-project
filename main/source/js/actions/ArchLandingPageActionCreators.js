@@ -8,6 +8,14 @@ function changeToLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
+function changeToArchLandingPage() {
+	var action = {
+		type: 'change-to-arch-landing-page'
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 function changeToArchaeologistProfile() {
 	var action = {
 		type: 'change-to-archaeologist-profile'
@@ -18,5 +26,6 @@ function changeToArchaeologistProfile() {
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
+	changeToArchLandingPage: changeToArchLandingPage,
 	changeToArchaeologistProfile: changeToArchaeologistProfile
 };

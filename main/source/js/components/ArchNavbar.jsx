@@ -4,7 +4,7 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var ArchNavbar = React.createClass({
 
 	handleHomeClickEvent: function () {
-
+		ArchLandingPageActionCreators.changeToArchLandingPage();
 	},
 
 	handleViewProfileClickEvent: function () {
@@ -16,7 +16,7 @@ var ArchNavbar = React.createClass({
 	},
 
 	handleViewExcavationsClickEvent: function () {
-
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 
 	handleSignOutClickEvent: function () {

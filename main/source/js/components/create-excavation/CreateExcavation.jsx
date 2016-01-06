@@ -1,7 +1,13 @@
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
+var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 
 var CreateExcavation = React.createClass({
+
+	handleCreateExcavationClickEvent: function () {
+		CreateExcavationActionCreators.changeToCompanyProfile();
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -55,7 +61,7 @@ var CreateExcavation = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-6 col-xs-offset-3">
-						<button type="button" className="btn btn-success">Create Excavation Profile</button>
+						<button onClick={this.handleCreateExcavationClickEvent} type="button" className="btn btn-success">Create Excavation Profile</button>
 					</div>
 				</div>
 			</div>

@@ -5,20 +5,18 @@ var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPa
 var EmployerLandingPage = React.createClass({
 
 	handleCompanyProfileClickEvent: function () {
-		event.preventDefault();
-
 		EmployerLandingPageActionCreators.changeToCompanyProfile();
 	},
 
 	handleCreateExcavationClickEvent: function () {
-		event.preventDefault();
-
 		EmployerLandingPageActionCreators.changeToCreateExcavation();
 	},
 
 	handleSearchClickEvent: function () {
-		event.preventDefault();
+		EmployerLandingPageActionCreators.changeToSearch();
+	},
 
+	handleSavedProfilesClickEvent: function () {
 		EmployerLandingPageActionCreators.changeToSearch();
 	},
 
@@ -46,7 +44,7 @@ var EmployerLandingPage = React.createClass({
 						<button onClick={this.handleSearchClickEvent} type="button" className="btn btn-info">Search for a Profile</button>
 					</div>
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-info">View Your List of Saved Profiles</button>
+						<a onClick={this.handleSavedProfilesClickEvent} className="btn btn-info" href="#saved-profiles" role="button">Saved Profiles</a>
 					</div>
 				</div>
 			</div>

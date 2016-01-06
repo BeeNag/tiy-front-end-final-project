@@ -5,8 +5,14 @@ var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageAction
 var ArchLandingPage = React.createClass({
 
 	handleArchaeologistProfileClickEvent: function () {
-		event.preventDefault();
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
 
+	handleViewArchaeologistsClickEvent: function () {
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
+
+	handleViewExcavationsClickEvent: function () {
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 
@@ -28,10 +34,10 @@ var ArchLandingPage = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-info">Archaeologists Near You</button>
+						<a onClick={this.handleViewArchaeologistsClickEvent} className="btn btn-info" href="#view-archaeologists" role="button">Archaeologists Near You</a>
 					</div>
 					<div className="col-xs-4 col-xs-offset-2">
-						<button type="button" className="btn btn-info">Excavations Near You</button>
+						<a onClick={this.handleViewExcavationsClickEvent} className="btn btn-info" href="#view-excavations" role="button">Excavations Near You</a>
 					</div>
 				</div>
 			</div>

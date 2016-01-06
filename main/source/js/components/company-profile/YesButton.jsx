@@ -4,8 +4,6 @@ var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCr
 var YesButton = React.createClass({
 
 	handleDeleteClickEvent: function () {
-		event.preventDefault();
-
 		CompanyProfileActionCreators.changeToLandingPage();
 	},
 

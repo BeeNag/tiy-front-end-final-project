@@ -8,6 +8,14 @@ function changeToLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
+function changeToEmployerLandingPage() {
+	var action = {
+		type: 'change-to-employer-landing-page'
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 function changeToCompanyProfile() {
 	var action = {
 		type: 'change-to-company-profile'
@@ -34,6 +42,7 @@ function changeToSearch() {
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
+	changeToEmployerLandingPage: changeToEmployerLandingPage,
 	changeToCompanyProfile: changeToCompanyProfile,
 	changeToCreateExcavation: changeToCreateExcavation,
 	changeToSearch: changeToSearch

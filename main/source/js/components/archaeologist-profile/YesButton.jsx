@@ -4,8 +4,6 @@ var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistPro
 var YesButton = React.createClass({
 
 	handleDeleteClickEvent: function () {
-		event.preventDefault();
-
 		ArchaeologistProfileActionCreators.changeToLandingPage();
 	},
 
