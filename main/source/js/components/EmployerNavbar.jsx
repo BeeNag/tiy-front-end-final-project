@@ -15,26 +15,12 @@ var EmployerNavbar = React.createClass({
 						    </div>
 						    <div className="collapse navbar-collapse" id="landing-page-nav">
 						    	<ul className="nav navbar-nav">
-						    		<li className="dropdown">
-							          	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">For Companies <span className="caret"></span></a>
-								          <ul className="dropdown-menu">
-								            <li><a href="#">Search</a></li>
-								            <li><a href="#">Saved Profiles</a></li>
-								            <li><a href="#">Create Excavation</a></li>
-								            <li><a href="#">Create Company Profile</a></li>
-								          </ul>
-							        </li>
-							        <li className="dropdown">
-							        	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">For Archaeologists <span className="caret"></span></a>
-							        	  <ul className="dropdown-menu">
-							        	  	<li><a href="#">Create Profile</a></li>
-							        	  	<li><a href="#">View Profile</a></li>
-							        	  	<li><a href="#">Archaeologists Near You</a></li>
-							        	  	<li><a href="#">Excavations Near You</a></li>
-							        	  </ul>
-							        </li>
-							        <li><a href="#">HOME</a></li>
-							        <button type="button" className="btn btn-default navbar-btn">Sign Out</button>
+						    		<button type="button" className="btn btn-default navbar-btn pull-left">HOME</button>
+						    		<button type="button" className="btn btn-default navbar-btn">View Company Profile</button>
+						    		<button type="button" className="btn btn-default navbar-btn">Search</button>
+						    		<button type="button" className="btn btn-default navbar-btn">Saved Profiles</button>
+						    		<button type="button" className="btn btn-default navbar-btn">Create Excavation</button>
+							        <button type="button" className="btn btn-default navbar-btn pull-right">Sign Out</button>
 							    </ul>
 							</div>
 						</div>
