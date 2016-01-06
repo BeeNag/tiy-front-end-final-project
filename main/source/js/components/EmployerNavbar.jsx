@@ -4,7 +4,7 @@ var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageA
 var EmployerNavbar = React.createClass({
 
 	handleHomeClickEvent: function () {
-
+		EmployerLandingPageActionCreators.changeToEmployerLandingPage();
 	},
 
 	handleViewCompanyProfileClickEvent: function () {
