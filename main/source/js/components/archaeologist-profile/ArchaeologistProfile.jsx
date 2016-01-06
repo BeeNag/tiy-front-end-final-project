@@ -143,37 +143,41 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#arch-map-view">View Archaeologists in Your Area</button>
-					<div className="collapse" id="arch-map-view">
-						<div className="col-xs-7">
-							<p>Map of Archaeologists</p>
-						</div>
-						<div className="col-xs-4 col-xs-offset-1">
-							<h3>List of Archaeologists</h3>
-							<ul>
-								<li>Blah</li>
-								<li>Blah Blah</li>
-								<li>Blah Blah Blah</li>
-								<li>Etc</li>
-							</ul>
-						</div>
+					<div className="col-xs-4">
+						<h3 id="view-archaeologists">Archaeologists in Your Area</h3>
 					</div>
 				</div>
 				<div className="row">
-					<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#excavation-map-view">View Excavations Near You</button>
-					<div className="collapse" id="excavation-map-view">
-						<div className="col-xs-7">
-							<p>Map of Excavations</p>
-						</div>
-						<div className="col-xs-4 col-xs-offset-1">
-							<h3>List of Excavations</h3>
-							<ul>
-								<li>This One</li>
-								<li>That One</li>
-								<li>The Other One</li>
-								<li>Etc</li>
-							</ul>
-						</div>
+					<div className="col-xs-7">
+						<p>Map of Archaeologists</p>
+					</div>
+					<div className="col-xs-4 col-xs-offset-1">
+						<h3>List of Archaeologists</h3>
+						<ul>
+							<li>Blah</li>
+							<li>Blah Blah</li>
+							<li>Blah Blah Blah</li>
+							<li>Etc</li>
+						</ul>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-4">
+						<h3 id="view-excavations">View Excavations Near You</h3>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-7">
+						<p>Map of Excavations</p>
+					</div>
+					<div className="col-xs-4 col-xs-offset-1">
+						<h3>List of Excavations</h3>
+						<ul>
+							<li>This One</li>
+							<li>That One</li>
+							<li>The Other One</li>
+							<li>Etc</li>
+						</ul>
 					</div>
 				</div>
 				<div className="row">
