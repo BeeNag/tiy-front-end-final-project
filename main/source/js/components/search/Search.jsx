@@ -3,35 +3,9 @@ var EmployerNavbar = require('../EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
 var AdvancedSearch = require('./AdvancedSearch.jsx');
 var Thumbnail = require('../thumbnail/Thumbnail.jsx');
-var SearchStore = require('../../stores/SearchStore.js');
-
-// var thumbnails = SearchStore.getThumbnailDataArray();
 
 var Search = React.createClass({
-
-	// getInitialState: function () {
-	// 	return {
-	// 		searchString: ''
-	// 	};
-	// },
-
-	// handleChange: function (input) {
-	// 	this.setState({
-	// 		searchString: input.target.value
-	// 	});
-	// },
-	
 	render: function () {
-
-		// var thumbnails = this.props.items;
-		// var searchString = this.state.searchString.trim().toLowerCase();
-
-		// if (searchString.length > 0) {
-		// 	thumbnails = thumbnails.filter(function (content) {
-		// 		return content.specialism.toLowerCase().match(searchString);
-		// 	});
-		// }
-
 		return (
 			<div className="container-fluid">
 				<div className="row">
