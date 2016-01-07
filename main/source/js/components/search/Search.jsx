@@ -23,9 +23,6 @@ var Search = React.createClass({
 				</div>
 				<div className="row">
 					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
 				</div>
 				<div className="row">
 					<div className="col-xs-8">
@@ -33,8 +30,7 @@ var Search = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<Thumbnail />
-					<Thumbnail />
+					
 					<div className="col-xs-3 col-xs-offset-3">
 						<div data-drop-zone className="drop-zone">Drag Desired Candidates in Here and They Will be Saved For You</div>
 					</div>
@@ -45,16 +41,10 @@ var Search = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
+					
 				</div>
 				<div className="row">
-					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
-					<Thumbnail />
+					
 				</div>
 			</div>
 		);

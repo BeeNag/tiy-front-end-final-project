@@ -7,11 +7,18 @@ var BasicSearch = React.createClass({
 				<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#basic-search">Basic Search</button>
 				<div className="collapse" id="basic-search">
 					<div className="col-xs-6 col-xs-offset-3">
-						<div className="search">
-							<input type="text" className="form-control input-sm" maxLength="64" placeholder="Keyword Search"></input>
- 							<a href="#search-results" role="button" className="btn btn-primary btn-sm basic-search-button">Search</a>
-						</div>
-					</div>
+    					<h2>Please enter a keyword that you would like to search for</h2>
+            			<div id="search-input">
+                			<div className="input-group col-xs-12">
+                    			<input type="text" className="form-control input-lg" placeholder="Search..."></input>
+                    			<span className="input-group-btn">
+                        			<button className="btn btn-info btn-lg" type="button">
+                            			<i className="glyphicon glyphicon-search"></i>
+                        			</button>
+                    			</span>
+                			</div>
+            			</div>
+        			</div>
 				</div>
 			</div>
 		);
