@@ -23,4 +23,8 @@ var SearchStore = objectAssign({}, EventEmitter.prototype, {
 	}
 });
 
+// function handleAction(action) {
+	
+// }
+
 module.exports = SearchStore;

@@ -2,28 +2,28 @@ var React = require('react');
 
 var BasicSearch = React.createClass({
 
-	getInitialState: function () {
-		return {
-			searchString: ''
-		};
-	},
+	// getInitialState: function () {
+	// 	return {
+	// 		searchString: ''
+	// 	};
+	// },
 
-	handleChange: function (input) {
-		this.setState({
-			searchString: input.target.value
-		});
-	},
+	// handleChange: function (input) {
+	// 	this.setState({
+	// 		searchString: input.target.value
+	// 	});
+	// },
 
 	render: function () {
 
-		var searchThumbnails = this.props.items;
-		var searchString = this.state.searchString.trim().toLowerCase();
+		// var searchThumbnails = this.props.items;
+		// var searchString = this.state.searchString.trim().toLowerCase();
 
-		if (searchString.length > 0) {
-			searchThumbnails = searchThumbnails.filter(function (thumbnail) {
-				return thumbnail.specialism.toLowerCase().match(searchString);
-			});
-		}
+		// if (searchString.length > 0) {
+		// 	searchThumbnails = searchThumbnails.filter(function (thumbnail) {
+		// 		return thumbnail.specialism.toLowerCase().match(searchString);
+		// 	});
+		// }
 
 		return (
 			<div className="row">
