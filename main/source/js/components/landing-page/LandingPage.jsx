@@ -4,6 +4,7 @@ var CompanySignInForm = require('./CompanySignInForm.jsx');
 var ArchSignUpForm = require('./ArchSignUpForm.jsx');
 var CompanySignUpForm = require('./CompanySignUpForm.jsx');
 var MainButton = require('../MainButton.jsx');
+var Authentication = require('../../services/Authentication.js');
 
 var LandingPage = React.createClass({
 	
@@ -12,7 +13,8 @@ var LandingPage = React.createClass({
 			isArchSignIn: false,
 			isCompanySignIn: false,
 			isArchSignUp: false,
-			isCompanySignUp: false
+			isCompanySignUp: false,
+			token: null
 		};
 	},
 
@@ -66,6 +68,31 @@ var LandingPage = React.createClass({
 		});
 	},
 
+	setUserAuthenticationToken: function (token) {
+		this.setState({
+			token: token
+		});
+	},
+
+	handleArchSignInFormSubmit: function (email, password) {
+		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+			if (error) {
+				console.log('Dumb Dumb!');
+				return;
+			}
+
+			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+				if (error) {
+					console.log('Dumb Dumb!');
+					return;
+				}
+
+				this.setUserAuthenticationToken(response.token);
+				console.log('Success!');
+			}.bind(this));
+		}.bind(this));
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -87,7 +114,7 @@ var LandingPage = React.createClass({
 						<MainButton label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
 					</div>
 				</div>
-				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
+				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
 				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} /> : null }
 				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
 				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} /> : null }
