@@ -3,18 +3,20 @@ var React = require('react');
 var ArchaeologistProfileDetails = React.createClass({
 
       archProfileRefs: function () {
-          var first_name = this.refs.first_name.value;
-          var last_name = this.refs.last_name.value;
-          var date_of_birth = this.refs.date_of_birth.value;
-          var address = this.refs.address.value;
-          var city = this.refs.city.value;
-          var postcode = this.refs.city.value;
-          var home_phone_number = this.refs.home_phone_number.value;
-          var mobile_phone_number = this.refs.mobile_phone_number.value;
-          var experience = this.refs.experience.value;
-          var specialism = this.refs.specialism.value;
-          var cscs_card = this.refs.cscs_card.value;
-          var description = this.refs.description.value;
+          return {
+            first_name: this.refs.first_name.value,
+            last_name: this.refs.last_name.value,
+            date_of_birth: this.refs.date_of_birth.value,
+            address: this.refs.address.value,
+            city: this.refs.city.value,
+            postcode: this.refs.city.value,
+            home_phone_number: this.refs.home_phone_number.value,
+            mobile_phone_number: this.refs.mobile_phone_number.value,
+            experience: this.refs.experience.value,
+            specialism: this.refs.specialism.value,
+            cscs_card: this.refs.cscs_card.value,
+            description: this.refs.description.value
+          };
       },
 
 	render: function () {

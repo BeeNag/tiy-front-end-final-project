@@ -103,6 +103,13 @@ var LandingPage = React.createClass({
 				console.log('Success!');
 			}.bind(this));
 		}.bind(this));
+
+		Authentication.createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, function handleCreateArchaeologistProfile(error, response) {
+				if (error) {
+					console.log('NO!');
+					return;
+				}
+		}.bind(this));
 	},
 
 	handleCompanySignInFormSubmit: function (email, password) {
