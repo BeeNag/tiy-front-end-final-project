@@ -75,6 +75,18 @@ var LandingPage = React.createClass({
 	},
 
 	handleArchSignInFormSubmit: function (email, password) {
+		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			if (error) {
+				console.log('NO!');
+				return;
+			}
+
+			this.setUserAuthenticationToken(response.token);
+			console.log('YES!');
+		}.bind(this));
+	},
+
+	handleArchSignUpFormSubmit: function (email, password) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('Dumb Dumb!');
@@ -89,6 +101,37 @@ var LandingPage = React.createClass({
 
 				this.setUserAuthenticationToken(response.token);
 				console.log('Success!');
+			}.bind(this));
+		}.bind(this));
+	},
+
+	handleCompanySignInFormSubmit: function (email, password) {
+		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			if (error) {
+				console.log('NO!');
+				return;
+			}
+
+			this.setUserAuthenticationToken(response.token);
+			console.log('YES!');
+		}.bind(this));
+	},
+
+	handleCompanySignUpFormSubmit: function (email, password) {
+		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+			if (error) {
+				console.log('NO!');
+				return;
+			}
+
+			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+				if (error) {
+					console.log("NO!");
+					return;
+				}
+
+				this.setUserAuthenticationToken(response.token);
+				console.log('YES!');
 			}.bind(this));
 		}.bind(this));
 	},
@@ -115,9 +158,9 @@ var LandingPage = React.createClass({
 					</div>
 				</div>
 				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
-				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} /> : null }
-				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
-				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} /> : null }
+				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
+				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
+				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
 			</div>
 
 	    );

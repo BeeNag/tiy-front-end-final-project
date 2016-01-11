@@ -7,7 +7,7 @@ var API_ENDPOINTS = {
   LOG_IN: '/api/users/authenticate'
 };
 
-function signUp(username, password, handleResponse) {
+function signUp(email, password, handleResponse) {
 
   var data = {
     email: email,
@@ -30,7 +30,7 @@ function signUp(username, password, handleResponse) {
   });
 }
 
-function signIn(username, password, handleResponse) {
+function signIn(email, password, handleResponse) {
 
   var data = {
     email: email,
