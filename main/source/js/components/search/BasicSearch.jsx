@@ -2,28 +2,28 @@ var React = require('react');
 
 var BasicSearch = React.createClass({
 
-	// getInitialState: function () {
-	// 	return {
-	// 		searchString: ''
-	// 	};
-	// },
+	getInitialState: function () {
+		return {
+			searchString: ''
+		};
+	},
 
-	// handleChange: function (input) {
-	// 	this.setState({
-	// 		searchString: input.target.value
-	// 	});
-	// },
+	handleChange: function (input) {
+		this.setState({
+			searchString: input.target.value
+		});
+	},
 
 	render: function () {
 
-		// var searchThumbnails = this.props.items;
-		// var searchString = this.state.searchString.trim().toLowerCase();
+		var searchThumbnails = this.props.items;
+		var searchString = this.state.searchString.trim().toLowerCase();
 
-		// if (searchString.length > 0) {
-		// 	searchThumbnails = searchThumbnails.filter(function (thumbnail) {
-		// 		return thumbnail.specialism.toLowerCase().match(searchString);
-		// 	});
-		// }
+		if (searchString.length > 0) {
+			searchThumbnails = searchThumbnails.filter(function (thumbnail) {
+				return thumbnail.specialism.toLowerCase().match(searchString);
+			});
+		}
 
 		return (
 			<div className="row">
@@ -33,7 +33,7 @@ var BasicSearch = React.createClass({
     					<h2>Please enter a keyword that you would like to search for</h2>
             			<div id="search-input">
                 			<div className="input-group col-xs-12">
-                    			<input type="text" className="form-control input-lg" placeholder="Search..."></input>
+                    			<input type="text" className="form-control input-lg" value={this.state.searchString} onChange={this.handleChange} placeholder="Search..."></input>
                     			<span className="input-group-btn">
                         			<a href="#search-results" className="btn btn-info btn-lg" role="button">
                             			<span className="glyphicon glyphicon-search"></span>
