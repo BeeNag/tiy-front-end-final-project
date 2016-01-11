@@ -7,18 +7,7 @@ var ArchSignUpForm = React.createClass({
 	handleArchSignUpFormSubmit: function (submitEvent) {
 	    submitEvent.preventDefault();
 
-	    var first_name = this.refs.first_name.value;
-	    var last_name = this.refs.last_name.value;
-	    var date_of_birth = this.refs.date_of_birth.value;
-	    var address = this.refs.address.value;
-	    var city = this.refs.city.value;
-	    var postcode = this.refs.city.value;
-	    var home_phone_number = this.refs.home_phone_number.value;
-	    var mobile_phone_number = this.refs.mobile_phone_number.value;
-	    var experience = this.refs.experience.value;
-	    var specialism = this.refs.specialism.value;
-	    var cscs_card = this.refs.cscs_card.value;
-	    var description = this.refs.description.value;
+	    ArchaeologistProfileDetails.archProfileRefs;
 	    var email = this.refs.email.value;
 	    var password = this.refs.password.value;
 
@@ -36,8 +25,8 @@ var ArchSignUpForm = React.createClass({
 	      				<form id="signup" method="post" action="/signup" onSubmit={this.handleArchSignUpFormSubmit}>
 	        				<h1>Create an Account</h1>
 	        				<ArchaeologistProfileDetails />
-	        				<input name="user[email]" type="email" placeholder="Email Address" className="form-control input pass"></input>
-	        				<input name="user[password]" type="password" placeholder="Choose a Password" required="required" className="form-control input pass"></input>	
+	        				<input name="user[email]" type="email" placeholder="Email Address" className="form-control input pass" ref="email"></input>
+	        				<input name="user[password]" type="password" placeholder="Choose a Password" required="required" className="form-control input pass" ref="password"></input>	
 	        				<input type="submit" value="Sign me up!" className="form-control inputButton"></input>
 	      				</form>
 	    			</div>
