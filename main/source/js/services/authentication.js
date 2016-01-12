@@ -4,8 +4,8 @@ var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
   SIGN_UP: '/FreeArch/users',
-  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
-  LOG_IN: '/FreeArch/users/authenticate'
+  LOG_IN: '/FreeArch/users/authenticate',
+  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists'
 };
 
 function signUp(email, password, handleResponse) {
@@ -18,38 +18,6 @@ function signUp(email, password, handleResponse) {
   var request = jQuery.ajax({
     method: 'post',
     url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
-    dataType: 'json',
-    data: data
-  });
-
-  request.fail(function (jqXHR, textStatus, errorThrown) {
-    handleResponse(jqXHR, null);
-  });
-
-  request.done(function () {
-    handleResponse(null, data);
-  });
-}
-
-function createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, handleResponse) {
-  var data = {
-    first_name: first_name,
-    last_name: last_name,
-    date_of_birth: date_of_birth,
-    address: address,
-    city: city,
-    postcode: postcode,
-    home_phone_number: home_phone_number,
-    mobile_phone_number: mobile_phone_number,
-    experience: experience,
-    specialism: specialism,
-    cscs_card: cscs_card,
-    description: description
-  };
-
-   var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
     dataType: 'json',
     data: data
   });
@@ -86,8 +54,42 @@ function signIn(email, password, handleResponse) {
   });
 }
 
+function createArchaeologistProfile(archFormValues, handleResponse) {
+  var data = {
+    first_name: archFormValues.first_name,
+    last_name: archFormValues.last_name,
+    date_of_birth: archFormValues.date_of_birth,
+    address1: archFormValues.address1,
+    address2: archFormValues.address2,
+    address3: archFormValues.address3,
+    city: archFormValues.city,
+    postcode: archFormValues.postcode,
+    home_phone_number: archFormValues.home_phone_number,
+    mobile_phone_number: archFormValues.mobile_phone_number,
+    experience: archFormValues.experience,
+    specialism: archFormValues.specialism,
+    cscs_card: archFormValues.cscs_card,
+    description: archFormValues.description
+  };
+
+   var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function () {
+    handleResponse(null, data);
+  });
+}
+
 module.exports = {
   signIn: signIn,
-  createArchaeologistProfile: createArchaeologistProfile,
-  signUp: signUp
+  signUp: signUp,
+  createArchaeologistProfile: createArchaeologistProfile
 };

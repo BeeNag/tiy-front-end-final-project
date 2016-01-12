@@ -86,27 +86,27 @@ var LandingPage = React.createClass({
 		}.bind(this));
 	},
 
-	handleArchSignUpFormSubmit: function (email, password, first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description) {
+	handleArchSignUpFormSubmit: function (email, password, archFormValues) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('Dumb Dumb!');
 				return;
 			}
 
-			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			Authentication.createArchaeologistProfile(archFormValues, function handleCreateArchaeologistProfile(error, response) {
 				if (error) {
-					console.log('Dumb Dumb!');
+					console.log('NO!');
 					return;
 				}
 
-				this.setUserAuthenticationToken(response.token);
-				console.log('Success!');
-
-				Authentication.createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, function handleCreateArchaeologistProfile(error, response) {
+				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
 					if (error) {
-						console.log('NO!');
+						console.log('Dumb Dumb!');
 						return;
 					}
+
+					this.setUserAuthenticationToken(response.token);
+					console.log('Success!');
 				}.bind(this));
 			}.bind(this));
 		}.bind(this));

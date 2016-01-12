@@ -30975,13 +30975,13 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
-	formValues: {
+	archFormValues: {
 
 	},
 
 	handleInputChange: function (name, input) {
-		this.formValues[name] = input;
-		console.log(this.formValues);
+		this.archFormValues[name] = input;
+		console.log(this.archFormValues);
 	},
 
 	handleArchSignUpFormSubmit: function (submitEvent) {
@@ -30991,7 +30991,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 	    var password = this.refs.password.value;
 
 	    this.props.handleArchSignUpForm();
-	    this.props.handleArchSignUpFormSubmit(email, password);
+	    this.props.handleArchSignUpFormSubmit(email, password, this.archFormValues);
 
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},
@@ -31127,8 +31127,12 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
+	companyFormValues: {
+
+	},
+
 	handleInputChange: function(name, input) {
-		var name = input;
+		this.companyFormValues[name] = input;
 	},
 
 	handleCompanySignUpFormSubmit: function (submitEvent) {
@@ -31261,27 +31265,27 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 		}.bind(this));
 	},
 
-	handleArchSignUpFormSubmit: function (email, password, first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description) {
+	handleArchSignUpFormSubmit: function (email, password, archFormValues) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('Dumb Dumb!');
 				return;
 			}
 
-			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			Authentication.createArchaeologistProfile(archFormValues, function handleCreateArchaeologistProfile(error, response) {
 				if (error) {
-					console.log('Dumb Dumb!');
+					console.log('NO!');
 					return;
 				}
 
-				this.setUserAuthenticationToken(response.token);
-				console.log('Success!');
-
-				Authentication.createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, function handleCreateArchaeologistProfile(error, response) {
+				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
 					if (error) {
-						console.log('NO!');
+						console.log('Dumb Dumb!');
 						return;
 					}
+
+					this.setUserAuthenticationToken(response.token);
+					console.log('Success!');
 				}.bind(this));
 			}.bind(this));
 		}.bind(this));
@@ -31606,8 +31610,8 @@ var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
   SIGN_UP: '/FreeArch/users',
-  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
-  LOG_IN: '/FreeArch/users/authenticate'
+  LOG_IN: '/FreeArch/users/authenticate',
+  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists'
 };
 
 function signUp(email, password, handleResponse) {
@@ -31620,38 +31624,6 @@ function signUp(email, password, handleResponse) {
   var request = jQuery.ajax({
     method: 'post',
     url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
-    dataType: 'json',
-    data: data
-  });
-
-  request.fail(function (jqXHR, textStatus, errorThrown) {
-    handleResponse(jqXHR, null);
-  });
-
-  request.done(function () {
-    handleResponse(null, data);
-  });
-}
-
-function createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, handleResponse) {
-  var data = {
-    first_name: first_name,
-    last_name: last_name,
-    date_of_birth: date_of_birth,
-    address: address,
-    city: city,
-    postcode: postcode,
-    home_phone_number: home_phone_number,
-    mobile_phone_number: mobile_phone_number,
-    experience: experience,
-    specialism: specialism,
-    cscs_card: cscs_card,
-    description: description
-  };
-
-   var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
     dataType: 'json',
     data: data
   });
@@ -31688,10 +31660,44 @@ function signIn(email, password, handleResponse) {
   });
 }
 
+function createArchaeologistProfile(archFormValues, handleResponse) {
+  var data = {
+    first_name: archFormValues.first_name,
+    last_name: archFormValues.last_name,
+    date_of_birth: archFormValues.date_of_birth,
+    address1: archFormValues.address1,
+    address2: archFormValues.address2,
+    address3: archFormValues.address3,
+    city: archFormValues.city,
+    postcode: archFormValues.postcode,
+    home_phone_number: archFormValues.home_phone_number,
+    mobile_phone_number: archFormValues.mobile_phone_number,
+    experience: archFormValues.experience,
+    specialism: archFormValues.specialism,
+    cscs_card: archFormValues.cscs_card,
+    description: archFormValues.description
+  };
+
+   var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function () {
+    handleResponse(null, data);
+  });
+}
+
 module.exports = {
   signIn: signIn,
-  createArchaeologistProfile: createArchaeologistProfile,
-  signUp: signUp
+  signUp: signUp,
+  createArchaeologistProfile: createArchaeologistProfile
 };
 
 

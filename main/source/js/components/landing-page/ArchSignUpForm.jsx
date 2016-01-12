@@ -10,7 +10,7 @@ var ArchSignUpForm = React.createClass({
 
 	handleInputChange: function (name, input) {
 		this.archFormValues[name] = input;
-		console.log(this.formValues);
+		console.log(this.archFormValues);
 	},
 
 	handleArchSignUpFormSubmit: function (submitEvent) {
@@ -20,7 +20,7 @@ var ArchSignUpForm = React.createClass({
 	    var password = this.refs.password.value;
 
 	    this.props.handleArchSignUpForm();
-	    this.props.handleArchSignUpFormSubmit(email, password);
+	    this.props.handleArchSignUpFormSubmit(email, password, this.archFormValues);
 
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},
