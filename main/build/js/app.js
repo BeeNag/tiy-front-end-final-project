@@ -30819,48 +30819,39 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 					React.createElement("form", null, 
 						React.createElement("div", {className: "form-group"}, 
 							React.createElement("label", {htmlFor: "inputExcavationName"}, "Excavation Name"), 
-							React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name"})
+							React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name", ref: "name"})
 						), 
 						React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineOne"}, "Address Line 1"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1", ref: "address1"})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineTwo"}, "Address Line 2"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2", ref: "address2"})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineThree"}, "Address Line 3"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3", ref: "address3"})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputPostcode"}, "Postcode"), 
-	                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode"})
+	                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode", ref: "postcode"})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "selectDuration"}, "Duration of Excavation"), 
-	                    	React.createElement("select", {className: "form-control", id: "selectDuration"}, 
-	                    		React.createElement("option", null), 
-	                    		React.createElement("option", null, "1 Week"), 
-	                    		React.createElement("option", null, "2 Weeks"), 
-	                    		React.createElement("option", null, "3 Weeks"), 
-	                    		React.createElement("option", null, "1 Month"), 
-	                    		React.createElement("option", null, "2 Months"), 
-	                    		React.createElement("option", null, "3 Months"), 
-	                    		React.createElement("option", null, "More than 3 Months")
-	                    	)
+	                    	React.createElement("input", {type: "text", className: "form-control", id: "selectDuration", placeholder: "Duration", ref: "duration"})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
       						React.createElement("label", {htmlFor: "enterExcavationUrl"}, "Excavation Home Page"), 
-      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL"})
+      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL", ref: "url"})
     					), 
     					React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "describeExcavation"}, "Please Enter a Brief Description of the Excavation (max. 250 words)"), 
-	                    	React.createElement("textarea", {className: "form-control", id: "describeExcavation", rows: "5", maxlength: "250"})
+	                    	React.createElement("input", {type: "text", className: "form-control", id: "describeExcavation", placeholder: "Description", ref: "description"})
 	                    )
 					)
 				), 
-				React.createElement("div", {className: "row"}, 
+				React.createElement("div", {className: "form-group"}, 
 					React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 						React.createElement("button", {onClick: this.handleCreateExcavationClickEvent, type: "button", className: "btn btn-success"}, "Create Excavation Profile")
 					)
@@ -30984,8 +30975,13 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
-	handleInputChange: function () {
-		var first_name = console.log('entering');
+	formValues: {
+
+	},
+
+	handleInputChange: function (name, input) {
+		this.formValues[name] = input;
+		console.log(this.formValues);
 	},
 
 	handleArchSignUpFormSubmit: function (submitEvent) {
@@ -31007,20 +31003,20 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleArchSignUpFormSubmit}, 
 	        				React.createElement("h1", null, "Create an Account"), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "First Name", className: "form-control input pass", handleChange: this.handleInputChange, name: "first_name"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Last Name", className: "form-control input pass", handleChange: this.handleInputChange, name: "last_name"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "date", placeholder: "Date of Birth", className: "form-control input pass", handleChange: this.handleInputChange, name: "date_of_birth"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 1", className: "form-control input pass", handleChange: this.handleInputChange, name: "address1"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 2", className: "form-control input pass", handleChange: this.handleInputChange, name: "address2"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 3", className: "form-control input pass", handleChange: this.handleInputChange, name: "address3"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "City", className: "form-control input pass", handleChange: this.handleInputChange, name: "city"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Postcode", className: "form-control input pass", handleChange: this.handleInputChange, name: "postcode"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Home Phone Number", className: "form-control input pass", handleChange: this.handleInputChange, name: "home_phone_number"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Mobile Phone Number", className: "form-control input pass", handleChange: this.handleInputChange, name: "mobile_phone_number"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "number", placeholder: "Experience", className: "form-control input pass", handleChange: this.handleInputChange, name: "experience"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Specialism", className: "form-control input pass", handleChange: this.handleInputChange, name: "specialism"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "CSCS Card", className: "form-control input pass", handleChange: this.handleInputChange, name: "cscs_card"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Description", className: "form-control input pass", handleChange: this.handleInputChange, name: "description"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "First Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "first_name"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Last Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "last_name"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "date", placeholder: "Date of Birth", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "date_of_birth"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 1", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address1"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 2", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address2"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 3", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address3"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "City", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "city"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Postcode", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "postcode"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Home Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "home_phone_number"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Mobile Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "mobile_phone_number"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "number", placeholder: "Experience", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "experience"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Specialism", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "specialism"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "CSCS Card", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "cscs_card"}), 
+	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Description", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "description"}), 
 	        				React.createElement("label", {htmlFor: "upload-picture", className: "upload"}, "Upload a Picture of Yourself"), 
     			      		React.createElement("input", {type: "file", className: "form-control input pass", id: "upload-picture"}), 
 	        				React.createElement("input", {name: "user[email]", type: "email", placeholder: "Email Address", className: "form-control input pass", ref: "email"}), 
@@ -31060,18 +31056,15 @@ module.exports = ArchaeologistProfileDetails;
 var React = require('react');
 
 var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetails",
+
+	handleChange: function () {
+        this.props.handleInputChange(this.props.name, this.refs.input.value);
+    },
+
 	render: function () {
 		return (
 			React.createElement("div", null, 
-				React.createElement("input", {type: "text", placeholder: "Company Name", className: "form-control input pass", ref: "name"}), 
-				React.createElement("input", {type: "address", placeholder: "Address Line 1", className: "form-control input pass", ref: "address1"}), 
-				React.createElement("input", {type: "address", placeholder: "Address Line 2", className: "form-control input pass", ref: "address2"}), 
-				React.createElement("input", {type: "address", placeholder: "Address Line 3", className: "form-control input pass", ref: "address3"}), 
-				React.createElement("input", {type: "text", placeholder: "City", className: "form-control input pass", ref: "city"}), 
-				React.createElement("input", {type: "postcode", placeholder: "Postcode", className: "form-control input pass", ref: "postcode"}), 
-				React.createElement("input", {type: "text", placeholder: "Enter Phone Number", className: "form-control input pass", "data-format": "(+44)ddd ddd dddd", ref: "phone_number"}), 
-				React.createElement("input", {type: "url", placeholder: "Company Home Page URL", className: "form-control input pass", ref: "url"}), 
-				React.createElement("textarea", {className: "form-control input pass", placeholder: "Please Enter a Brief Description of the Company (max. 250 words)", rows: "5", maxLength: "250", ref: "description"})
+				React.createElement("input", {type: this.props.type, placeholder: this.props.placeholder, className: this.props.className, onChange: this.handleChange, ref: "input"})
 			)
 		);
 	}
@@ -31134,18 +31127,15 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
+	handleInputChange: function(name, input) {
+		var name = input;
+	},
+
 	handleCompanySignUpFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
 
-		var name = this.refs.name.value;
-		var address1 = this.refs.address1.value;
-		var address2 = this.refs.address2.value;
-		var address3 = this.refs.address3.value;
-		var city = this.refs.city.value;
-		var postcode = this.refs.postcode.value;
-		var phone_number = this.refs.phone_number.value;
-		var url = this.ref.url.value;
-		var description = this.refs.description.value;
+		var email = this.refs.email.value;
+	    var password = this.refs.password.value;
 
 		this.props.handleCompanySignUpForm();
 		this.props.handleCompanySignUpFormSubmit(email, password);
@@ -31160,7 +31150,15 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleCompanySignUpFormSubmit}, 
 	        				React.createElement("h1", null, "Create an Account"), 
-	        				React.createElement(CompanyProfileDetails, null), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Company Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "name"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Address Line 1", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address1"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Address Line 2", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address2"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Address Line 3", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address3"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "City", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "city"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Postcode", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "postcode"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "phone_number"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Company Home Page URL", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "url"}), 
+	        				React.createElement(CompanyProfileDetails, {type: "text", placeholder: "Description", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "description"}), 
 	        				React.createElement("input", {name: "user[email]", type: "email", placeholder: "Email Address", className: "form-control input pass", ref: "email"}), 
 	        				React.createElement("input", {name: "user[password]", type: "password", placeholder: "Choose a Password", required: "required", className: "form-control input pass", ref: "password"}), 	
 	        				React.createElement("input", {type: "submit", value: "Sign me up!", className: "form-control inputButton"})
@@ -31263,7 +31261,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 		}.bind(this));
 	},
 
-	handleArchSignUpFormSubmit: function (email, password) {
+	handleArchSignUpFormSubmit: function (email, password, first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('Dumb Dumb!');
@@ -31278,14 +31276,14 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 				this.setUserAuthenticationToken(response.token);
 				console.log('Success!');
-			}.bind(this));
-		}.bind(this));
 
-		Authentication.createArchaeologistProfile(first_name, last_name, date_of_birth, address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, function handleCreateArchaeologistProfile(error, response) {
-				if (error) {
-					console.log('NO!');
-					return;
-				}
+				Authentication.createArchaeologistProfile(first_name, last_name, date_of_birth, address, city, postcode, home_phone_number, mobile_phone_number, experience, specialism, cscs_card, description, function handleCreateArchaeologistProfile(error, response) {
+					if (error) {
+						console.log('NO!');
+						return;
+					}
+				}.bind(this));
+			}.bind(this));
 		}.bind(this));
 	},
 
