@@ -8,7 +8,9 @@ var CompanySignUpForm = React.createClass({
 		submitEvent.preventDefault();
 
 		var name = this.refs.name.value;
-		var address = this.refs.address.value;
+		var address1 = this.refs.address1.value;
+		var address2 = this.refs.address2.value;
+		var address3 = this.refs.address3.value;
 		var city = this.refs.city.value;
 		var postcode = this.refs.postcode.value;
 		var phone_number = this.refs.phone_number.value;

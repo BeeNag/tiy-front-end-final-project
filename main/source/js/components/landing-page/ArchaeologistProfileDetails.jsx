@@ -7,7 +7,9 @@ var ArchaeologistProfileDetails = React.createClass({
             first_name: this.refs.first_name.value,
             last_name: this.refs.last_name.value,
             date_of_birth: this.refs.date_of_birth.value,
-            address: this.refs.address.value,
+            address1: this.refs.address1.value,
+            address2: this.refs.address2.value,
+            address3: this.refs.address3.value,
             city: this.refs.city.value,
             postcode: this.refs.city.value,
             home_phone_number: this.refs.home_phone_number.value,
@@ -25,9 +27,9 @@ var ArchaeologistProfileDetails = React.createClass({
 				<input type="text" placeholder="First Name" className="form-control input pass" ref="first_name"></input>
 				<input type="text" placeholder="Last Name" className="form-control input pass" ref="last_name"></input>
 				<input type="date" placeholder="Date of Birth" className="form-control input pass" ref="date_of_birth"></input>
-				<input type="address" placeholder="Address Line 1" className="form-control input pass" ref="address"></input>
-				<input type="address" placeholder="Address Line 2" className="form-control input pass" ref="address"></input>
-				<input type="address" placeholder="Address Line 3" className="form-control input pass" ref="address"></input>
+				<input type="address" placeholder="Address Line 1" className="form-control input pass" ref="address1"></input>
+				<input type="address" placeholder="Address Line 2" className="form-control input pass" ref="address2"></input>
+				<input type="address" placeholder="Address Line 3" className="form-control input pass" ref="address3"></input>
 				<input type="text" placeholder="City" className="form-control input pass" ref="city"></input>
 				<input type="postcode" placeholder="Postcode" className="form-control input pass" ref="postcode"></input>
 				<input type="text" placeholder="Enter Home Phone Number" className="form-control input pass" data-format="(+44)ddd ddd dddd" ref="home_phone_number"></input>

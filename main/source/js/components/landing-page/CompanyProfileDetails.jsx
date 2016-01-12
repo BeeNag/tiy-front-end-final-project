@@ -5,9 +5,9 @@ var CompanyProfileDetails = React.createClass({
 		return (
 			<div>
 				<input type="text" placeholder="Company Name" className="form-control input pass" ref="name"></input>
-				<input type="address" placeholder="Address Line 1" className="form-control input pass" ref="address"></input>
-				<input type="address" placeholder="Address Line 2" className="form-control input pass" ref="address"></input>
-				<input type="address" placeholder="Address Line 3" className="form-control input pass" ref="address"></input>
+				<input type="address" placeholder="Address Line 1" className="form-control input pass" ref="address1"></input>
+				<input type="address" placeholder="Address Line 2" className="form-control input pass" ref="address2"></input>
+				<input type="address" placeholder="Address Line 3" className="form-control input pass" ref="address3"></input>
 				<input type="text" placeholder="City" className="form-control input pass" ref="city"></input>
 				<input type="postcode" placeholder="Postcode" className="form-control input pass" ref="postcode"></input>
 				<input type="text" placeholder="Enter Phone Number" className="form-control input pass" data-format="(+44)ddd ddd dddd" ref="phone_number"></input>
