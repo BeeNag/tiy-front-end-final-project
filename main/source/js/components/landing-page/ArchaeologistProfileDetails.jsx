@@ -2,72 +2,14 @@ var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({
 
-      archProfileRefs: function () {
-          return {
-            first_name: this.refs.first_name.value,
-            last_name: this.refs.last_name.value,
-            date_of_birth: this.refs.date_of_birth.value,
-            address1: this.refs.address1.value,
-            address2: this.refs.address2.value,
-            address3: this.refs.address3.value,
-            city: this.refs.city.value,
-            postcode: this.refs.city.value,
-            home_phone_number: this.refs.home_phone_number.value,
-            mobile_phone_number: this.refs.mobile_phone_number.value,
-            experience: this.refs.experience.value,
-            specialism: this.refs.specialism.value,
-            cscs_card: this.refs.cscs_card.value,
-            description: this.refs.description.value
-          };
+      handleChange: function () {
+            this.props.handleInputChange(this.props.name, this.refs.input.value);
       },
 
 	render: function () {
 		return (
 			<div>
-				<input type="text" placeholder="First Name" className="form-control input pass" ref="first_name"></input>
-				<input type="text" placeholder="Last Name" className="form-control input pass" ref="last_name"></input>
-				<input type="date" placeholder="Date of Birth" className="form-control input pass" ref="date_of_birth"></input>
-				<input type="address" placeholder="Address Line 1" className="form-control input pass" ref="address1"></input>
-				<input type="address" placeholder="Address Line 2" className="form-control input pass" ref="address2"></input>
-				<input type="address" placeholder="Address Line 3" className="form-control input pass" ref="address3"></input>
-				<input type="text" placeholder="City" className="form-control input pass" ref="city"></input>
-				<input type="postcode" placeholder="Postcode" className="form-control input pass" ref="postcode"></input>
-				<input type="text" placeholder="Enter Home Phone Number" className="form-control input pass" data-format="(+44)ddd ddd dddd" ref="home_phone_number"></input>
-				<input type="text" placeholder="Enter Mobile Phone Number" className="form-control input pass" data-format="(+44)dddd ddd dddd" ref="mobile_phone_number"></input>
-				<select className="form-control input pass" ref="experience">
-                  		<option>Experience</option>
-                  		<option>0-1</option>
-                  		<option>1-2</option>
-                  		<option>2-5</option>
-                  		<option>5+</option>
-            	      </select>
-                  	<select className="form-control input pass" ref="specialism">
-                  		<option>Specialism</option>
-                  		<option>Bioarchaeology</option>
-                  		<option>Osteoarchaeology</option>
-                  		<option>Classical Archaeology</option>
-                  		<option>Egyptology</option>
-                  		<option>Environmental Archaeology</option>
-                  		<option>Field Archaeology</option>
-                  		<option>Forensic Archaeology</option>
-                  		<option>Heritage</option>
-                  		<option>Historical Archaeology</option>
-                  		<option>Medieval Archaeology</option>
-                  		<option>Landscape Archaeology</option>
-                  		<option>GIS (Geographical Information Systems)</option>
-                  		<option>Maritime Archaeology</option>
-                  		<option>Museums/Curatorship</option>
-                  		<option>Buildings Archaeology</option>
-                  		<option>Funerary Archaeology</option>
-                  	</select>
-                  	<select className="form-control input pass" ref="cscs_card">
-                  		<option>CSCS Card</option>
-                  		<option>Yes</option>
-                  		<option>No</option>
-                  	</select>
-            	      <textarea className="form-control input pass" placeholder="Describe Yourself in 250 Words..." rows="5" maxLength="250" ref="description"></textarea>
-            	      <label htmlFor="upload-picture" className="upload">Upload a Picture of Yourself</label>
-    			      <input type="file" className="form-control input pass" id="upload-picture"></input>
+                        <input type={this.props.type} placeholder={this.props.placeholder} className={this.props.className} onChange={this.handleChange} ref="input"></input>
 			</div>
 		);
 	}
