@@ -1,13 +1,22 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var TokenActionCreators = require('../actions/TokenActionCreators.js');
 
+var token;
 
+function setUserAuthenticationToken(newToken) {
+	token = newToken;
+}
+
+function isUserSignedIn () {
+	return (this.state.token !== null);
+}
 
 var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
-	isUserSignedIn: function () {
-		return (this.state.token !== null);
+	getToken: function () {
+		return token;
 	},
 
 	addChangeListener: function (changeEventHandler) {
@@ -18,3 +27,15 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 		this.removeListener('change', changeEventHandler);
 	}
 });
+
+function handleAction (action) {
+	if (action.type === 'set-user-authentication-token') {
+		setUserAuthenticationToken();
+	} else if (action.type === 'check-for-token') {
+		isUserSignedIn();
+	}
+}
+
+SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = SignInDetailsStore;

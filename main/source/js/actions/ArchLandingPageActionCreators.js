@@ -1,4 +1,5 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {
@@ -24,8 +25,24 @@ function changeToArchaeologistProfile() {
 	Dispatcher.dispatch(action);
 }
 
+function getArchProfile() {
+	var action = {
+		type: 'get-archaeologist-profile-details'
+	};
+
+	Authentication.getArchaeologistProfile(function handleGetArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+	}.bind(this));
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
 	changeToArchLandingPage: changeToArchLandingPage,
-	changeToArchaeologistProfile: changeToArchaeologistProfile
+	changeToArchaeologistProfile: changeToArchaeologistProfile,
+	getArchProfile: getArchProfile
 };

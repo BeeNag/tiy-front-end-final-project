@@ -9,7 +9,7 @@ var ArchaeologistProfileDetails = React.createClass({
 	render: function () {
 		return (
 			<div>
-                        <input type={this.props.type} placeholder={this.props.placeholder} className={this.props.className} onChange={this.handleChange} ref="input"></input>
+                <input type={this.props.type} placeholder={this.props.placeholder} className={this.props.className} onChange={this.handleChange} ref="input"></input>
 			</div>
 		);
 	}

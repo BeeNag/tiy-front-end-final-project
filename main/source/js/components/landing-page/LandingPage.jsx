@@ -4,6 +4,7 @@ var CompanySignInForm = require('./CompanySignInForm.jsx');
 var ArchSignUpForm = require('./ArchSignUpForm.jsx');
 var CompanySignUpForm = require('./CompanySignUpForm.jsx');
 var MainButton = require('../MainButton.jsx');
+var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 var Authentication = require('../../services/Authentication.js');
 
 var LandingPage = React.createClass({
@@ -68,12 +69,6 @@ var LandingPage = React.createClass({
 		});
 	},
 
-	setUserAuthenticationToken: function (token) {
-		this.setState({
-			token: token
-		});
-	},
-
 	handleArchSignInFormSubmit: function (email, password) {
 		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
 			if (error) {
@@ -81,7 +76,8 @@ var LandingPage = React.createClass({
 				return;
 			}
 
-			this.setUserAuthenticationToken(response.token);
+			TokenActionCreators.setUserAuthenticationToken(response.token);
+			console.log(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
@@ -105,7 +101,7 @@ var LandingPage = React.createClass({
 						return;
 					}
 
-					this.setUserAuthenticationToken(response.token);
+					TokenActionCreators.setUserAuthenticationToken(response.token);
 					console.log('Success!');
 				}.bind(this));
 			}.bind(this));

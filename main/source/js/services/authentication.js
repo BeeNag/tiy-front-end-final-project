@@ -1,4 +1,5 @@
 var jQuery = require('jquery');
+var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
 var HOST_NAME = 'http://localhost:8383';
 
@@ -6,7 +7,9 @@ var API_ENDPOINTS = {
   SIGN_UP: '/FreeArch/users',
   LOG_IN: '/FreeArch/users/authenticate',
   CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
-  CREATE_COMPANY: '/FreeArch/companies'
+  CREATE_COMPANY: '/FreeArch/companies',
+  GET_ARCHAEOLOGIST: '/FreeArch/archaeologists/:first_name:last_name?token=',
+  GET_COMPANY: '/FreeArch/companies?token='
 };
 
 function signUp(email, password, handleResponse) {
@@ -116,6 +119,27 @@ function createCompanyProfile(companyFormValues, handleResponse) {
   request.done(function () {
     handleResponse(null, data);
   });
+}
+
+function getArchaeologistProfile(handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function () {
+    handleResponse(null, data);
+  });
+}
+
+function getCompanyProfile(handleResponse) {
+
 }
 
 module.exports = {
