@@ -7,6 +7,7 @@ var token;
 
 function setUserAuthenticationToken(newToken) {
 	token = newToken;
+	SignInDetailsStore.emit('change');
 }
 
 function isUserSignedIn () {
@@ -30,7 +31,7 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction (action) {
 	if (action.type === 'set-user-authentication-token') {
-		setUserAuthenticationToken();
+		setUserAuthenticationToken(action.token);
 	} else if (action.type === 'check-for-token') {
 		isUserSignedIn();
 	}
