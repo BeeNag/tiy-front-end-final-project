@@ -10,6 +10,7 @@ var CompanySignUpForm = React.createClass({
 
 	handleInputChange: function(name, input) {
 		this.companyFormValues[name] = input;
+		console.log(this.companyFormValues);
 	},
 
 	handleCompanySignUpFormSubmit: function (submitEvent) {
@@ -19,7 +20,7 @@ var CompanySignUpForm = React.createClass({
 	    var password = this.refs.password.value;
 
 		this.props.handleCompanySignUpForm();
-		this.props.handleCompanySignUpFormSubmit(email, password);
+		this.props.handleCompanySignUpFormSubmit(email, password, this.companyFormValues);
 
 		LandingPageActionCreators.changeToEmployerLandingPage();
 	},

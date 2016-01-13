@@ -5,7 +5,8 @@ var HOST_NAME = 'http://localhost:8383';
 var API_ENDPOINTS = {
   SIGN_UP: '/FreeArch/users',
   LOG_IN: '/FreeArch/users/authenticate',
-  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists'
+  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
+  CREATE_COMPANY: '/FreeArch/companies'
 };
 
 function signUp(email, password, handleResponse) {
@@ -72,9 +73,38 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
     description: archFormValues.description
   };
 
-   var request = jQuery.ajax({
+  var request = jQuery.ajax({
     method: 'post',
     url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function () {
+    handleResponse(null, data);
+  });
+}
+
+function createCompanyProfile(companyFormValues, handleResponse) {
+  var data = {
+    name: companyFormValues.name,
+    address1: companyFormValues.address1,
+    address2: companyFormValues.address2,
+    address3: companyFormValues.address3,
+    city: companyFormValues.city,
+    postcode: companyFormValues.postcode,
+    phone_number: companyFormValues.phone_number,
+    url: companyFormValues.url,
+    description: companyFormValues.description
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.CREATE_COMPANY,
     dataType: 'json',
     data: data
   });
@@ -91,5 +121,6 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
 module.exports = {
   signIn: signIn,
   signUp: signUp,
-  createArchaeologistProfile: createArchaeologistProfile
+  createArchaeologistProfile: createArchaeologistProfile,
+  createCompanyProfile:createCompanyProfile
 };

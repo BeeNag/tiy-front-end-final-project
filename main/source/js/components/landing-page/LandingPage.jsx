@@ -124,21 +124,28 @@ var LandingPage = React.createClass({
 		}.bind(this));
 	},
 
-	handleCompanySignUpFormSubmit: function (email, password) {
+	handleCompanySignUpFormSubmit: function (email, password, companyFormValues) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			Authentication.createCompanyProfile(companyFormValues, function handleCreateCompanyProfile(error, response) {
 				if (error) {
-					console.log("NO!");
+					console.log('NO!');
 					return;
 				}
 
-				this.setUserAuthenticationToken(response.token);
-				console.log('YES!');
+				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+					if (error) {
+						console.log("NO!");
+						return;
+					}
+
+					this.setUserAuthenticationToken(response.token);
+					console.log('YES!');
+				}.bind(this));
 			}.bind(this));
 		}.bind(this));
 	},

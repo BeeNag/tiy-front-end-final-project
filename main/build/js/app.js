@@ -31133,6 +31133,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 	handleInputChange: function(name, input) {
 		this.companyFormValues[name] = input;
+		console.log(this.companyFormValues);
 	},
 
 	handleCompanySignUpFormSubmit: function (submitEvent) {
@@ -31142,7 +31143,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 	    var password = this.refs.password.value;
 
 		this.props.handleCompanySignUpForm();
-		this.props.handleCompanySignUpFormSubmit(email, password);
+		this.props.handleCompanySignUpFormSubmit(email, password, this.companyFormValues);
 
 		LandingPageActionCreators.changeToEmployerLandingPage();
 	},
@@ -31303,21 +31304,28 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 		}.bind(this));
 	},
 
-	handleCompanySignUpFormSubmit: function (email, password) {
+	handleCompanySignUpFormSubmit: function (email, password, companyFormValues) {
 		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+			Authentication.createCompanyProfile(companyFormValues, function handleCreateCompanyProfile(error, response) {
 				if (error) {
-					console.log("NO!");
+					console.log('NO!');
 					return;
 				}
 
-				this.setUserAuthenticationToken(response.token);
-				console.log('YES!');
+				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+					if (error) {
+						console.log("NO!");
+						return;
+					}
+
+					this.setUserAuthenticationToken(response.token);
+					console.log('YES!');
+				}.bind(this));
 			}.bind(this));
 		}.bind(this));
 	},
@@ -31611,7 +31619,8 @@ var HOST_NAME = 'http://localhost:8383';
 var API_ENDPOINTS = {
   SIGN_UP: '/FreeArch/users',
   LOG_IN: '/FreeArch/users/authenticate',
-  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists'
+  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
+  CREATE_COMPANY: '/FreeArch/companies'
 };
 
 function signUp(email, password, handleResponse) {
@@ -31678,9 +31687,38 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
     description: archFormValues.description
   };
 
-   var request = jQuery.ajax({
+  var request = jQuery.ajax({
     method: 'post',
     url: HOST_NAME + API_ENDPOINTS.CREATE_ARCHAEOLOGIST,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function () {
+    handleResponse(null, data);
+  });
+}
+
+function createCompanyProfile(companyFormValues, handleResponse) {
+  var data = {
+    name: companyFormValues.name,
+    address1: companyFormValues.address1,
+    address2: companyFormValues.address2,
+    address3: companyFormValues.address3,
+    city: companyFormValues.city,
+    postcode: companyFormValues.postcode,
+    phone_number: companyFormValues.phone_number,
+    url: companyFormValues.url,
+    description: companyFormValues.description
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.CREATE_COMPANY,
     dataType: 'json',
     data: data
   });
@@ -31697,7 +31735,8 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
 module.exports = {
   signIn: signIn,
   signUp: signUp,
-  createArchaeologistProfile: createArchaeologistProfile
+  createArchaeologistProfile: createArchaeologistProfile,
+  createCompanyProfile:createCompanyProfile
 };
 
 
