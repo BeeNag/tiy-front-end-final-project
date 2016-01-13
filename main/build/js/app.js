@@ -29494,6 +29494,9 @@ function changeToArchaeologistProfile() {
 }
 
 function getArchProfile() {
+	var action = {
+		type: 'get-archaeologist-profile-details'
+	};
 
 	Authentication.getArchaeologistProfile(function handleGetArchaeologistProfile(error, response) {
 		if (error) {
@@ -29501,10 +29504,6 @@ function getArchProfile() {
 			return;
 		}
 	}.bind(this));
-	
-	var action = {
-		type: 'get-archaeologist-profile-details'
-	};
 
 	Dispatcher.dispatch(action);
 }
@@ -29650,15 +29649,8 @@ function setUserAuthenticationToken(token) {
 	Dispatcher.dispatch(action);
 }
 
-function isUserSignedIn() {
-	var action = {
-		type: 'check-for-token'
-	};
-}
-
 module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
-	isUserSignedIn: isUserSignedIn
 }
 
 },{"../dispatcher/Dispatcher.js":218}],173:[function(require,module,exports){
@@ -29874,11 +29866,9 @@ var Authentication = require('../../services/Authentication.js');
 
 var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
-	handleArchaeologistProfileClickEvent: function (token) {
-		SignInDetailsStore.getToken(token);
-		console.log(SignInDetailsStore.getToken(token));
-		TokenActionCreators.isUserSignedIn(token);
-		console.log(TokenActionCreators.isUserSignedIn(token));
+	handleArchaeologistProfileClickEvent: function () {
+		SignInDetailsStore.getToken();
+		console.log(SignInDetailsStore.getToken());
 		ArchLandingPageActionCreators.getArchProfile();
 		ArchProfileDetailsStore.getAtchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
@@ -31978,14 +31968,11 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var TokenActionCreators = require('../actions/TokenActionCreators.js');
 
-var token;
+var token = null;
 
 function setUserAuthenticationToken(newToken) {
 	token = newToken;
-}
-
-function isUserSignedIn () {
-	return (this.state.token !== null);
+	SignInDetailsStore.emit('change');
 }
 
 var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -32005,10 +31992,8 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction (action) {
 	if (action.type === 'set-user-authentication-token') {
-		setUserAuthenticationToken();
-	} else if (action.type === 'check-for-token') {
-		isUserSignedIn();
-	}
+		setUserAuthenticationToken(action.token);
+	} 
 }
 
 SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);

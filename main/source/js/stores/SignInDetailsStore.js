@@ -3,15 +3,11 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var TokenActionCreators = require('../actions/TokenActionCreators.js');
 
-var token;
+var token = null;
 
 function setUserAuthenticationToken(newToken) {
 	token = newToken;
 	SignInDetailsStore.emit('change');
-}
-
-function isUserSignedIn () {
-	return (this.state.token !== null);
 }
 
 var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -32,9 +28,7 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction (action) {
 	if (action.type === 'set-user-authentication-token') {
 		setUserAuthenticationToken(action.token);
-	} else if (action.type === 'check-for-token') {
-		isUserSignedIn();
-	}
+	} 
 }
 
 SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);

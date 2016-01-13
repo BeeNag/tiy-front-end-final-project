@@ -9,13 +9,6 @@ function setUserAuthenticationToken(token) {
 	Dispatcher.dispatch(action);
 }
 
-function isUserSignedIn() {
-	var action = {
-		type: 'check-for-token'
-	};
-}
-
 module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
-	isUserSignedIn: isUserSignedIn
 }

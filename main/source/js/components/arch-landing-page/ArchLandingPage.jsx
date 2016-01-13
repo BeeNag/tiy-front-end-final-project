@@ -8,11 +8,9 @@ var Authentication = require('../../services/Authentication.js');
 
 var ArchLandingPage = React.createClass({
 
-	handleArchaeologistProfileClickEvent: function (token) {
-		SignInDetailsStore.getToken(token);
-		console.log(SignInDetailsStore.getToken(token));
-		TokenActionCreators.isUserSignedIn(token);
-		console.log(TokenActionCreators.isUserSignedIn(token));
+	handleArchaeologistProfileClickEvent: function () {
+		SignInDetailsStore.getToken();
+		console.log(SignInDetailsStore.getToken());
 		ArchLandingPageActionCreators.getArchProfile();
 		ArchProfileDetailsStore.getAtchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
