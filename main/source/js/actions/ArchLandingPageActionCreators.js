@@ -26,16 +26,17 @@ function changeToArchaeologistProfile() {
 }
 
 function getArchProfile() {
-	var action = {
-		type: 'get-archaeologist-profile-details'
-	};
 
 	Authentication.getArchaeologistProfile(function handleGetArchaeologistProfile(error, response) {
 		if (error) {
 			console.log('No no no');
 			return;
 		}
-	}.bind(this));
+	});
+
+	var action = {
+		type: 'get-archaeologist-profile-details'
+	};
 
 	Dispatcher.dispatch(action);
 }

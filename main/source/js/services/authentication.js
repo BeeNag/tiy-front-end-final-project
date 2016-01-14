@@ -4,12 +4,12 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
-  SIGN_UP: '/FreeArch/users',
-  LOG_IN: '/FreeArch/users/authenticate',
-  CREATE_ARCHAEOLOGIST: '/FreeArch/archaeologists',
-  CREATE_COMPANY: '/FreeArch/companies',
-  GET_ARCHAEOLOGIST: '/FreeArch/archaeologists/:first_name:last_name?token=',
-  GET_COMPANY: '/FreeArch/companies?token='
+  SIGN_UP: '/api/users',
+  LOG_IN: '/api/users/authenticate',
+  CREATE_ARCHAEOLOGIST: '/api/archaeologists',
+  CREATE_COMPANY: '/api/companies',
+  GET_ARCHAEOLOGIST: '/api/archaeologists/:first_name:last_name?token=',
+  GET_COMPANY: '/api/companies?token='
 };
 
 function signUp(email, password, handleResponse) {
