@@ -1,11 +1,13 @@
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
+var HashID = require('../../services/HashID.js');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
+var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
 
 var ArchSignUpForm = React.createClass({
 
 	archFormValues: {
-
+		id: HashID.generate()
 	},
 
 	handleInputChange: function (name, input) {
@@ -21,6 +23,8 @@ var ArchSignUpForm = React.createClass({
 
 	    this.props.handleArchSignUpForm();
 	    this.props.handleArchSignUpFormSubmit(email, password, this.archFormValues);
+
+	    ArchSignUpFormActionCreators.setUserId(this.archFormValues.id);
 
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},

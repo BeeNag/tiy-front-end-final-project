@@ -25,9 +25,9 @@ function changeToArchaeologistProfile() {
 	Dispatcher.dispatch(action);
 }
 
-function getArchProfile() {
+function getArchProfile(token, id) {
 
-	Authentication.getArchaeologistProfile(function handleGetArchaeologistProfile(error, response) {
+	Authentication.getArchaeologistProfile(token, id, function handleGetArchaeologistProfile(error, response) {
 		if (error) {
 			console.log('No no no');
 			return;

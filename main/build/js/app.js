@@ -5,7 +5,7 @@ var Application = require('./components/Application.jsx');
 
 ReactDOM.render(React.createElement(Application, null), document.querySelector('[data-react-application]'));
 
-},{"./components/Application.jsx":173,"react":165,"react-dom":9}],2:[function(require,module,exports){
+},{"./components/Application.jsx":174,"react":165,"react-dom":9}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29493,9 +29493,9 @@ function changeToArchaeologistProfile() {
 	Dispatcher.dispatch(action);
 }
 
-function getArchProfile() {
+function getArchProfile(token, id) {
 
-	Authentication.getArchaeologistProfile(function handleGetArchaeologistProfile(error, response) {
+	Authentication.getArchaeologistProfile(token, id, function handleGetArchaeologistProfile(error, response) {
 		if (error) {
 			console.log('No no no');
 			return;
@@ -29516,7 +29516,23 @@ module.exports = {
 	getArchProfile: getArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":218,"../services/Authentication.js":219}],167:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219,"../services/Authentication.js":220}],167:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher.js');
+
+function setUserId(id) {
+	var action = {
+		type: 'set-user-id',
+		id: id
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+module.exports = {
+	setUserId: setUserId
+};
+
+},{"../dispatcher/Dispatcher.js":219}],168:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToLandingPage() {
@@ -29531,7 +29547,7 @@ module.exports = {
 	changeToLandingPage: changeToLandingPage
 };
 
-},{"../dispatcher/Dispatcher.js":218}],168:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToLandingPage() {
@@ -29546,7 +29562,7 @@ module.exports = {
 	changeToLandingPage: changeToLandingPage
 };
 
-},{"../dispatcher/Dispatcher.js":218}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToCompanyProfile() {
@@ -29561,7 +29577,7 @@ module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":218}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],171:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToLandingPage() {
@@ -29612,7 +29628,7 @@ module.exports = {
 	changeToSearch: changeToSearch
 };
 
-},{"../dispatcher/Dispatcher.js":218}],171:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],172:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToArchLandingPage() {
@@ -29638,7 +29654,7 @@ module.exports = {
 
 
 
-},{"../dispatcher/Dispatcher.js":218}],172:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],173:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserAuthenticationToken(token) {
@@ -29652,9 +29668,9 @@ function setUserAuthenticationToken(token) {
 
 module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
-}
+};
 
-},{"../dispatcher/Dispatcher.js":218}],173:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219}],174:[function(require,module,exports){
 var React = require('react');
 var PageStateStore = require('../stores/PageStateStore.js');
 var ArchLandingPage = require('./arch-landing-page/ArchLandingPage.jsx');
@@ -29728,7 +29744,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":221,"./arch-landing-page/ArchLandingPage.jsx":177,"./archaeologist-profile/ArchaeologistProfile.jsx":178,"./company-profile/CompanyProfile.jsx":191,"./create-excavation/CreateExcavation.jsx":203,"./employer-landing-page/EmployerLandingPage.jsx":204,"./landing-page/LandingPage.jsx":211,"./search/Search.jsx":214,"react":165}],174:[function(require,module,exports){
+},{"../stores/PageStateStore.js":223,"./arch-landing-page/ArchLandingPage.jsx":178,"./archaeologist-profile/ArchaeologistProfile.jsx":179,"./company-profile/CompanyProfile.jsx":192,"./create-excavation/CreateExcavation.jsx":204,"./employer-landing-page/EmployerLandingPage.jsx":205,"./landing-page/LandingPage.jsx":212,"./search/Search.jsx":215,"react":165}],175:[function(require,module,exports){
 var React = require('react');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -29783,7 +29799,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 module.exports = ArchNavbar;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"react":165}],175:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"react":165}],176:[function(require,module,exports){
 var React = require('react');
 var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageActionCreators.js');
 
@@ -29843,7 +29859,7 @@ var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 
 module.exports = EmployerNavbar;
 
-},{"../actions/EmployerLandingPageActionCreators.js":170,"react":165}],176:[function(require,module,exports){
+},{"../actions/EmployerLandingPageActionCreators.js":171,"react":165}],177:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -29856,11 +29872,12 @@ var MainButton = React.createClass({displayName: "MainButton",
 
 module.exports = MainButton;
 
-},{"react":165}],177:[function(require,module,exports){
+},{"react":165}],178:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var TokenActionCreators = require('../../actions/TokenActionCreators.js');
+var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
 var Authentication = require('../../services/Authentication.js');
@@ -29868,10 +29885,10 @@ var Authentication = require('../../services/Authentication.js');
 var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 	handleArchaeologistProfileClickEvent: function () {
-		SignInDetailsStore.getToken();
 		console.log(SignInDetailsStore.getToken());
-		ArchLandingPageActionCreators.getArchProfile();
-		ArchProfileDetailsStore.getAtchaeologistProfileDetails();
+		console.log(SignInDetailsStore.getId());
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchProfileDetailsStore.getArchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 
@@ -29918,7 +29935,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"../../actions/TokenActionCreators.js":172,"../../services/Authentication.js":219,"../../stores/ArchProfileDetailsStore.js":220,"../../stores/SignInDetailsStore.js":223,"../ArchNavbar.jsx":174,"react":165}],178:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":166,"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/TokenActionCreators.js":173,"../../services/Authentication.js":220,"../../stores/ArchProfileDetailsStore.js":222,"../../stores/SignInDetailsStore.js":225,"../ArchNavbar.jsx":175,"react":165}],179:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -30112,7 +30129,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":167,"../ArchNavbar.jsx":174,"./ContactDetailsEdit.jsx":179,"./DeleteButton.jsx":180,"./DeleteModal.jsx":181,"./DescriptionEdit.jsx":182,"./EditButton.jsx":183,"./ExperienceAndSpecialismEdit.jsx":184,"./PhotoEdit.jsx":189,"react":165}],179:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../ArchNavbar.jsx":175,"./ContactDetailsEdit.jsx":180,"./DeleteButton.jsx":181,"./DeleteModal.jsx":182,"./DescriptionEdit.jsx":183,"./EditButton.jsx":184,"./ExperienceAndSpecialismEdit.jsx":185,"./PhotoEdit.jsx":190,"react":165}],180:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30147,7 +30164,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],180:[function(require,module,exports){
+},{"react":165}],181:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30170,7 +30187,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":181,"react":165,"react-dom":9}],181:[function(require,module,exports){
+},{"./DeleteModal.jsx":182,"react":165,"react-dom":9}],182:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30194,7 +30211,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":185,"./ModalFooter.jsx":186,"./ModalHeader.jsx":187,"react":165}],182:[function(require,module,exports){
+},{"./ModalBody.jsx":186,"./ModalFooter.jsx":187,"./ModalHeader.jsx":188,"react":165}],183:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30223,7 +30240,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],183:[function(require,module,exports){
+},{"react":165}],184:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30236,7 +30253,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],184:[function(require,module,exports){
+},{"react":165}],185:[function(require,module,exports){
 var React = require('react');
 
 var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAndSpecialismEdit",
@@ -30290,7 +30307,7 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 
 module.exports = ExperienceAndSpecialismEdit;
 
-},{"react":165}],185:[function(require,module,exports){
+},{"react":165}],186:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30305,7 +30322,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],186:[function(require,module,exports){
+},{"react":165}],187:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30323,7 +30340,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":188,"./YesButton.jsx":190,"react":165}],187:[function(require,module,exports){
+},{"./NoButton.jsx":189,"./YesButton.jsx":191,"react":165}],188:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30341,7 +30358,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],188:[function(require,module,exports){
+},{"react":165}],189:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30354,7 +30371,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],189:[function(require,module,exports){
+},{"react":165}],190:[function(require,module,exports){
 var React = require('react');
 
 var PhotoEdit = React.createClass({displayName: "PhotoEdit",
@@ -30384,7 +30401,7 @@ var PhotoEdit = React.createClass({displayName: "PhotoEdit",
 
 module.exports = PhotoEdit;
 
-},{"react":165}],190:[function(require,module,exports){
+},{"react":165}],191:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
@@ -30403,7 +30420,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":167,"react":165}],191:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"react":165}],192:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -30609,7 +30626,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":168,"../EmployerNavbar.jsx":175,"./ContactDetailsEdit.jsx":192,"./DeleteButton.jsx":193,"./DeleteModal.jsx":194,"./DescriptionEdit.jsx":195,"./EditButton.jsx":196,"./UrlEdit.jsx":201,"react":165}],192:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../EmployerNavbar.jsx":176,"./ContactDetailsEdit.jsx":193,"./DeleteButton.jsx":194,"./DeleteModal.jsx":195,"./DescriptionEdit.jsx":196,"./EditButton.jsx":197,"./UrlEdit.jsx":202,"react":165}],193:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30643,7 +30660,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],193:[function(require,module,exports){
+},{"react":165}],194:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30666,7 +30683,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":194,"react":165,"react-dom":9}],194:[function(require,module,exports){
+},{"./DeleteModal.jsx":195,"react":165,"react-dom":9}],195:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30690,7 +30707,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":197,"./ModalFooter.jsx":198,"./ModalHeader.jsx":199,"react":165}],195:[function(require,module,exports){
+},{"./ModalBody.jsx":198,"./ModalFooter.jsx":199,"./ModalHeader.jsx":200,"react":165}],196:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30719,7 +30736,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],196:[function(require,module,exports){
+},{"react":165}],197:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30732,7 +30749,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],197:[function(require,module,exports){
+},{"react":165}],198:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30747,7 +30764,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],198:[function(require,module,exports){
+},{"react":165}],199:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30765,7 +30782,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":200,"./YesButton.jsx":202,"react":165}],199:[function(require,module,exports){
+},{"./NoButton.jsx":201,"./YesButton.jsx":203,"react":165}],200:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30783,7 +30800,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],200:[function(require,module,exports){
+},{"react":165}],201:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30796,7 +30813,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],201:[function(require,module,exports){
+},{"react":165}],202:[function(require,module,exports){
 var React = require('react');
 
 var UrlEdit = React.createClass({displayName: "UrlEdit",
@@ -30825,7 +30842,7 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 
 module.exports = UrlEdit;
 
-},{"react":165}],202:[function(require,module,exports){
+},{"react":165}],203:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 
@@ -30844,7 +30861,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":168,"react":165}],203:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"react":165}],204:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
@@ -30909,7 +30926,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":169,"../EmployerNavbar.jsx":175,"react":165}],204:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":170,"../EmployerNavbar.jsx":176,"react":165}],205:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
@@ -30966,7 +30983,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":170,"../EmployerNavbar.jsx":175,"react":165}],205:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":171,"../EmployerNavbar.jsx":176,"react":165}],206:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31014,15 +31031,17 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 
 module.exports = ArchSignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":171,"../MainButton.jsx":176,"react":165}],206:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":172,"../MainButton.jsx":177,"react":165}],207:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
+var HashID = require('../../services/HashID.js');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
+var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
 
 var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 	archFormValues: {
-
+		id: HashID.generate()
 	},
 
 	handleInputChange: function (name, input) {
@@ -31038,6 +31057,8 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 	    this.props.handleArchSignUpForm();
 	    this.props.handleArchSignUpFormSubmit(email, password, this.archFormValues);
+
+	    ArchSignUpFormActionCreators.setUserId(this.archFormValues.id);
 
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},
@@ -31078,7 +31099,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 module.exports = ArchSignUpForm;
 
-},{"../../actions/LandingPageActionCreators.js":171,"./ArchaeologistProfileDetails.jsx":207,"react":165}],207:[function(require,module,exports){
+},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":172,"../../services/HashID.js":221,"./ArchaeologistProfileDetails.jsx":208,"react":165}],208:[function(require,module,exports){
 var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({displayName: "ArchaeologistProfileDetails",
@@ -31098,7 +31119,7 @@ var ArchaeologistProfileDetails = React.createClass({displayName: "Archaeologist
 
 module.exports = ArchaeologistProfileDetails;
 
-},{"react":165}],208:[function(require,module,exports){
+},{"react":165}],209:[function(require,module,exports){
 var React = require('react');
 
 var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetails",
@@ -31118,7 +31139,7 @@ var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetai
 
 module.exports = CompanyProfileDetails;
 
-},{"react":165}],209:[function(require,module,exports){
+},{"react":165}],210:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31166,7 +31187,7 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 
 module.exports = CompanySignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":171,"../MainButton.jsx":176,"react":165}],210:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":172,"../MainButton.jsx":177,"react":165}],211:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31223,7 +31244,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 module.exports = CompanySignUpForm;
 
-},{"../../actions/LandingPageActionCreators.js":171,"./CompanyProfileDetails.jsx":208,"react":165}],211:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":172,"./CompanyProfileDetails.jsx":209,"react":165}],212:[function(require,module,exports){
 var React = require('react');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
@@ -31405,7 +31426,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../actions/TokenActionCreators.js":172,"../../services/Authentication.js":219,"../MainButton.jsx":176,"./ArchSignInForm.jsx":205,"./ArchSignUpForm.jsx":206,"./CompanySignInForm.jsx":209,"./CompanySignUpForm.jsx":210,"react":165}],212:[function(require,module,exports){
+},{"../../actions/TokenActionCreators.js":173,"../../services/Authentication.js":220,"../MainButton.jsx":177,"./ArchSignInForm.jsx":206,"./ArchSignUpForm.jsx":207,"./CompanySignInForm.jsx":210,"./CompanySignUpForm.jsx":211,"react":165}],213:[function(require,module,exports){
 var React = require('react');
 
 var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
@@ -31471,7 +31492,7 @@ var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
 
 module.exports = AdvancedSearch;
 
-},{"react":165}],213:[function(require,module,exports){
+},{"react":165}],214:[function(require,module,exports){
 var React = require('react');
 
 var BasicSearch = React.createClass({displayName: "BasicSearch",
@@ -31524,7 +31545,7 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"react":165}],214:[function(require,module,exports){
+},{"react":165}],215:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
@@ -31580,7 +31601,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../EmployerNavbar.jsx":175,"../thumbnail/Thumbnail.jsx":215,"./AdvancedSearch.jsx":212,"./BasicSearch.jsx":213,"react":165}],215:[function(require,module,exports){
+},{"../EmployerNavbar.jsx":176,"../thumbnail/Thumbnail.jsx":216,"./AdvancedSearch.jsx":213,"./BasicSearch.jsx":214,"react":165}],216:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -31616,7 +31637,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":222,"./ThumbnailCaption.jsx":216,"./ThumbnailImage.jsx":217,"react":165}],216:[function(require,module,exports){
+},{"../../stores/SearchStore.js":224,"./ThumbnailCaption.jsx":217,"./ThumbnailImage.jsx":218,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -31635,7 +31656,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 
 module.exports = ThumbnailCaption;
 
-},{"react":165}],217:[function(require,module,exports){
+},{"react":165}],218:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
@@ -31648,12 +31669,12 @@ var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 
 module.exports = ThumbnailImage;
 
-},{"react":165}],218:[function(require,module,exports){
+},{"react":165}],219:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],219:[function(require,module,exports){
+},{"flux":4}],220:[function(require,module,exports){
 var jQuery = require('jquery');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -31664,7 +31685,7 @@ var API_ENDPOINTS = {
   LOG_IN: '/api/users/authenticate',
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
-  GET_ARCHAEOLOGIST: '/api/archaeologists/:first_name:last_name?token=',
+  GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   GET_COMPANY: '/api/companies?token='
 };
 
@@ -31716,6 +31737,7 @@ function signIn(email, password, handleResponse) {
 
 function createArchaeologistProfile(archFormValues, handleResponse) {
   var data = {
+    id: archFormValues.id,
     first_name: archFormValues.first_name,
     last_name: archFormValues.last_name,
     date_of_birth: archFormValues.date_of_birth,
@@ -31777,11 +31799,11 @@ function createCompanyProfile(companyFormValues, handleResponse) {
   });
 }
 
-function getArchaeologistProfile(handleResponse) {
+function getArchaeologistProfile(token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST,
+    url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST.replace('id', id) + token,
     dataType: 'json',
   });
 
@@ -31789,8 +31811,9 @@ function getArchaeologistProfile(handleResponse) {
     handleResponse(jqXHR, null);
   });
 
-  request.done(function () {
+  request.done(function (data) {
     handleResponse(null, data);
+    console.log(data);
   });
 }
 
@@ -31802,11 +31825,85 @@ module.exports = {
   signIn: signIn,
   signUp: signUp,
   createArchaeologistProfile: createArchaeologistProfile,
-  createCompanyProfile:createCompanyProfile
+  createCompanyProfile:createCompanyProfile,
+  getArchaeologistProfile: getArchaeologistProfile,
+  getCompanyProfile: getCompanyProfile
 };
 
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],220:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],221:[function(require,module,exports){
+'use strict';
+
+/**
+ * The default alphabet is 25 numbers and lowercase letters.
+ * Any numbers that look like letters and vice versa are removed:
+ * 1 l, 0 o.
+ * Also the following letters are not present, to prevent any
+ * expletives: cfhistu
+ */
+var ALPHABET =
+  '23456789abdegjkmnpqrvwxyz';
+
+var ALPHABET_LENGTH = ALPHABET.length;
+
+// Governs the length of the ID.
+// With an alphabet of 25 chars,
+// a length of 8 gives us 25^8 or
+// 152,587,890,625 possibilities.
+// Should be enough...
+var ID_LENGTH = 8;
+
+/**
+ * Governs the number of times we should try to find
+ * a unique value before giving up.
+ * @type {Number}
+ */
+var UNIQUE_RETRIES = 9999;
+
+var HashID = {};
+
+/**
+ * Returns a randomly-generated friendly ID.
+ * Note that the friendly ID is not guaranteed to be
+ * unique to any other ID generated by this same method,
+ * so it is up to you to check for uniqueness.
+ * @return {String} friendly ID.
+ */
+HashID.generate = function() {
+  var rtn = '';
+  for (var i = 0; i < ID_LENGTH; i++) {
+    rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET_LENGTH));
+  }
+  return rtn;
+};
+
+/**
+ * Tries to generate a unique ID that is not defined in the
+ * `previous` array.
+ * @param  {Array} previous The list of previous ids to avoid.
+ * @return {String} A unique ID, or `null` if one could not be generated.
+ */
+HashID.generateUnique = function(previous) {
+  previous = previous || [];
+  var retries = 0;
+  var id;
+
+  // Try to generate a unique ID,
+  // i.e. one that isn't in the previous.
+  while(!id && retries < UNIQUE_RETRIES) {
+    id = HashID.generate();
+    if(previous.indexOf(id) !== -1) {
+      id = null;
+      retries++;
+    }
+  }
+
+  return id;
+};
+
+module.exports = HashID;
+
+},{}],222:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -31842,7 +31939,7 @@ function handleAction(action) {
 
 module.exports = ArchProfileDetailsStore;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":218,"events":2,"object-assign":8}],221:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],223:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -31931,7 +32028,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":218,"events":2,"object-assign":8}],222:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],224:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -31963,16 +32060,23 @@ var SearchStore = objectAssign({}, EventEmitter.prototype, {
 
 module.exports = SearchStore;
 
-},{"../dispatcher/Dispatcher.js":218,"events":2,"object-assign":8}],223:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],225:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var TokenActionCreators = require('../actions/TokenActionCreators.js');
+var ArchSignUpFormActionCreators = require('../actions/ArchSignUpFormActionCreators.js');
 
 var token = null;
+var id = null;
 
 function setUserAuthenticationToken(newToken) {
 	token = newToken;
+	SignInDetailsStore.emit('change');
+}
+
+function setUserId(newId) {
+	id = newId;
 	SignInDetailsStore.emit('change');
 }
 
@@ -31980,6 +32084,10 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getToken: function () {
 		return token;
+	},
+
+	getId: function () {
+		return id;
 	},
 
 	addChangeListener: function (changeEventHandler) {
@@ -31994,11 +32102,13 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction (action) {
 	if (action.type === 'set-user-authentication-token') {
 		setUserAuthenticationToken(action.token);
-	} 
+	} else if (action.type === 'set-user-id') {
+		setUserId(action.id);
+	}
 }
 
 SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SignInDetailsStore;
 
-},{"../actions/TokenActionCreators.js":172,"../dispatcher/Dispatcher.js":218,"events":2,"object-assign":8}]},{},[1]);
+},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":173,"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}]},{},[1]);

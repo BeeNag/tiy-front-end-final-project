@@ -11,4 +11,4 @@ function setUserAuthenticationToken(token) {
 
 module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
-}
+};

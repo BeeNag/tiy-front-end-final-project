@@ -8,8 +8,12 @@ var API_ENDPOINTS = {
   LOG_IN: '/api/users/authenticate',
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
-  GET_ARCHAEOLOGIST: '/api/archaeologists/:first_name:last_name?token=',
-  GET_COMPANY: '/api/companies?token='
+  GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
+  GET_COMPANY: '/api/companies?token=',
+  UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
+  UPDATE_COMPANY: '/api/companies/id?token=',
+  DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
+  DELETE_COMPANY: '/api/company/id?token='
 };
 
 function signUp(email, password, handleResponse) {
@@ -60,6 +64,7 @@ function signIn(email, password, handleResponse) {
 
 function createArchaeologistProfile(archFormValues, handleResponse) {
   var data = {
+    id: archFormValues.id,
     first_name: archFormValues.first_name,
     last_name: archFormValues.last_name,
     date_of_birth: archFormValues.date_of_birth,
@@ -121,30 +126,116 @@ function createCompanyProfile(companyFormValues, handleResponse) {
   });
 }
 
-function getArchaeologistProfile(handleResponse) {
+function getArchaeologistProfile(token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST,
-    dataType: 'json',
+    url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json'
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
     handleResponse(jqXHR, null);
   });
 
-  request.done(function () {
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log(data);
+  });
+}
+
+function getCompanyProfile(token, id, handleResponse) {
+
+   var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.GET_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log(data);
+  });
+}
+
+function updateArchaeologistProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
     handleResponse(null, data);
   });
 }
 
-function getCompanyProfile(handleResponse) {
+function updateCompanyProfile(token, id, handleResponse) {
 
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteArchaeologistProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.DELETE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteCompanyProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.DELETE_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
 }
 
 module.exports = {
   signIn: signIn,
   signUp: signUp,
   createArchaeologistProfile: createArchaeologistProfile,
-  createCompanyProfile:createCompanyProfile
+  createCompanyProfile:createCompanyProfile,
+  getArchaeologistProfile: getArchaeologistProfile,
+  getCompanyProfile: getCompanyProfile,
+  updateArchaeologistProfile: updateArchaeologistProfile
 };

@@ -2,6 +2,7 @@ var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var TokenActionCreators = require('../../actions/TokenActionCreators.js');
+var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
 var Authentication = require('../../services/Authentication.js');
@@ -9,10 +10,10 @@ var Authentication = require('../../services/Authentication.js');
 var ArchLandingPage = React.createClass({
 
 	handleArchaeologistProfileClickEvent: function () {
-		SignInDetailsStore.getToken();
 		console.log(SignInDetailsStore.getToken());
-		ArchLandingPageActionCreators.getArchProfile();
-		ArchProfileDetailsStore.getAtchaeologistProfileDetails();
+		console.log(SignInDetailsStore.getId());
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchProfileDetailsStore.getArchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 

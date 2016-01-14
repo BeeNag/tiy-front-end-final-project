@@ -27,7 +27,7 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
-		setArchaeologistProfile(profile);
+		setArchaeologistProfile(response.data);
 	}
 }
 
