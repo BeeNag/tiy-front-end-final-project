@@ -6,6 +6,7 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var archaeologistProfile = {};
 
 function setArchaeologistProfile(profile) {
+	console.log(profile);
 	archaeologistProfile = profile;
 	ArchProfileDetailsStore.emit('change');
 }

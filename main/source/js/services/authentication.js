@@ -237,5 +237,8 @@ module.exports = {
   createCompanyProfile:createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
   getCompanyProfile: getCompanyProfile,
-  updateArchaeologistProfile: updateArchaeologistProfile
+  updateArchaeologistProfile: updateArchaeologistProfile,
+  updateCompanyProfile: updateCompanyProfile,
+  deleteArchaeologistProfile: deleteArchaeologistProfile,
+  deleteCompanyProfile: deleteCompanyProfile
 };

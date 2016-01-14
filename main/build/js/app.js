@@ -29888,7 +29888,6 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 		console.log(SignInDetailsStore.getToken());
 		console.log(SignInDetailsStore.getId());
 		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
-		ArchProfileDetailsStore.getArchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 
@@ -29946,6 +29945,7 @@ var DescriptionEdit = require('./DescriptionEdit.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
+var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
 
 var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile",
 
@@ -30019,7 +30019,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-1"}, 
-						React.createElement("p", null, "Name")
+						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name)
 					), 
 					React.createElement("div", {className: "col-xs-1"}, 
 						React.createElement("p", null, "Date of Birth")
@@ -30129,7 +30129,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../ArchNavbar.jsx":175,"./ContactDetailsEdit.jsx":180,"./DeleteButton.jsx":181,"./DeleteModal.jsx":182,"./DescriptionEdit.jsx":183,"./EditButton.jsx":184,"./ExperienceAndSpecialismEdit.jsx":185,"./PhotoEdit.jsx":190,"react":165}],180:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/ArchProfileDetailsStore.js":222,"../ArchNavbar.jsx":175,"./ContactDetailsEdit.jsx":180,"./DeleteButton.jsx":181,"./DeleteModal.jsx":182,"./DescriptionEdit.jsx":183,"./EditButton.jsx":184,"./ExperienceAndSpecialismEdit.jsx":185,"./PhotoEdit.jsx":190,"react":165}],180:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31686,7 +31686,11 @@ var API_ENDPOINTS = {
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
   GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  GET_COMPANY: '/api/companies?token='
+  GET_COMPANY: '/api/companies?token=',
+  UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
+  UPDATE_COMPANY: '/api/companies/id?token=',
+  DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
+  DELETE_COMPANY: '/api/company/id?token='
 };
 
 function signUp(email, password, handleResponse) {
@@ -31804,7 +31808,7 @@ function getArchaeologistProfile(token, id, handleResponse) {
   var request = jQuery.ajax({
     method: 'get',
     url: HOST_NAME + API_ENDPOINTS.GET_ARCHAEOLOGIST.replace('id', id) + token,
-    dataType: 'json',
+    dataType: 'json'
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -31817,8 +31821,90 @@ function getArchaeologistProfile(token, id, handleResponse) {
   });
 }
 
-function getCompanyProfile(handleResponse) {
+function getCompanyProfile(token, id, handleResponse) {
 
+   var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.GET_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+    console.log(data);
+  });
+}
+
+function updateArchaeologistProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateCompanyProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteArchaeologistProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.DELETE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteCompanyProfile(token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.DELETE_COMPANY.replace('id', id) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
 }
 
 module.exports = {
@@ -31827,7 +31913,11 @@ module.exports = {
   createArchaeologistProfile: createArchaeologistProfile,
   createCompanyProfile:createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
-  getCompanyProfile: getCompanyProfile
+  getCompanyProfile: getCompanyProfile,
+  updateArchaeologistProfile: updateArchaeologistProfile,
+  updateCompanyProfile: updateCompanyProfile,
+  deleteArchaeologistProfile: deleteArchaeologistProfile,
+  deleteCompanyProfile: deleteCompanyProfile
 };
 
 
@@ -31912,6 +32002,7 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var archaeologistProfile = {};
 
 function setArchaeologistProfile(profile) {
+	console.log(profile);
 	archaeologistProfile = profile;
 	ArchProfileDetailsStore.emit('change');
 }
@@ -31933,7 +32024,7 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
-		setArchaeologistProfile(profile);
+		setArchaeologistProfile(response.data);
 	}
 }
 

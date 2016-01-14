@@ -13,7 +13,6 @@ var ArchLandingPage = React.createClass({
 		console.log(SignInDetailsStore.getToken());
 		console.log(SignInDetailsStore.getId());
 		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
-		ArchProfileDetailsStore.getArchaeologistProfileDetails();
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 

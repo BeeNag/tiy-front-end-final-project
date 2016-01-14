@@ -8,6 +8,7 @@ var DescriptionEdit = require('./DescriptionEdit.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
+var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
 
 var ArchaeologistProfile = React.createClass({
 
@@ -81,7 +82,7 @@ var ArchaeologistProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-1">
-						<p>Name</p>
+						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name}</p>
 					</div>
 					<div className="col-xs-1">
 						<p>Date of Birth</p>
