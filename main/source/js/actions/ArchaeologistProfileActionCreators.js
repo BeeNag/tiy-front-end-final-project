@@ -1,4 +1,5 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {

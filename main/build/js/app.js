@@ -29536,6 +29536,7 @@ module.exports = {
 
 },{"../dispatcher/Dispatcher.js":220}],168:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {
@@ -29568,7 +29569,7 @@ module.exports = {
 	updateArchProfile: updateArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":220}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToLandingPage() {
@@ -30066,7 +30067,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 		});
 	},
 
-	handleUpdateContactDetails: function () {
+	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
 		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 

@@ -77,7 +77,7 @@ var ArchaeologistProfile = React.createClass({
 		});
 	},
 
-	handleUpdateContactDetails: function () {
+	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
 		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
