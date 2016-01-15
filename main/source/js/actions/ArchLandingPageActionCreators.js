@@ -32,13 +32,15 @@ function getArchProfile(token, id) {
 			console.log('No no no');
 			return;
 		}
+
+		var action = {
+			type: 'get-archaeologist-profile-details',
+			data: response
+		};
+
+		Dispatcher.dispatch(action);
+
 	});
-
-	var action = {
-		type: 'get-archaeologist-profile-details'
-	};
-
-	Dispatcher.dispatch(action);
 }
 
 module.exports = {

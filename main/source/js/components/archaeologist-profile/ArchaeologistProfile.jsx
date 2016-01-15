@@ -21,6 +21,12 @@ var ArchaeologistProfile = React.createClass({
 		};
 	},
 
+	updateState: function () {
+		this.setState({
+			profile: ArchProfileDetailsStore.getArchaeologistProfileDetails()
+		});
+	},
+
 	showPhotoEdit: function () {
 		this.setState({
 			isPhoto: true
@@ -69,6 +75,14 @@ var ArchaeologistProfile = React.createClass({
 		});
 	},
 
+	componentDidMount: function () {
+		ArchProfileDetailsStore.addChangeListener(this.updateState);
+	},
+
+	componentWillUnmount: function () {
+		ArchProfileDetailsStore.removeChangeListener(this.updateState);
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -85,7 +99,7 @@ var ArchaeologistProfile = React.createClass({
 						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name}</p>
 					</div>
 					<div className="col-xs-1">
-						<p>Date of Birth</p>
+						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth}</p>
 					</div>
 					<div className="col-xs-3">
 						<img src="http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg" alt="power switched off"></img>
@@ -97,12 +111,17 @@ var ArchaeologistProfile = React.createClass({
 					<div className="container">
 						<div className="row">
 							<div className="col-xs-2">
-								<p>Address</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().address1 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address2 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address3}</p>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-xs-2">
-								<p>Phone Number</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number}</p>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-xs-2">
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number}</p>
 							</div>
 						</div>
 						<div className="row">
@@ -120,12 +139,12 @@ var ArchaeologistProfile = React.createClass({
 					<div className="container">
 						<div className="row">
 							<div className="col-xs-2">
-								<p>Specialism</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism}</p>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-xs-2">
-								<p>Experience</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience}</p>
 							</div>
 						</div>
 						<div className="row">
@@ -138,7 +157,7 @@ var ArchaeologistProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="container">
-						<p>Description</p>
+						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</p>
 						<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
 						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} /> : null }
 					</div>

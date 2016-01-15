@@ -12,8 +12,9 @@ var ArchLandingPage = React.createClass({
 	handleArchaeologistProfileClickEvent: function () {
 		console.log(SignInDetailsStore.getToken());
 		console.log(SignInDetailsStore.getId());
-		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
 	handleViewArchaeologistsClickEvent: function () {

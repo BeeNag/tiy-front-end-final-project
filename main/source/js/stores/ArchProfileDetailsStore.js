@@ -8,6 +8,7 @@ var archaeologistProfile = {};
 function setArchaeologistProfile(profile) {
 	console.log(profile);
 	archaeologistProfile = profile;
+	console.log(archaeologistProfile);
 	ArchProfileDetailsStore.emit('change');
 }
 
@@ -28,8 +29,10 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
-		setArchaeologistProfile(response.data);
+		setArchaeologistProfile(action.data);
 	}
 }
+
+ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;

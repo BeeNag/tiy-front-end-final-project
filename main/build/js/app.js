@@ -29500,13 +29500,15 @@ function getArchProfile(token, id) {
 			console.log('No no no');
 			return;
 		}
+
+		var action = {
+			type: 'get-archaeologist-profile-details',
+			data: response
+		};
+
+		Dispatcher.dispatch(action);
+
 	});
-
-	var action = {
-		type: 'get-archaeologist-profile-details'
-	};
-
-	Dispatcher.dispatch(action);
 }
 
 module.exports = {
@@ -29887,8 +29889,9 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 	handleArchaeologistProfileClickEvent: function () {
 		console.log(SignInDetailsStore.getToken());
 		console.log(SignInDetailsStore.getId());
-		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		
 		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
 	handleViewArchaeologistsClickEvent: function () {
@@ -29958,6 +29961,12 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 		};
 	},
 
+	updateState: function () {
+		this.setState({
+			profile: ArchProfileDetailsStore.getArchaeologistProfileDetails()
+		});
+	},
+
 	showPhotoEdit: function () {
 		this.setState({
 			isPhoto: true
@@ -30006,6 +30015,14 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 		});
 	},
 
+	componentDidMount: function () {
+		ArchProfileDetailsStore.addChangeListener(this.updateState);
+	},
+
+	componentWillUnmount: function () {
+		ArchProfileDetailsStore.removeChangeListener(this.updateState);
+	},
+
 	render: function () {
 		return (
 			React.createElement("div", {className: "container-fluid"}, 
@@ -30022,7 +30039,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name)
 					), 
 					React.createElement("div", {className: "col-xs-1"}, 
-						React.createElement("p", null, "Date of Birth")
+						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
 					), 
 					React.createElement("div", {className: "col-xs-3"}, 
 						React.createElement("img", {src: "http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg", alt: "power switched off"}), 
@@ -30034,12 +30051,17 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 					React.createElement("div", {className: "container"}, 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, "Address")
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().address1 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address2 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address3)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, "Phone Number")
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number)
+							)
+						), 
+						React.createElement("div", {className: "row"}, 
+							React.createElement("div", {className: "col-xs-2"}, 
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
@@ -30057,12 +30079,12 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 					React.createElement("div", {className: "container"}, 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, "Specialism")
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, "Experience")
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
@@ -30075,7 +30097,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "container"}, 
-						React.createElement("p", null, "Description"), 
+						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
 						React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
 						 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit}) : null
 					)
@@ -32004,6 +32026,7 @@ var archaeologistProfile = {};
 function setArchaeologistProfile(profile) {
 	console.log(profile);
 	archaeologistProfile = profile;
+	console.log(archaeologistProfile);
 	ArchProfileDetailsStore.emit('change');
 }
 
@@ -32024,9 +32047,11 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
-		setArchaeologistProfile(response.data);
+		setArchaeologistProfile(action.data);
 	}
 }
+
+ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;
 
