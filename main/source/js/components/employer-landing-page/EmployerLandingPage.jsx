@@ -1,10 +1,12 @@
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var EmployerLandingPage = React.createClass({
 
 	handleCompanyProfileClickEvent: function () {
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		EmployerLandingPageActionCreators.changeToCompanyProfile();
 	},
 

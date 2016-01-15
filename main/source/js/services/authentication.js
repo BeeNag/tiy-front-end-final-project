@@ -9,7 +9,7 @@ var API_ENDPOINTS = {
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
   GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  GET_COMPANY: '/api/companies?token=',
+  GET_COMPANY: '/api/companies/id?token=',
   UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
@@ -99,6 +99,7 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
 
 function createCompanyProfile(companyFormValues, handleResponse) {
   var data = {
+    id: companyFormValues.id,
     name: companyFormValues.name,
     address1: companyFormValues.address1,
     address2: companyFormValues.address2,
@@ -162,7 +163,7 @@ function getCompanyProfile(token, id, handleResponse) {
   });
 }
 
-function updateArchaeologistProfile(token, id, handleResponse) {
+function updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'patch',

@@ -115,7 +115,7 @@ var LandingPage = React.createClass({
 				return;
 			}
 
-			this.setUserAuthenticationToken(response.token);
+			TokenActionCreators.setUserAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
@@ -139,7 +139,7 @@ var LandingPage = React.createClass({
 						return;
 					}
 
-					this.setUserAuthenticationToken(response.token);
+					TokenActionCreators.setUserAuthenticationToken(response.token);
 					console.log('YES!');
 				}.bind(this));
 			}.bind(this));

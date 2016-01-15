@@ -9,6 +9,8 @@ var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var Authentication = require('../../services/Authentication.js');
 
 var ArchaeologistProfile = React.createClass({
 
@@ -75,6 +77,10 @@ var ArchaeologistProfile = React.createClass({
 		});
 	},
 
+	handleUpdateContactDetails: function () {
+		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
 	componentDidMount: function () {
 		ArchProfileDetailsStore.addChangeListener(this.updateState);
 	},
@@ -111,7 +117,7 @@ var ArchaeologistProfile = React.createClass({
 					<div className="container">
 						<div className="row">
 							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().address1 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address2 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address3}</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().address1}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address2}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address3}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().city}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode}</p>
 							</div>
 						</div>
 						<div className="row">
@@ -132,7 +138,7 @@ var ArchaeologistProfile = React.createClass({
 						<div className="row">
 							<div className="col-xs-1">
 								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
-								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} /> : null }
+								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
 							</div>
 						</div>
 					</div>

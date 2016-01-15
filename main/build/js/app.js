@@ -5,7 +5,7 @@ var Application = require('./components/Application.jsx');
 
 ReactDOM.render(React.createElement(Application, null), document.querySelector('[data-react-application]'));
 
-},{"./components/Application.jsx":174,"react":165,"react-dom":9}],2:[function(require,module,exports){
+},{"./components/Application.jsx":175,"react":165,"react-dom":9}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29518,7 +29518,7 @@ module.exports = {
 	getArchProfile: getArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":219,"../services/Authentication.js":220}],167:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],167:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29534,7 +29534,41 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":219}],168:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],168:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher.js');
+
+function changeToLandingPage() {
+	var action = {
+		type: 'change-to-landing-page'
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
+
+	Authentication.updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, function handleUpdateArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-archaeologist-profile-details',
+			data: response
+		};
+
+		Dispatcher.dispatch(action);
+
+	});
+}
+
+module.exports = {
+	changeToLandingPage: changeToLandingPage,
+	updateArchProfile: updateArchProfile
+};
+
+},{"../dispatcher/Dispatcher.js":220}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToLandingPage() {
@@ -29549,22 +29583,23 @@ module.exports = {
 	changeToLandingPage: changeToLandingPage
 };
 
-},{"../dispatcher/Dispatcher.js":219}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
-function changeToLandingPage() {
+function setUserId(id) {
 	var action = {
-		type: 'change-to-landing-page'
+		type: 'set-user-id',
+		id: id
 	};
 
 	Dispatcher.dispatch(action);
 }
 
 module.exports = {
-	changeToLandingPage: changeToLandingPage
+	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":219}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],171:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToCompanyProfile() {
@@ -29579,8 +29614,9 @@ module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":219}],171:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],172:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {
@@ -29622,15 +29658,33 @@ function changeToSearch() {
 	Dispatcher.dispatch(action);
 }
 
+function getCompanyProfile(token, id) {
+
+	Authentication.getCompanyProfile(token, id, function handleGetCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'get-company-profile-details',
+			data: response
+		};
+
+		Dispatcher.dispatch(action);
+	});
+}
+
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
 	changeToEmployerLandingPage: changeToEmployerLandingPage,
 	changeToCompanyProfile: changeToCompanyProfile,
 	changeToCreateExcavation: changeToCreateExcavation,
-	changeToSearch: changeToSearch
+	changeToSearch: changeToSearch,
+	getCompanyProfile: getCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":219}],172:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],173:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToArchLandingPage() {
@@ -29656,7 +29710,7 @@ module.exports = {
 
 
 
-},{"../dispatcher/Dispatcher.js":219}],173:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserAuthenticationToken(token) {
@@ -29672,7 +29726,7 @@ module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
 };
 
-},{"../dispatcher/Dispatcher.js":219}],174:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220}],175:[function(require,module,exports){
 var React = require('react');
 var PageStateStore = require('../stores/PageStateStore.js');
 var ArchLandingPage = require('./arch-landing-page/ArchLandingPage.jsx');
@@ -29746,7 +29800,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":223,"./arch-landing-page/ArchLandingPage.jsx":178,"./archaeologist-profile/ArchaeologistProfile.jsx":179,"./company-profile/CompanyProfile.jsx":192,"./create-excavation/CreateExcavation.jsx":204,"./employer-landing-page/EmployerLandingPage.jsx":205,"./landing-page/LandingPage.jsx":212,"./search/Search.jsx":215,"react":165}],175:[function(require,module,exports){
+},{"../stores/PageStateStore.js":225,"./arch-landing-page/ArchLandingPage.jsx":179,"./archaeologist-profile/ArchaeologistProfile.jsx":180,"./company-profile/CompanyProfile.jsx":193,"./create-excavation/CreateExcavation.jsx":205,"./employer-landing-page/EmployerLandingPage.jsx":206,"./landing-page/LandingPage.jsx":213,"./search/Search.jsx":216,"react":165}],176:[function(require,module,exports){
 var React = require('react');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -29801,7 +29855,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 module.exports = ArchNavbar;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"react":165}],176:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"react":165}],177:[function(require,module,exports){
 var React = require('react');
 var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageActionCreators.js');
 
@@ -29861,7 +29915,7 @@ var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 
 module.exports = EmployerNavbar;
 
-},{"../actions/EmployerLandingPageActionCreators.js":171,"react":165}],177:[function(require,module,exports){
+},{"../actions/EmployerLandingPageActionCreators.js":172,"react":165}],178:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -29874,24 +29928,19 @@ var MainButton = React.createClass({displayName: "MainButton",
 
 module.exports = MainButton;
 
-},{"react":165}],178:[function(require,module,exports){
+},{"react":165}],179:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
-var TokenActionCreators = require('../../actions/TokenActionCreators.js');
-var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
-var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
-var Authentication = require('../../services/Authentication.js');
 
 var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 	handleArchaeologistProfileClickEvent: function () {
 		console.log(SignInDetailsStore.getToken());
 		console.log(SignInDetailsStore.getId());
-		
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
 	},
 
 	handleViewArchaeologistsClickEvent: function () {
@@ -29937,7 +29986,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/TokenActionCreators.js":173,"../../services/Authentication.js":220,"../../stores/ArchProfileDetailsStore.js":222,"../../stores/SignInDetailsStore.js":225,"../ArchNavbar.jsx":175,"react":165}],179:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":227,"../ArchNavbar.jsx":176,"react":165}],180:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../ArchNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -29949,6 +29998,8 @@ var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 var ArchProfileDetailsStore = require('../../stores/ArchProfileDetailsStore.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var Authentication = require('../../services/Authentication.js');
 
 var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile",
 
@@ -30015,6 +30066,10 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 		});
 	},
 
+	handleUpdateContactDetails: function () {
+		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
 	componentDidMount: function () {
 		ArchProfileDetailsStore.addChangeListener(this.updateState);
 	},
@@ -30051,7 +30106,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 					React.createElement("div", {className: "container"}, 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().address1 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address2 + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().address3)
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().address1, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address2, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address3, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().city, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
@@ -30072,7 +30127,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-1"}, 
 								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}), 
-								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit}) : null
+								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null
 							)
 						)
 					), 
@@ -30151,14 +30206,24 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/ArchProfileDetailsStore.js":222,"../ArchNavbar.jsx":175,"./ContactDetailsEdit.jsx":180,"./DeleteButton.jsx":181,"./DeleteModal.jsx":182,"./DescriptionEdit.jsx":183,"./EditButton.jsx":184,"./ExperienceAndSpecialismEdit.jsx":185,"./PhotoEdit.jsx":190,"react":165}],180:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":221,"../../stores/ArchProfileDetailsStore.js":223,"../../stores/SignInDetailsStore.js":227,"../ArchNavbar.jsx":176,"./ContactDetailsEdit.jsx":181,"./DeleteButton.jsx":182,"./DeleteModal.jsx":183,"./DescriptionEdit.jsx":184,"./EditButton.jsx":185,"./ExperienceAndSpecialismEdit.jsx":186,"./PhotoEdit.jsx":191,"react":165}],181:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 	handleContactDetailsEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var address1 = this.refs.address1.value;
+		var address2 = this.refs.address2.value;
+		var address3 = this.refs.address3.value;
+		var city = this.refs.city.value;
+		var postcode = this.refs.postcode.value;
+		var home_phone_number = this.refs.home_phone_number.value;
+		var mobile_phone_number = this.refs.mobile_phone_number.value;
+
 		this.props.handleContactDetailsEditForm();
+		this.props.handleContactDetailsEditFormSubmit(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number);
 	},
 
 	render: function () {
@@ -30168,13 +30233,13 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleContactDetailsEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Your Contact Details"), 
-	        				React.createElement("input", {type: "address", placeholder: "Address Line 1", className: "form-control input pass"}), 
-							React.createElement("input", {type: "address", placeholder: "Address Line 2", className: "form-control input pass"}), 
-							React.createElement("input", {type: "address", placeholder: "Address Line 3", className: "form-control input pass"}), 
-							React.createElement("input", {type: "text", placeholder: "City", className: "form-control input pass"}), 
-							React.createElement("input", {type: "postcode", placeholder: "Postcode", className: "form-control input pass"}), 
-							React.createElement("input", {type: "text", placeholder: "Enter Home Phone Number", className: "form-control input pass", "data-format": "(+44)ddd ddd dddd"}), 
-							React.createElement("input", {type: "text", placeholder: "Enter Mobile Phone Number", className: "form-control input pass", "data-format": "(+44)dddd ddd dddd"}), 
+	        				React.createElement("input", {type: "address", placeholder: "Address Line 1", className: "form-control input pass", ref: "address1"}), 
+							React.createElement("input", {type: "address", placeholder: "Address Line 2", className: "form-control input pass", ref: "address2"}), 
+							React.createElement("input", {type: "address", placeholder: "Address Line 3", className: "form-control input pass", ref: "address3"}), 
+							React.createElement("input", {type: "text", placeholder: "City", className: "form-control input pass", ref: "city"}), 
+							React.createElement("input", {type: "postcode", placeholder: "Postcode", className: "form-control input pass", ref: "postcode"}), 
+							React.createElement("input", {type: "text", placeholder: "Enter Home Phone Number", className: "form-control input pass", "data-format": "(+44)ddd ddd dddd", ref: "home_phone_number"}), 
+							React.createElement("input", {type: "text", placeholder: "Enter Mobile Phone Number", className: "form-control input pass", "data-format": "(+44)dddd ddd dddd", ref: "mobile_phone_number"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -30186,7 +30251,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],181:[function(require,module,exports){
+},{"react":165}],182:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30209,7 +30274,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":182,"react":165,"react-dom":9}],182:[function(require,module,exports){
+},{"./DeleteModal.jsx":183,"react":165,"react-dom":9}],183:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30233,7 +30298,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":186,"./ModalFooter.jsx":187,"./ModalHeader.jsx":188,"react":165}],183:[function(require,module,exports){
+},{"./ModalBody.jsx":187,"./ModalFooter.jsx":188,"./ModalHeader.jsx":189,"react":165}],184:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30262,7 +30327,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],184:[function(require,module,exports){
+},{"react":165}],185:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30275,7 +30340,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],185:[function(require,module,exports){
+},{"react":165}],186:[function(require,module,exports){
 var React = require('react');
 
 var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAndSpecialismEdit",
@@ -30329,7 +30394,7 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 
 module.exports = ExperienceAndSpecialismEdit;
 
-},{"react":165}],186:[function(require,module,exports){
+},{"react":165}],187:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30344,7 +30409,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],187:[function(require,module,exports){
+},{"react":165}],188:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30362,7 +30427,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":189,"./YesButton.jsx":191,"react":165}],188:[function(require,module,exports){
+},{"./NoButton.jsx":190,"./YesButton.jsx":192,"react":165}],189:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30380,7 +30445,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],189:[function(require,module,exports){
+},{"react":165}],190:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30393,7 +30458,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],190:[function(require,module,exports){
+},{"react":165}],191:[function(require,module,exports){
 var React = require('react');
 
 var PhotoEdit = React.createClass({displayName: "PhotoEdit",
@@ -30423,7 +30488,7 @@ var PhotoEdit = React.createClass({displayName: "PhotoEdit",
 
 module.exports = PhotoEdit;
 
-},{"react":165}],191:[function(require,module,exports){
+},{"react":165}],192:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 
@@ -30442,7 +30507,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"react":165}],192:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"react":165}],193:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -30452,6 +30517,7 @@ var DescriptionEdit = require('./DescriptionEdit.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
+var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
 
 var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
@@ -30461,6 +30527,12 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 			isUrl: false,
 			isDescription: false
 		};
+	},
+
+	updateState: function () {
+		this.setState({
+			profile: CompanyProfileDetailsStore.getCompanyProfileDetails()
+		});
 	},
 
 	showContactDetailsEdit: function () {
@@ -30499,6 +30571,14 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 		});
 	},
 
+	componentDidMount: function () {
+		CompanyProfileDetailsStore.addChangeListener(this.updateState);
+	},
+
+	componentWillUnmount: function () {
+		CompanyProfileDetailsStore.removeChangeListener(this.updateState);
+	},
+
 	render: function () {
 		return (
 			React.createElement("div", {className: "container-fluid"}, 
@@ -30512,7 +30592,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4 col-xs-offset-3"}, 
-						React.createElement("h2", null, "Company Name")
+						React.createElement("h2", null, CompanyProfileDetailsStore.getCompanyProfileDetails().name)
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
@@ -30520,12 +30600,12 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 						React.createElement("div", {className: "container"}, 
 							React.createElement("div", {className: "row"}, 
 								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, "Address")
+									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().address1, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address2, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address3, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().city, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().postcode)
 								)
 							), 
 							React.createElement("div", {className: "row"}, 
 								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, "Phone")
+									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number)
 								)
 							), 
 							React.createElement("div", {className: "row"}, 
@@ -30545,7 +30625,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 						React.createElement("div", {className: "container"}, 
 							React.createElement("div", {className: "row"}, 
 								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("a", {className: "btn btn-info", href: "#", role: "button"}, "Company Home Page")
+									React.createElement("a", {type: "submit", className: "btn btn-info", href: CompanyProfileDetailsStore.getCompanyProfileDetails().url, target: "_blank", role: "button"}, "Company Home Page")
 								)
 							), 
 							React.createElement("div", {className: "row"}, 
@@ -30558,7 +30638,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "container"}, 
 						React.createElement("div", {className: "row"}, 
-							React.createElement("p", null, "Company Description")
+							React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().description)
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
@@ -30648,7 +30728,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../EmployerNavbar.jsx":176,"./ContactDetailsEdit.jsx":193,"./DeleteButton.jsx":194,"./DeleteModal.jsx":195,"./DescriptionEdit.jsx":196,"./EditButton.jsx":197,"./UrlEdit.jsx":202,"react":165}],193:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/CompanyProfileDetailsStore.js":224,"../EmployerNavbar.jsx":177,"./ContactDetailsEdit.jsx":194,"./DeleteButton.jsx":195,"./DeleteModal.jsx":196,"./DescriptionEdit.jsx":197,"./EditButton.jsx":198,"./UrlEdit.jsx":203,"react":165}],194:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30682,7 +30762,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],194:[function(require,module,exports){
+},{"react":165}],195:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30705,7 +30785,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":195,"react":165,"react-dom":9}],195:[function(require,module,exports){
+},{"./DeleteModal.jsx":196,"react":165,"react-dom":9}],196:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30729,7 +30809,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":198,"./ModalFooter.jsx":199,"./ModalHeader.jsx":200,"react":165}],196:[function(require,module,exports){
+},{"./ModalBody.jsx":199,"./ModalFooter.jsx":200,"./ModalHeader.jsx":201,"react":165}],197:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30758,7 +30838,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],197:[function(require,module,exports){
+},{"react":165}],198:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30771,7 +30851,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],198:[function(require,module,exports){
+},{"react":165}],199:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30786,7 +30866,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],199:[function(require,module,exports){
+},{"react":165}],200:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30804,7 +30884,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":201,"./YesButton.jsx":203,"react":165}],200:[function(require,module,exports){
+},{"./NoButton.jsx":202,"./YesButton.jsx":204,"react":165}],201:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30822,7 +30902,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],201:[function(require,module,exports){
+},{"react":165}],202:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30835,7 +30915,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],202:[function(require,module,exports){
+},{"react":165}],203:[function(require,module,exports){
 var React = require('react');
 
 var UrlEdit = React.createClass({displayName: "UrlEdit",
@@ -30864,7 +30944,7 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 
 module.exports = UrlEdit;
 
-},{"react":165}],203:[function(require,module,exports){
+},{"react":165}],204:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 
@@ -30883,7 +30963,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"react":165}],204:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"react":165}],205:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
@@ -30948,14 +31028,16 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":170,"../EmployerNavbar.jsx":176,"react":165}],205:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":171,"../EmployerNavbar.jsx":177,"react":165}],206:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 	handleCompanyProfileClickEvent: function () {
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		EmployerLandingPageActionCreators.changeToCompanyProfile();
 	},
 
@@ -31005,7 +31087,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":171,"../EmployerNavbar.jsx":176,"react":165}],206:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":227,"../EmployerNavbar.jsx":177,"react":165}],207:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31053,7 +31135,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 
 module.exports = ArchSignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":172,"../MainButton.jsx":177,"react":165}],207:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":178,"react":165}],208:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
 var HashID = require('../../services/HashID.js');
@@ -31121,7 +31203,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 module.exports = ArchSignUpForm;
 
-},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":172,"../../services/HashID.js":221,"./ArchaeologistProfileDetails.jsx":208,"react":165}],208:[function(require,module,exports){
+},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":222,"./ArchaeologistProfileDetails.jsx":209,"react":165}],209:[function(require,module,exports){
 var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({displayName: "ArchaeologistProfileDetails",
@@ -31141,7 +31223,7 @@ var ArchaeologistProfileDetails = React.createClass({displayName: "Archaeologist
 
 module.exports = ArchaeologistProfileDetails;
 
-},{"react":165}],209:[function(require,module,exports){
+},{"react":165}],210:[function(require,module,exports){
 var React = require('react');
 
 var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetails",
@@ -31161,7 +31243,7 @@ var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetai
 
 module.exports = CompanyProfileDetails;
 
-},{"react":165}],210:[function(require,module,exports){
+},{"react":165}],211:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31209,15 +31291,17 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 
 module.exports = CompanySignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":172,"../MainButton.jsx":177,"react":165}],211:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":178,"react":165}],212:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
+var HashID = require('../../services/HashID.js');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
+var CompanySignUpFormActionCreators = require('../../actions/CompanySignUpFormActionCreators.js');
 
 var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 	companyFormValues: {
-
+		id: HashID.generate()
 	},
 
 	handleInputChange: function(name, input) {
@@ -31233,6 +31317,8 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 		this.props.handleCompanySignUpForm();
 		this.props.handleCompanySignUpFormSubmit(email, password, this.companyFormValues);
+
+		CompanySignUpFormActionCreators.setUserId(this.companyFormValues.id);
 
 		LandingPageActionCreators.changeToEmployerLandingPage();
 	},
@@ -31266,7 +31352,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 module.exports = CompanySignUpForm;
 
-},{"../../actions/LandingPageActionCreators.js":172,"./CompanyProfileDetails.jsx":209,"react":165}],212:[function(require,module,exports){
+},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":222,"./CompanyProfileDetails.jsx":210,"react":165}],213:[function(require,module,exports){
 var React = require('react');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
@@ -31384,7 +31470,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 				return;
 			}
 
-			this.setUserAuthenticationToken(response.token);
+			TokenActionCreators.setUserAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
@@ -31408,7 +31494,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 						return;
 					}
 
-					this.setUserAuthenticationToken(response.token);
+					TokenActionCreators.setUserAuthenticationToken(response.token);
 					console.log('YES!');
 				}.bind(this));
 			}.bind(this));
@@ -31448,7 +31534,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../actions/TokenActionCreators.js":173,"../../services/Authentication.js":220,"../MainButton.jsx":177,"./ArchSignInForm.jsx":206,"./ArchSignUpForm.jsx":207,"./CompanySignInForm.jsx":210,"./CompanySignUpForm.jsx":211,"react":165}],213:[function(require,module,exports){
+},{"../../actions/TokenActionCreators.js":174,"../../services/Authentication.js":221,"../MainButton.jsx":178,"./ArchSignInForm.jsx":207,"./ArchSignUpForm.jsx":208,"./CompanySignInForm.jsx":211,"./CompanySignUpForm.jsx":212,"react":165}],214:[function(require,module,exports){
 var React = require('react');
 
 var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
@@ -31514,7 +31600,7 @@ var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
 
 module.exports = AdvancedSearch;
 
-},{"react":165}],214:[function(require,module,exports){
+},{"react":165}],215:[function(require,module,exports){
 var React = require('react');
 
 var BasicSearch = React.createClass({displayName: "BasicSearch",
@@ -31567,7 +31653,7 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"react":165}],215:[function(require,module,exports){
+},{"react":165}],216:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
@@ -31623,7 +31709,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../EmployerNavbar.jsx":176,"../thumbnail/Thumbnail.jsx":216,"./AdvancedSearch.jsx":213,"./BasicSearch.jsx":214,"react":165}],216:[function(require,module,exports){
+},{"../EmployerNavbar.jsx":177,"../thumbnail/Thumbnail.jsx":217,"./AdvancedSearch.jsx":214,"./BasicSearch.jsx":215,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -31659,7 +31745,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":224,"./ThumbnailCaption.jsx":217,"./ThumbnailImage.jsx":218,"react":165}],217:[function(require,module,exports){
+},{"../../stores/SearchStore.js":226,"./ThumbnailCaption.jsx":218,"./ThumbnailImage.jsx":219,"react":165}],218:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -31678,7 +31764,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 
 module.exports = ThumbnailCaption;
 
-},{"react":165}],218:[function(require,module,exports){
+},{"react":165}],219:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
@@ -31691,12 +31777,12 @@ var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 
 module.exports = ThumbnailImage;
 
-},{"react":165}],219:[function(require,module,exports){
+},{"react":165}],220:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],220:[function(require,module,exports){
+},{"flux":4}],221:[function(require,module,exports){
 var jQuery = require('jquery');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -31708,7 +31794,7 @@ var API_ENDPOINTS = {
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
   GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  GET_COMPANY: '/api/companies?token=',
+  GET_COMPANY: '/api/companies/id?token=',
   UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
@@ -31798,6 +31884,7 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
 
 function createCompanyProfile(companyFormValues, handleResponse) {
   var data = {
+    id: companyFormValues.id,
     name: companyFormValues.name,
     address1: companyFormValues.address1,
     address2: companyFormValues.address2,
@@ -31861,7 +31948,7 @@ function getCompanyProfile(token, id, handleResponse) {
   });
 }
 
-function updateArchaeologistProfile(token, id, handleResponse) {
+function updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'patch',
@@ -31943,7 +32030,7 @@ module.exports = {
 };
 
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],221:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],222:[function(require,module,exports){
 'use strict';
 
 /**
@@ -32015,7 +32102,7 @@ HashID.generateUnique = function(previous) {
 
 module.exports = HashID;
 
-},{}],222:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32027,6 +32114,11 @@ function setArchaeologistProfile(profile) {
 	console.log(profile);
 	archaeologistProfile = profile;
 	console.log(archaeologistProfile);
+	ArchProfileDetailsStore.emit('change');
+}
+
+function updateArchaeologistProfile(profileUpdate) {
+	archaeologistProfile = profileUpdate;
 	ArchProfileDetailsStore.emit('change');
 }
 
@@ -32048,6 +32140,8 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
 		setArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-profile-details') {
+		updateArchaeologistProfile(action.data);
 	}
 }
 
@@ -32055,7 +32149,45 @@ ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],223:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],224:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher.js');
+var EventEmitter = require('events').EventEmitter;
+var objectAssign = require('object-assign');
+var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageActionCreators.js');
+
+var companyProfile = {};
+
+function setCompanyProfile(profile) {
+	companyProfile = profile;
+	CompanyProfileDetailsStore.emit('change');
+}
+
+var CompanyProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
+
+	getCompanyProfileDetails: function () {
+		return companyProfile;
+	},
+
+	addChangeListener: function (changeEventHandler) {
+		this.on('change', changeEventHandler);
+	},
+
+	removeChangeListener: function (changeEventHandler) {
+		this.removeListener('change', changeEventHandler);
+	}
+});
+
+function handleAction(action) {
+	if (action.type === 'get-company-profile-details') {
+		setCompanyProfile(action.data);
+	}
+}
+
+CompanyProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = CompanyProfileDetailsStore;
+
+},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],225:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32144,7 +32276,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],224:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],226:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32176,7 +32308,7 @@ var SearchStore = objectAssign({}, EventEmitter.prototype, {
 
 module.exports = SearchStore;
 
-},{"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}],225:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],227:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32227,4 +32359,4 @@ SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SignInDetailsStore;
 
-},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":173,"../dispatcher/Dispatcher.js":219,"events":2,"object-assign":8}]},{},[1]);
+},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":174,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}]},{},[1]);

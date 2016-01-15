@@ -1,11 +1,13 @@
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
+var HashID = require('../../services/HashID.js');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
+var CompanySignUpFormActionCreators = require('../../actions/CompanySignUpFormActionCreators.js');
 
 var CompanySignUpForm = React.createClass({
 
 	companyFormValues: {
-
+		id: HashID.generate()
 	},
 
 	handleInputChange: function(name, input) {
@@ -21,6 +23,8 @@ var CompanySignUpForm = React.createClass({
 
 		this.props.handleCompanySignUpForm();
 		this.props.handleCompanySignUpFormSubmit(email, password, this.companyFormValues);
+
+		CompanySignUpFormActionCreators.setUserId(this.companyFormValues.id);
 
 		LandingPageActionCreators.changeToEmployerLandingPage();
 	},

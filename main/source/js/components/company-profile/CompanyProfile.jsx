@@ -7,6 +7,7 @@ var DescriptionEdit = require('./DescriptionEdit.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
+var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
 
 var CompanyProfile = React.createClass({
 
@@ -16,6 +17,12 @@ var CompanyProfile = React.createClass({
 			isUrl: false,
 			isDescription: false
 		};
+	},
+
+	updateState: function () {
+		this.setState({
+			profile: CompanyProfileDetailsStore.getCompanyProfileDetails()
+		});
 	},
 
 	showContactDetailsEdit: function () {
@@ -54,6 +61,14 @@ var CompanyProfile = React.createClass({
 		});
 	},
 
+	componentDidMount: function () {
+		CompanyProfileDetailsStore.addChangeListener(this.updateState);
+	},
+
+	componentWillUnmount: function () {
+		CompanyProfileDetailsStore.removeChangeListener(this.updateState);
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -67,7 +82,7 @@ var CompanyProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-3">
-						<h2>Company Name</h2>
+						<h2>{CompanyProfileDetailsStore.getCompanyProfileDetails().name}</h2>
 					</div>
 				</div>
 				<div className="row">
@@ -75,12 +90,12 @@ var CompanyProfile = React.createClass({
 						<div className="container">
 							<div className="row">
 								<div className="col-xs-4">
-									<p>Address</p>
+									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().address1}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address2}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address3}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().city}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().postcode}</p>
 								</div>
 							</div>
 							<div className="row">
 								<div className="col-xs-4">
-									<p>Phone</p>
+									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number}</p>
 								</div>
 							</div>
 							<div className="row">
@@ -100,7 +115,7 @@ var CompanyProfile = React.createClass({
 						<div className="container">
 							<div className="row">
 								<div className="col-xs-4">
-									<a className="btn btn-info" href="#" role="button">Company Home Page</a>
+									<a type="submit" className="btn btn-info" href={CompanyProfileDetailsStore.getCompanyProfileDetails().url} target="_blank" role="button">Company Home Page</a>
 								</div>
 							</div>
 							<div className="row">
@@ -113,7 +128,7 @@ var CompanyProfile = React.createClass({
 				<div className="row">
 					<div className="container">
 						<div className="row">
-							<p>Company Description</p>
+							<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().description}</p>
 						</div>
 						<div className="row">
 							<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />

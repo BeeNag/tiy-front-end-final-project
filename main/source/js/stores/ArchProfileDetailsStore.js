@@ -12,6 +12,11 @@ function setArchaeologistProfile(profile) {
 	ArchProfileDetailsStore.emit('change');
 }
 
+function updateArchaeologistProfile(profileUpdate) {
+	archaeologistProfile = profileUpdate;
+	ArchProfileDetailsStore.emit('change');
+}
+
 var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getArchaeologistProfileDetails: function () {
@@ -30,6 +35,8 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
 		setArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-profile-details') {
+		updateArchaeologistProfile(action.data);
 	}
 }
 

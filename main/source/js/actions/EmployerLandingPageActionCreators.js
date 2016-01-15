@@ -1,4 +1,5 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {
@@ -40,10 +41,28 @@ function changeToSearch() {
 	Dispatcher.dispatch(action);
 }
 
+function getCompanyProfile(token, id) {
+
+	Authentication.getCompanyProfile(token, id, function handleGetCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'get-company-profile-details',
+			data: response
+		};
+
+		Dispatcher.dispatch(action);
+	});
+}
+
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
 	changeToEmployerLandingPage: changeToEmployerLandingPage,
 	changeToCompanyProfile: changeToCompanyProfile,
 	changeToCreateExcavation: changeToCreateExcavation,
-	changeToSearch: changeToSearch
+	changeToSearch: changeToSearch,
+	getCompanyProfile: getCompanyProfile
 };
