@@ -165,10 +165,21 @@ function getCompanyProfile(token, id, handleResponse) {
 
 function updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, handleResponse) {
 
+  var data = {
+    address1: address1,
+    address2: address2,
+    address3: address3,
+    city: city,
+    postcode: postcode,
+    home_phone_number: home_phone_number,
+    mobile_phone_number: mobile_phone_number
+  }
+
   var request = jQuery.ajax({
     method: 'patch',
     url: HOST_NAME + API_ENDPOINTS.UPDATE_ARCHAEOLOGIST.replace('id', id) + token,
-    dataType: 'json'
+    dataType: 'json',
+    data: data
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {

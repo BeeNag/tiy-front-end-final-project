@@ -22,6 +22,8 @@ function updateArchProfile(address1, address2, address3, city, postcode, home_ph
 			data: response
 		};
 
+		console.log(response);
+
 		Dispatcher.dispatch(action);
 
 	});
