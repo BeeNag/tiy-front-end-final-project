@@ -9,16 +9,54 @@ function changeToLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
-function updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
+function updateArchProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
 
-	Authentication.updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, function handleUpdateArchaeologistProfile(error, response) {
+	Authentication.updateArchaeologistProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, function handleUpdateArchaeologistProfile(error, response) {
 		if (error) {
 			console.log('No no no');
 			return;
 		}
 
 		var action = {
-			type: 'update-archaeologist-profile-details',
+			type: 'update-archaeologist-contact-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateArchProfileSpecialismAndExperienceDetails(specialism, experience, token, id) {
+
+	Authentication.updateArchaeologistProfileSpecialismAndExperienceDetails(specialism, experience, token, id, function handleUpdateArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-archaeologist-specialism-and-experience-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateArchProfileDescriptionDetails(description, token, id) {
+
+	Authentication.updateArchaeologistProfileDescriptionDetails(description, token, id, function handleUpdateArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-archaeologist-description-details',
 			data: response
 		};
 
@@ -46,6 +84,8 @@ function deleteArchProfile(token, id) {
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
-	updateArchProfile: updateArchProfile,
+	updateArchProfileContactDetails: updateArchProfileContactDetails,
+	updateArchProfileSpecialismAndExperienceDetails: updateArchProfileSpecialismAndExperienceDetails,
+	updateArchProfileDescriptionDetails: updateArchProfileDescriptionDetails,
 	deleteArchProfile: deleteArchProfile
 };

@@ -78,7 +78,15 @@ var ArchaeologistProfile = React.createClass({
 	},
 
 	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
-		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchaeologistProfileActionCreators.updateArchProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateSpecialismAndExperienceDetails: function (experience, specialism, token, id) {
+		ArchaeologistProfileActionCreators.updateArchProfileSpecialismAndExperienceDetails(experience, specialism, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateDescriptionDetails: function (description, token, id) {
+		ArchaeologistProfileActionCreators.updateArchProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
 	componentDidMount: function () {
@@ -156,7 +164,7 @@ var ArchaeologistProfile = React.createClass({
 						<div className="row">
 							<div className="col-xs-1">
 								<EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} />
-								{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} /> : null }
+								{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
 							</div>
 						</div>
 					</div>
@@ -165,7 +173,7 @@ var ArchaeologistProfile = React.createClass({
 					<div className="container">
 						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</p>
 						<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
-						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} /> : null }
+						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
 					</div>
 				</div>
 				<div className="row">

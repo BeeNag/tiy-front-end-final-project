@@ -29546,16 +29546,54 @@ function changeToLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
-function updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
+function updateArchProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
 
-	Authentication.updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, function handleUpdateArchaeologistProfile(error, response) {
+	Authentication.updateArchaeologistProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, function handleUpdateArchaeologistProfile(error, response) {
 		if (error) {
 			console.log('No no no');
 			return;
 		}
 
 		var action = {
-			type: 'update-archaeologist-profile-details',
+			type: 'update-archaeologist-contact-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateArchProfileSpecialismAndExperienceDetails(specialism, experience, token, id) {
+
+	Authentication.updateArchaeologistProfileSpecialismAndExperienceDetails(specialism, experience, token, id, function handleUpdateArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-archaeologist-specialism-and-experience-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateArchProfileDescriptionDetails(description, token, id) {
+
+	Authentication.updateArchaeologistProfileDescriptionDetails(description, token, id, function handleUpdateArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-archaeologist-description-details',
 			data: response
 		};
 
@@ -29583,7 +29621,9 @@ function deleteArchProfile(token, id) {
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
-	updateArchProfile: updateArchProfile,
+	updateArchProfileContactDetails: updateArchProfileContactDetails,
+	updateArchProfileSpecialismAndExperienceDetails: updateArchProfileSpecialismAndExperienceDetails,
+	updateArchProfileDescriptionDetails: updateArchProfileDescriptionDetails,
 	deleteArchProfile: deleteArchProfile
 };
 
@@ -30086,7 +30126,15 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 	},
 
 	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id) {
-		ArchaeologistProfileActionCreators.updateArchProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchaeologistProfileActionCreators.updateArchProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateSpecialismAndExperienceDetails: function (experience, specialism, token, id) {
+		ArchaeologistProfileActionCreators.updateArchProfileSpecialismAndExperienceDetails(experience, specialism, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateDescriptionDetails: function (description, token, id) {
+		ArchaeologistProfileActionCreators.updateArchProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
 	componentDidMount: function () {
@@ -30164,7 +30212,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-1"}, 
 								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}), 
-								 this.state.isExperienceAndSpecialism ? React.createElement(ExperienceAndSpecialismEdit, {handleExperienceAndSpecialismEditForm: this.hideExperienceAndSpecialismEdit}) : null
+								 this.state.isExperienceAndSpecialism ? React.createElement(ExperienceAndSpecialismEdit, {handleExperienceAndSpecialismEditForm: this.hideExperienceAndSpecialismEdit, handleExperienceAndSpecialismEditFormSubmit: this.handleUpdateSpecialismAndExperienceDetails}) : null
 							)
 						)
 					)
@@ -30173,7 +30221,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 					React.createElement("div", {className: "container"}, 
 						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
 						React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
-						 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit}) : null
+						 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
@@ -30324,7 +30372,11 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 	handleDescriptionEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var description = this.refs.description.value;
+
 		this.props.handleDescriptionEditForm();
+		this.props.handleDescriptionEditFormSubmit(description);
 	},
 
 	render: function () {
@@ -30334,7 +30386,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleDescriptionEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Your Contact Details"), 
-	        				React.createElement("textarea", {className: "form-control input pass", placeholder: "Update your description", rows: "5", maxLength: "250"}), 
+	        				React.createElement("input", {type: "text", className: "form-control input pass", placeholder: "Update your description", ref: "description"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -30366,7 +30418,12 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 
       handleExperienceAndSpecialismEditFormSubmit: function (submitEvent) {
             submitEvent.preventDefault();
+
+            var experience = this.refs.experience.value;
+            var specialism = this.refs.specialism.value;
+
             this.props.handleExperienceAndSpecialismEditForm();
+            this.props.handleExperienceAndSpecialismEditFormSubmit(experience, specialism);
       },
 
 	render: function () {
@@ -30376,32 +30433,8 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleExperienceAndSpecialismEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Your Specialism and/or Experience"), 
-	        				React.createElement("select", {className: "form-control input pass"}, 
-            					React.createElement("option", null, "Experience"), 
-            					React.createElement("option", null, "0-1"), 
-            					React.createElement("option", null, "1-2"), 
-            					React.createElement("option", null, "2-5"), 
-            					React.createElement("option", null, "5+")
-            				), 
-            				React.createElement("select", {className: "form-control input pass"}, 
-            					React.createElement("option", null, "Specialism"), 
-            					React.createElement("option", null, "Bioarchaeology"), 
-            					React.createElement("option", null, "Osteoarchaeology"), 
-            					React.createElement("option", null, "Classical Archaeology"), 
-            					React.createElement("option", null, "Egyptology"), 
-            					React.createElement("option", null, "Environmental Archaeology"), 
-            					React.createElement("option", null, "Field Archaeology"), 
-            					React.createElement("option", null, "Forensic Archaeology"), 
-            					React.createElement("option", null, "Heritage"), 
-            					React.createElement("option", null, "Historical Archaeology"), 
-            					React.createElement("option", null, "Medieval Archaeology"), 
-            					React.createElement("option", null, "Landscape Archaeology"), 
-            					React.createElement("option", null, "GIS (Geographical Information Systems)"), 
-            					React.createElement("option", null, "Maritime Archaeology"), 
-            					React.createElement("option", null, "Museums/Curatorship"), 
-            					React.createElement("option", null, "Buildings Archaeology"), 
-            					React.createElement("option", null, "Funerary Archaeology")
-            				), 
+	        				React.createElement("input", {type: "number", placeholder: "Experience", className: "form-control input pass", ref: "experience"}), 
+                                    React.createElement("input", {type: "text", placeholder: "Specialism", className: "form-control input pass", ref: "specialism"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -31969,7 +32002,7 @@ function getCompanyProfile(token, id, handleResponse) {
   });
 }
 
-function updateArchaeologistProfile(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, handleResponse) {
+function updateArchaeologistProfileContactDetails(address1, address2, address3, city, postcode, home_phone_number, mobile_phone_number, token, id, handleResponse) {
 
   var data = {
     address1: address1,
@@ -31979,6 +32012,51 @@ function updateArchaeologistProfile(address1, address2, address3, city, postcode
     postcode: postcode,
     home_phone_number: home_phone_number,
     mobile_phone_number: mobile_phone_number
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateArchaeologistProfileSpecialismAndExperienceDetails(specialism, experience, token, id, handleResponse) {
+
+  var data = {
+    specialism: specialism,
+    experience: experience
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_ARCHAEOLOGIST.replace('id', id) + token,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateArchaeologistProfileDescriptionDetails(description, token, id, handleResponse) {
+
+  var data = {
+    description: description
   }
 
   var request = jQuery.ajax({
@@ -32055,7 +32133,9 @@ module.exports = {
   createCompanyProfile:createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
   getCompanyProfile: getCompanyProfile,
-  updateArchaeologistProfile: updateArchaeologistProfile,
+  updateArchaeologistProfileContactDetails: updateArchaeologistProfileContactDetails,
+  updateArchaeologistProfileSpecialismAndExperienceDetails: updateArchaeologistProfileSpecialismAndExperienceDetails,
+  updateArchaeologistProfileDescriptionDetails: updateArchaeologistProfileDescriptionDetails,
   updateCompanyProfile: updateCompanyProfile,
   deleteArchaeologistProfile: deleteArchaeologistProfile,
   deleteCompanyProfile: deleteCompanyProfile
@@ -32176,7 +32256,11 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
 		setArchaeologistProfile(action.data);
-	} else if (action.type === 'update-archaeologist-profile-details') {
+	} else if (action.type === 'update-archaeologist-contact-details') {
+		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-specialism-and-experience-details') {
+		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-description-details') {
 		updateArchaeologistProfile(action.data);
 	} else if (action.type === 'delete-archaeologist-profile') {
 		deleteArchaeologistProfile();

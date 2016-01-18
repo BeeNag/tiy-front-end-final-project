@@ -39,7 +39,11 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-archaeologist-profile-details') {
 		setArchaeologistProfile(action.data);
-	} else if (action.type === 'update-archaeologist-profile-details') {
+	} else if (action.type === 'update-archaeologist-contact-details') {
+		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-specialism-and-experience-details') {
+		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'update-archaeologist-description-details') {
 		updateArchaeologistProfile(action.data);
 	} else if (action.type === 'delete-archaeologist-profile') {
 		deleteArchaeologistProfile();
