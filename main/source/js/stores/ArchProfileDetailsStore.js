@@ -17,6 +17,10 @@ function updateArchaeologistProfile(profileUpdate) {
 	ArchProfileDetailsStore.emit('change');
 }
 
+function deleteArchaeologistProfile() {
+	archaeologistProfile = {};
+}
+
 var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getArchaeologistProfileDetails: function () {
@@ -37,6 +41,8 @@ function handleAction(action) {
 		setArchaeologistProfile(action.data);
 	} else if (action.type === 'update-archaeologist-profile-details') {
 		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'delete-archaeologist-profile') {
+		deleteArchaeologistProfile();
 	}
 }
 

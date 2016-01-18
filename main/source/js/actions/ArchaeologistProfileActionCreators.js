@@ -25,11 +25,27 @@ function updateArchProfile(address1, address2, address3, city, postcode, home_ph
 		console.log(response);
 
 		Dispatcher.dispatch(action);
+	});
+}
 
+function deleteArchProfile(token, id) {
+
+	Authentication.deleteArchaeologistProfile(token, id, function handleDeleteArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'delete-archaeologist-profile',
+		};
+
+		Dispatcher.dispatch(action);
 	});
 }
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
-	updateArchProfile: updateArchProfile
+	updateArchProfile: updateArchProfile,
+	deleteArchProfile: deleteArchProfile
 };

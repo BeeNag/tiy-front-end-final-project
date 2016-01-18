@@ -1,9 +1,11 @@
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var YesButton = React.createClass({
 
 	handleDeleteClickEvent: function () {
+		ArchaeologistProfileActionCreators.deleteArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		ArchaeologistProfileActionCreators.changeToLandingPage();
 	},
 

@@ -29562,13 +29562,29 @@ function updateArchProfile(address1, address2, address3, city, postcode, home_ph
 		console.log(response);
 
 		Dispatcher.dispatch(action);
+	});
+}
 
+function deleteArchProfile(token, id) {
+
+	Authentication.deleteArchaeologistProfile(token, id, function handleDeleteArchaeologistProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'delete-archaeologist-profile',
+		};
+
+		Dispatcher.dispatch(action);
 	});
 }
 
 module.exports = {
 	changeToLandingPage: changeToLandingPage,
-	updateArchProfile: updateArchProfile
+	updateArchProfile: updateArchProfile,
+	deleteArchProfile: deleteArchProfile
 };
 
 },{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],169:[function(require,module,exports){
@@ -30494,10 +30510,12 @@ module.exports = PhotoEdit;
 },{"react":165}],192:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var YesButton = React.createClass({displayName: "YesButton",
 
 	handleDeleteClickEvent: function () {
+		ArchaeologistProfileActionCreators.deleteArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		ArchaeologistProfileActionCreators.changeToLandingPage();
 	},
 
@@ -30510,7 +30528,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"react":165}],193:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":227,"react":165}],193:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -32136,6 +32154,10 @@ function updateArchaeologistProfile(profileUpdate) {
 	ArchProfileDetailsStore.emit('change');
 }
 
+function deleteArchaeologistProfile() {
+	archaeologistProfile = {};
+}
+
 var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getArchaeologistProfileDetails: function () {
@@ -32156,6 +32178,8 @@ function handleAction(action) {
 		setArchaeologistProfile(action.data);
 	} else if (action.type === 'update-archaeologist-profile-details') {
 		updateArchaeologistProfile(action.data);
+	} else if (action.type === 'delete-archaeologist-profile') {
+		deleteArchaeologistProfile();
 	}
 }
 
