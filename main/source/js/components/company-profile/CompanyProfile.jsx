@@ -8,6 +8,8 @@ var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var Authentication = require('../../services/Authentication.js');
 
 var CompanyProfile = React.createClass({
 
@@ -61,6 +63,18 @@ var CompanyProfile = React.createClass({
 		});
 	},
 
+	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, phone_number, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateUrl: function (url, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileUrl(url, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateDescriptionDetails: function (description, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
 	},
@@ -105,7 +119,7 @@ var CompanyProfile = React.createClass({
 							</div>
 							<div className="row">
 								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
-								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} /> : null }
+								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
 							</div>
 						</div>
 					</div>
@@ -120,7 +134,7 @@ var CompanyProfile = React.createClass({
 							</div>
 							<div className="row">
 								<EditButton label="Edit" handleButtonClick={this.showUrlEdit} />
-								{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} /> : null }
+								{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null }
 							</div>
 						</div>
 					</div>
@@ -132,7 +146,7 @@ var CompanyProfile = React.createClass({
 						</div>
 						<div className="row">
 							<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
-							{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} /> : null }
+							{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
 						</div>
 					</div>
 				</div>

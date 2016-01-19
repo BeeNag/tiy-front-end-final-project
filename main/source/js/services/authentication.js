@@ -236,12 +236,66 @@ function updateArchaeologistProfileDescriptionDetails(description, token, id, ha
   });
 }
 
-function updateCompanyProfile(token, id, handleResponse) {
+function updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, token, id, handleResponse) {
+
+   var data = {
+    address1: address1,
+    address2: address2,
+    address3: address3,
+    city: city,
+    postcode: postcode,
+    phone_number: phone_number
+  }
 
   var request = jQuery.ajax({
     method: 'patch',
     url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
-    dataType: 'json'
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateCompanyProfileUrlDetails(url, token, id, handleResponse) {
+
+   var data = {
+    url: url
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateCompanyProfileDesriptionDetails(description, token, id, handleResponse) {
+
+   var data = {
+    description: description
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json',
+    data: data
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -297,7 +351,9 @@ module.exports = {
   updateArchaeologistProfileContactDetails: updateArchaeologistProfileContactDetails,
   updateArchaeologistProfileSpecialismAndExperienceDetails: updateArchaeologistProfileSpecialismAndExperienceDetails,
   updateArchaeologistProfileDescriptionDetails: updateArchaeologistProfileDescriptionDetails,
-  updateCompanyProfile: updateCompanyProfile,
+  updateCompanyProfileContactDetails: updateCompanyProfileContactDetails,
+  updateCompanyProfileUrlDetails: updateCompanyProfileUrlDetails,
+  updateCompanyProfileDesriptionDetails: updateCompanyProfileDesriptionDetails,
   deleteArchaeologistProfile: deleteArchaeologistProfile,
   deleteCompanyProfile: deleteCompanyProfile
 };

@@ -1,9 +1,11 @@
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var YesButton = React.createClass({
 
 	handleDeleteClickEvent: function () {
+		CompanyProfileActionCreators.deleteCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		CompanyProfileActionCreators.changeToLandingPage();
 	},
 

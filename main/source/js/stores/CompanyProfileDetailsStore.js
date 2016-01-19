@@ -10,6 +10,15 @@ function setCompanyProfile(profile) {
 	CompanyProfileDetailsStore.emit('change');
 }
 
+function updateCompanyProfile(profileUpdate) {
+	companyProfile = profileUpdate;
+	CompanyProfileDetailsStore.emit('change');
+}
+
+function deleteCompanyProfile() {
+	companyProfile = {};
+}
+
 var CompanyProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getCompanyProfileDetails: function () {
@@ -28,6 +37,14 @@ var CompanyProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-company-profile-details') {
 		setCompanyProfile(action.data);
+	} else if (action.type === 'update-company-contact-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'update-company-url-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'update-company-description-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'delete-company-profile') {
+		deleteCompanyProfile();
 	}
 }
 

@@ -29629,6 +29629,7 @@ module.exports = {
 
 },{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var Authentication = require('../services/Authentication.js');
 
 function changeToLandingPage() {
 	var action = {
@@ -29638,11 +29639,86 @@ function changeToLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
+function updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, token, id) {
+	Authentication.updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, token, id, function handleUpdateCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-company-contact-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateCompanyProfileUrl(url, token, id) {
+	Authentication.updateCompanyProfileUrlDetails(url, token, id, function handleUpdateCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-company-url-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function updateCompanyProfileDescriptionDetails(description, token, id) {
+	Authentication.updateCompanyProfileDesriptionDetails(description, token, id, function handleUpdateCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'update-company-description-details',
+			data: response
+		};
+
+		console.log(response);
+
+		Dispatcher.dispatch(action);
+	});
+}
+
+function deleteCompanyProfile(token, id) {
+
+	Authentication.deleteCompanyProfile(token, id, function handleDeleteCompanyProfile(error, response) {
+		if (error) {
+			console.log('No no no');
+			return;
+		}
+
+		var action = {
+			type: 'delete-company-profile',
+		};
+
+		Dispatcher.dispatch(action);
+	});
+}
+
 module.exports = {
-	changeToLandingPage: changeToLandingPage
+	changeToLandingPage: changeToLandingPage,
+	updateCompanyProfileContactDetails: updateCompanyProfileContactDetails,
+	updateCompanyProfileUrl: updateCompanyProfileUrl,
+	updateCompanyProfileDescriptionDetails: updateCompanyProfileDescriptionDetails,
+	deleteCompanyProfile: deleteCompanyProfile
+
 };
 
-},{"../dispatcher/Dispatcher.js":220}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -30572,6 +30648,8 @@ var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var Authentication = require('../../services/Authentication.js');
 
 var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
@@ -30625,6 +30703,18 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 		});
 	},
 
+	handleUpdateContactDetails: function (address1, address2, address3, city, postcode, phone_number, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateUrl: function (url, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileUrl(url, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	handleUpdateDescriptionDetails: function (description, token, id) {
+		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
 	},
@@ -30669,7 +30759,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 							), 
 							React.createElement("div", {className: "row"}, 
 								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}), 
-								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit}) : null
+								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null
 							)
 						)
 					)
@@ -30684,7 +30774,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 							), 
 							React.createElement("div", {className: "row"}, 
 								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showUrlEdit}), 
-								 this.state.isUrl ? React.createElement(UrlEdit, {handleUrlEditForm: this.hideUrlEdit}) : null
+								 this.state.isUrl ? React.createElement(UrlEdit, {handleUrlEditForm: this.hideUrlEdit, handleUrlEditFormSubmit: this.handleUpdateUrl}) : null
 							)
 						)
 					)
@@ -30696,7 +30786,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
-							 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit}) : null
+							 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
 						)
 					)
 				), 
@@ -30782,14 +30872,23 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/CompanyProfileDetailsStore.js":224,"../EmployerNavbar.jsx":177,"./ContactDetailsEdit.jsx":194,"./DeleteButton.jsx":195,"./DeleteModal.jsx":196,"./DescriptionEdit.jsx":197,"./EditButton.jsx":198,"./UrlEdit.jsx":203,"react":165}],194:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":221,"../../stores/CompanyProfileDetailsStore.js":224,"../../stores/SignInDetailsStore.js":227,"../EmployerNavbar.jsx":177,"./ContactDetailsEdit.jsx":194,"./DeleteButton.jsx":195,"./DeleteModal.jsx":196,"./DescriptionEdit.jsx":197,"./EditButton.jsx":198,"./UrlEdit.jsx":203,"react":165}],194:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 	handleContactDetailsEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var address1 = this.refs.address1.value;
+		var address2 = this.refs.address2.value;
+		var address3 = this.refs.address3.value;
+		var city = this.refs.city.value;
+		var postcode = this.refs.postcode.value;
+		var phone_number = this.refs.phone_number.value;
+
 		this.props.handleContactDetailsEditForm();
+		this.props.handleContactDetailsEditFormSubmit(address1, address2, address3, city, postcode, phone_number);
 	},
 
 	render: function () {
@@ -30799,12 +30898,12 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleContactDetailsEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Your Contact Details"), 
-	        				React.createElement("input", {type: "address", placeholder: "Address Line 1", className: "form-control input pass"}), 
-							React.createElement("input", {type: "address", placeholder: "Address Line 2", className: "form-control input pass"}), 
-							React.createElement("input", {type: "address", placeholder: "Address Line 3", className: "form-control input pass"}), 
-							React.createElement("input", {type: "text", placeholder: "City", className: "form-control input pass"}), 
-							React.createElement("input", {type: "postcode", placeholder: "Postcode", className: "form-control input pass"}), 
-							React.createElement("input", {type: "text", placeholder: "Enter Phone Number", className: "form-control input pass", "data-format": "(+44)ddd ddd dddd"}), 
+	        				React.createElement("input", {type: "address", placeholder: "Address Line 1", className: "form-control input pass", ref: "address1"}), 
+							React.createElement("input", {type: "address", placeholder: "Address Line 2", className: "form-control input pass", ref: "address2"}), 
+							React.createElement("input", {type: "address", placeholder: "Address Line 3", className: "form-control input pass", ref: "address3"}), 
+							React.createElement("input", {type: "text", placeholder: "City", className: "form-control input pass", ref: "city"}), 
+							React.createElement("input", {type: "postcode", placeholder: "Postcode", className: "form-control input pass", ref: "postcode"}), 
+							React.createElement("input", {type: "text", placeholder: "Enter Phone Number", className: "form-control input pass", "data-format": "(+44)ddd ddd dddd", ref: "phone_number"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -30870,7 +30969,11 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 	handleDescriptionEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var description = this.refs.description.value;
+
 		this.props.handleDescriptionEditForm();
+		this.props.handleDescriptionEditFormSubmit(description);
 	},
 
 	render: function () {
@@ -30880,7 +30983,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleDescriptionEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Your Contact Details"), 
-	        				React.createElement("textarea", {className: "form-control input pass", placeholder: "Update your description", rows: "5", maxLength: "250"}), 
+	        				React.createElement("input", {type: "text", className: "form-control input pass", placeholder: "Update your description", ref: "description"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -30976,7 +31079,11 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 
 	handleUrlEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var url = this.refs.url.value;
+
 		this.props.handleUrlEditForm();
+		this.props.handleUrlEditFormSubmit(url);
 	},
 
 	render: function () {
@@ -30986,7 +31093,7 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "update", method: "post", action: "/update", onSubmit: this.handleUrlEditFormSubmit}, 
 	        				React.createElement("h1", null, "Update Company Home Page URL"), 
-	        				React.createElement("input", {type: "url", placeholder: "Update Company Home Page URL", className: "form-control input pass"}), 
+	        				React.createElement("input", {type: "url", placeholder: "Update Company Home Page URL", className: "form-control input pass", ref: "url"}), 
     						React.createElement("input", {type: "submit", value: "Update", className: "form-control inputButton"})
 	      				)
 	    			)
@@ -31001,10 +31108,12 @@ module.exports = UrlEdit;
 },{"react":165}],204:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var YesButton = React.createClass({displayName: "YesButton",
 
 	handleDeleteClickEvent: function () {
+		CompanyProfileActionCreators.deleteCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		CompanyProfileActionCreators.changeToLandingPage();
 	},
 
@@ -31017,7 +31126,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"react":165}],205:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":227,"react":165}],205:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
@@ -32075,12 +32184,66 @@ function updateArchaeologistProfileDescriptionDetails(description, token, id, ha
   });
 }
 
-function updateCompanyProfile(token, id, handleResponse) {
+function updateCompanyProfileContactDetails(address1, address2, address3, city, postcode, phone_number, token, id, handleResponse) {
+
+   var data = {
+    address1: address1,
+    address2: address2,
+    address3: address3,
+    city: city,
+    postcode: postcode,
+    phone_number: phone_number
+  }
 
   var request = jQuery.ajax({
     method: 'patch',
     url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
-    dataType: 'json'
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateCompanyProfileUrlDetails(url, token, id, handleResponse) {
+
+   var data = {
+    url: url
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function updateCompanyProfileDesriptionDetails(description, token, id, handleResponse) {
+
+   var data = {
+    description: description
+  }
+
+  var request = jQuery.ajax({
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.UPDATE_COMPANY.replace('id', id) + token,
+    dataType: 'json',
+    data: data
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -32136,7 +32299,9 @@ module.exports = {
   updateArchaeologistProfileContactDetails: updateArchaeologistProfileContactDetails,
   updateArchaeologistProfileSpecialismAndExperienceDetails: updateArchaeologistProfileSpecialismAndExperienceDetails,
   updateArchaeologistProfileDescriptionDetails: updateArchaeologistProfileDescriptionDetails,
-  updateCompanyProfile: updateCompanyProfile,
+  updateCompanyProfileContactDetails: updateCompanyProfileContactDetails,
+  updateCompanyProfileUrlDetails: updateCompanyProfileUrlDetails,
+  updateCompanyProfileDesriptionDetails: updateCompanyProfileDesriptionDetails,
   deleteArchaeologistProfile: deleteArchaeologistProfile,
   deleteCompanyProfile: deleteCompanyProfile
 };
@@ -32284,6 +32449,15 @@ function setCompanyProfile(profile) {
 	CompanyProfileDetailsStore.emit('change');
 }
 
+function updateCompanyProfile(profileUpdate) {
+	companyProfile = profileUpdate;
+	CompanyProfileDetailsStore.emit('change');
+}
+
+function deleteCompanyProfile() {
+	companyProfile = {};
+}
+
 var CompanyProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 	getCompanyProfileDetails: function () {
@@ -32302,6 +32476,14 @@ var CompanyProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'get-company-profile-details') {
 		setCompanyProfile(action.data);
+	} else if (action.type === 'update-company-contact-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'update-company-url-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'update-company-description-details') {
+		updateCompanyProfile(action.data);
+	} else if (action.type === 'delete-company-profile') {
+		deleteCompanyProfile();
 	}
 }
 

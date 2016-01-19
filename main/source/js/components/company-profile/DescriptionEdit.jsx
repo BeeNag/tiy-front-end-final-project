@@ -4,7 +4,11 @@ var DescriptionEdit = React.createClass({
 
 	handleDescriptionEditFormSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
+
+		var description = this.refs.description.value;
+
 		this.props.handleDescriptionEditForm();
+		this.props.handleDescriptionEditFormSubmit(description);
 	},
 
 	render: function () {
@@ -14,7 +18,7 @@ var DescriptionEdit = React.createClass({
 	    			<div id="logbox">
 	      				<form id="update" method="post" action="/update" onSubmit={this.handleDescriptionEditFormSubmit}>
 	        				<h1>Update Your Contact Details</h1>
-	        				<textarea className="form-control input pass" placeholder="Update your description" rows="5" maxLength="250"></textarea>
+	        				<input type="text" className="form-control input pass" placeholder="Update your description" ref="description"></input>
     						<input type="submit" value="Update" className="form-control inputButton"></input>
 	      				</form>
 	    			</div>
