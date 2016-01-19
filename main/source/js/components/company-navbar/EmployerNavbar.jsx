@@ -1,5 +1,7 @@
 var React = require('react');
-var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageActionCreators.js');
+var Button = require('./Button.jsx');
+var Link = require('./Link.jsx');
+var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 
 var EmployerNavbar = React.createClass({
 
@@ -41,12 +43,12 @@ var EmployerNavbar = React.createClass({
 						    </div>
 						    <div className="collapse navbar-collapse" id="landing-page-nav">
 						    	<ul className="nav navbar-nav">
-						    		<button onClick={this.handleHomeClickEvent} type="button" className="btn btn-default navbar-btn pull-left">HOME</button>
-						    		<button onClick={this.handleViewCompanyProfileClickEvent} type="button" className="btn btn-default navbar-btn">View Company Profile</button>
-						    		<button onClick={this.handleSearchClickEvent} type="button" className="btn btn-default navbar-btn">Search</button>
-						    		<a onClick={this.handleSavedProfilesClickEvent} className="btn btn-default navbar-btn" href="#saved-profiles" role="button">Saved Profiles</a>
-						    		<button onClick={this.handleCreateExcavationClickEvent} type="button" className="btn btn-default navbar-btn">Create Excavation</button>
-							        <button onClick={this.handleSignOutClickEvent} type="button" className="btn btn-default navbar-btn pull-right">Sign Out</button>
+						    		<Button type="button" className="btn btn-default navbar-btn pull-left" handleButtonClick={this.handleHomeClickEvent} label="HOME" />
+						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewCompanyProfileClickEvent} label="View Company Profile" />
+						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleSearchClickEvent} label="Search" />
+						    		<Link role="button" href="#saved-profiles" className="btn btn-default navbar-btn" handleButtonClick={this.handleSavedProfilesClickEvent} label="Saved Profiles" />
+						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleCreateExcavationClickEvent} label="Create Excavation" />
+							        <Button type="button" className="btn btn-default navbar-btn pull-right" handleButtonClick={this.handleSignOutClickEvent} label="Sign Out" />
 							    </ul>
 							</div>
 						</div>

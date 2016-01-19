@@ -1,5 +1,5 @@
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 

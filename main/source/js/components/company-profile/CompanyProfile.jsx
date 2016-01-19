@@ -1,5 +1,5 @@
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var UrlEdit = require('./UrlEdit.jsx');

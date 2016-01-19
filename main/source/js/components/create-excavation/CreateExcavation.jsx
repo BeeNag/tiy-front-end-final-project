@@ -1,5 +1,5 @@
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 
 var CreateExcavation = React.createClass({

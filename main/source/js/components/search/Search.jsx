@@ -1,5 +1,5 @@
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
 var AdvancedSearch = require('./AdvancedSearch.jsx');
 var Thumbnail = require('../thumbnail/Thumbnail.jsx');

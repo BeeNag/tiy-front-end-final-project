@@ -1,5 +1,5 @@
 var React = require('react');
-var ArchNavbar = require('../ArchNavbar.jsx');
+var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 

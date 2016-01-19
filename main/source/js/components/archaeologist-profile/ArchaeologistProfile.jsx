@@ -1,5 +1,5 @@
 var React = require('react');
-var ArchNavbar = require('../ArchNavbar.jsx');
+var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');

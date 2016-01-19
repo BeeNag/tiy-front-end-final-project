@@ -1,5 +1,7 @@
 var React = require('react');
-var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
+var Button = require('./Button.jsx');
+var Link = require('./Link.jsx');
+var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 
 var ArchNavbar = React.createClass({
 
@@ -37,11 +39,11 @@ var ArchNavbar = React.createClass({
 						    </div>
 						    <div className="collapse navbar-collapse" id="landing-page-nav">
 						    	<ul className="nav navbar-nav">
-						    		<button onClick={this.handleHomeClickEvent} type="button" className="btn btn-default navbar-btn pull-left">HOME</button>
-						    		<button onClick={this.handleViewProfileClickEvent} type="button" className="btn btn-default navbar-btn">View Your Profile</button>
-						    		<a onClick={this.handleViewArchaeologistsClickEvent} className="btn btn-default navbar-btn" href="#view-archaeologists" role="button">Archaeologists Near You</a>
-						    		<a onClick={this.handleViewExcavationsClickEvent} className="btn btn-default navbar-btn" href="#view-excavations" role="button">Excavations Near You</a>
-							        <button onClick={this.handleSignOutClickEvent} type="button" className="btn btn-default navbar-btn pull-right">Sign Out</button>
+						    		<Button type="button" className="btn btn-default navbar-btn pull-left" handleButtonClick={this.handleHomeClickEvent} label="HOME" />
+						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewProfileClickEvent} label="View Your Profile" />
+						    		<Link role="button" href="#view-archaeologists" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewArchaeologistsClickEvent} label="Archaeologists Near You" />
+						    		<Link role="button" href="#view-excavations" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewExcavationsClickEvent} label="Excavations Near You" />
+							        <Button type="button" className="btn btn-default navbar-btn pull-right" handleButtonClick={this.handleSignOutClickEvent} label="Sign Out" />
 							    </ul>
 							</div>
 						</div>

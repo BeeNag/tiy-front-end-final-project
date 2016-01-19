@@ -29518,7 +29518,7 @@ module.exports = {
 	getArchProfile: getArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],167:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],167:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29534,7 +29534,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":220}],168:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224}],168:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29627,7 +29627,7 @@ module.exports = {
 	deleteArchProfile: deleteArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29718,7 +29718,7 @@ module.exports = {
 
 };
 
-},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29734,7 +29734,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":220}],171:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224}],171:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToCompanyProfile() {
@@ -29749,7 +29749,7 @@ module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":220}],172:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224}],172:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29819,7 +29819,7 @@ module.exports = {
 	getCompanyProfile: getCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":220,"../services/Authentication.js":221}],173:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],173:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToArchLandingPage() {
@@ -29845,7 +29845,7 @@ module.exports = {
 
 
 
-},{"../dispatcher/Dispatcher.js":220}],174:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserAuthenticationToken(token) {
@@ -29861,7 +29861,7 @@ module.exports = {
 	setUserAuthenticationToken: setUserAuthenticationToken,
 };
 
-},{"../dispatcher/Dispatcher.js":220}],175:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224}],175:[function(require,module,exports){
 var React = require('react');
 var PageStateStore = require('../stores/PageStateStore.js');
 var ArchLandingPage = require('./arch-landing-page/ArchLandingPage.jsx');
@@ -29935,122 +29935,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":225,"./arch-landing-page/ArchLandingPage.jsx":179,"./archaeologist-profile/ArchaeologistProfile.jsx":180,"./company-profile/CompanyProfile.jsx":193,"./create-excavation/CreateExcavation.jsx":205,"./employer-landing-page/EmployerLandingPage.jsx":206,"./landing-page/LandingPage.jsx":213,"./search/Search.jsx":216,"react":165}],176:[function(require,module,exports){
-var React = require('react');
-var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
-
-var ArchNavbar = React.createClass({displayName: "ArchNavbar",
-
-	handleHomeClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchLandingPage();
-	},
-
-	handleViewProfileClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewArchaeologistsClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewExcavationsClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleSignOutClickEvent: function () {
-		ArchLandingPageActionCreators.changeToLandingPage();
-	},
-
-	render: function () {
-		return (
-			React.createElement("nav", {className: "navbar navbar-inverse"}, 
-			  			React.createElement("div", {className: "container-fluid"}, 
-						    React.createElement("div", {className: "navbar-header"}, 
-						      React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#landing-page-nav", "aria-expanded": "false"}, 
-						        React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-						        React.createElement("span", {className: "icon-bar"}), 
-						        React.createElement("span", {className: "icon-bar"}), 
-						        React.createElement("span", {className: "icon-bar"})
-						      )
-						    ), 
-						    React.createElement("div", {className: "collapse navbar-collapse", id: "landing-page-nav"}, 
-						    	React.createElement("ul", {className: "nav navbar-nav"}, 
-						    		React.createElement("button", {onClick: this.handleHomeClickEvent, type: "button", className: "btn btn-default navbar-btn pull-left"}, "HOME"), 
-						    		React.createElement("button", {onClick: this.handleViewProfileClickEvent, type: "button", className: "btn btn-default navbar-btn"}, "View Your Profile"), 
-						    		React.createElement("a", {onClick: this.handleViewArchaeologistsClickEvent, className: "btn btn-default navbar-btn", href: "#view-archaeologists", role: "button"}, "Archaeologists Near You"), 
-						    		React.createElement("a", {onClick: this.handleViewExcavationsClickEvent, className: "btn btn-default navbar-btn", href: "#view-excavations", role: "button"}, "Excavations Near You"), 
-							        React.createElement("button", {onClick: this.handleSignOutClickEvent, type: "button", className: "btn btn-default navbar-btn pull-right"}, "Sign Out")
-							    )
-							)
-						)
-					)
-		);
-	}
-});
-
-module.exports = ArchNavbar;
-
-},{"../actions/ArchLandingPageActionCreators.js":166,"react":165}],177:[function(require,module,exports){
-var React = require('react');
-var EmployerLandingPageActionCreators = require('../actions/EmployerLandingPageActionCreators.js');
-
-var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
-
-	handleHomeClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToEmployerLandingPage();
-	},
-
-	handleViewCompanyProfileClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToCompanyProfile();
-	},
-
-	handleSearchClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToSearch();
-	},
-
-	handleSavedProfilesClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToSearch();
-	},
-
-	handleCreateExcavationClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToCreateExcavation();
-	},
-
-	handleSignOutClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToLandingPage();
-	},
-
-	render: function () {
-		return (
-			React.createElement("nav", {className: "navbar navbar-inverse"}, 
-			  			React.createElement("div", {className: "container-fluid"}, 
-						    React.createElement("div", {className: "navbar-header"}, 
-						      React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#landing-page-nav", "aria-expanded": "false"}, 
-						        React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-						        React.createElement("span", {className: "icon-bar"}), 
-						        React.createElement("span", {className: "icon-bar"}), 
-						        React.createElement("span", {className: "icon-bar"})
-						      )
-						    ), 
-						    React.createElement("div", {className: "collapse navbar-collapse", id: "landing-page-nav"}, 
-						    	React.createElement("ul", {className: "nav navbar-nav"}, 
-						    		React.createElement("button", {onClick: this.handleHomeClickEvent, type: "button", className: "btn btn-default navbar-btn pull-left"}, "HOME"), 
-						    		React.createElement("button", {onClick: this.handleViewCompanyProfileClickEvent, type: "button", className: "btn btn-default navbar-btn"}, "View Company Profile"), 
-						    		React.createElement("button", {onClick: this.handleSearchClickEvent, type: "button", className: "btn btn-default navbar-btn"}, "Search"), 
-						    		React.createElement("a", {onClick: this.handleSavedProfilesClickEvent, className: "btn btn-default navbar-btn", href: "#saved-profiles", role: "button"}, "Saved Profiles"), 
-						    		React.createElement("button", {onClick: this.handleCreateExcavationClickEvent, type: "button", className: "btn btn-default navbar-btn"}, "Create Excavation"), 
-							        React.createElement("button", {onClick: this.handleSignOutClickEvent, type: "button", className: "btn btn-default navbar-btn pull-right"}, "Sign Out")
-							    )
-							)
-						)
-					)
-		);
-	}
-});
-
-module.exports = EmployerNavbar;
-
-},{"../actions/EmployerLandingPageActionCreators.js":172,"react":165}],178:[function(require,module,exports){
+},{"../stores/PageStateStore.js":229,"./arch-landing-page/ArchLandingPage.jsx":177,"./archaeologist-profile/ArchaeologistProfile.jsx":181,"./company-profile/CompanyProfile.jsx":197,"./create-excavation/CreateExcavation.jsx":209,"./employer-landing-page/EmployerLandingPage.jsx":210,"./landing-page/LandingPage.jsx":217,"./search/Search.jsx":220,"react":165}],176:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -30063,9 +29948,9 @@ var MainButton = React.createClass({displayName: "MainButton",
 
 module.exports = MainButton;
 
-},{"react":165}],179:[function(require,module,exports){
+},{"react":165}],177:[function(require,module,exports){
 var React = require('react');
-var ArchNavbar = require('../ArchNavbar.jsx');
+var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
@@ -30121,9 +30006,92 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":227,"../ArchNavbar.jsx":176,"react":165}],180:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":231,"../arch-navbar/ArchNavbar.jsx":178,"react":165}],178:[function(require,module,exports){
 var React = require('react');
-var ArchNavbar = require('../ArchNavbar.jsx');
+var Button = require('./Button.jsx');
+var Link = require('./Link.jsx');
+var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+
+var ArchNavbar = React.createClass({displayName: "ArchNavbar",
+
+	handleHomeClickEvent: function () {
+		ArchLandingPageActionCreators.changeToArchLandingPage();
+	},
+
+	handleViewProfileClickEvent: function () {
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
+
+	handleViewArchaeologistsClickEvent: function () {
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
+
+	handleViewExcavationsClickEvent: function () {
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+	},
+
+	handleSignOutClickEvent: function () {
+		ArchLandingPageActionCreators.changeToLandingPage();
+	},
+
+	render: function () {
+		return (
+			React.createElement("nav", {className: "navbar navbar-inverse"}, 
+			  			React.createElement("div", {className: "container-fluid"}, 
+						    React.createElement("div", {className: "navbar-header"}, 
+						      React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#landing-page-nav", "aria-expanded": "false"}, 
+						        React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+						        React.createElement("span", {className: "icon-bar"}), 
+						        React.createElement("span", {className: "icon-bar"}), 
+						        React.createElement("span", {className: "icon-bar"})
+						      )
+						    ), 
+						    React.createElement("div", {className: "collapse navbar-collapse", id: "landing-page-nav"}, 
+						    	React.createElement("ul", {className: "nav navbar-nav"}, 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-left", handleButtonClick: this.handleHomeClickEvent, label: "HOME"}), 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewProfileClickEvent, label: "View Your Profile"}), 
+						    		React.createElement(Link, {role: "button", href: "#view-archaeologists", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewArchaeologistsClickEvent, label: "Archaeologists Near You"}), 
+						    		React.createElement(Link, {role: "button", href: "#view-excavations", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewExcavationsClickEvent, label: "Excavations Near You"}), 
+							        React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-right", handleButtonClick: this.handleSignOutClickEvent, label: "Sign Out"})
+							    )
+							)
+						)
+					)
+		);
+	}
+});
+
+module.exports = ArchNavbar;
+
+},{"../../actions/ArchLandingPageActionCreators.js":166,"./Button.jsx":179,"./Link.jsx":180,"react":165}],179:[function(require,module,exports){
+var React = require('react');
+
+var Button = React.createClass({displayName: "Button",
+	render: function () {
+		return (
+			React.createElement("button", {type: this.props.type, className: this.props.className, onClick: this.props.handleButtonClick}, this.props.label)
+		);
+	}
+});
+
+module.exports = Button;
+
+},{"react":165}],180:[function(require,module,exports){
+var React = require('react');
+
+var Link = React.createClass({displayName: "Link",
+	render: function () {
+		return (
+			React.createElement("a", {role: this.props.role, href: this.props.href, className: this.props.className, onClick: this.props.handleButtonClick}, this.props.label)
+		);
+	}
+});
+
+module.exports = Link;
+
+},{"react":165}],181:[function(require,module,exports){
+var React = require('react');
+var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
@@ -30349,7 +30317,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":221,"../../stores/ArchProfileDetailsStore.js":223,"../../stores/SignInDetailsStore.js":227,"../ArchNavbar.jsx":176,"./ContactDetailsEdit.jsx":181,"./DeleteButton.jsx":182,"./DeleteModal.jsx":183,"./DescriptionEdit.jsx":184,"./EditButton.jsx":185,"./ExperienceAndSpecialismEdit.jsx":186,"./PhotoEdit.jsx":191,"react":165}],181:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":225,"../../stores/ArchProfileDetailsStore.js":227,"../../stores/SignInDetailsStore.js":231,"../arch-navbar/ArchNavbar.jsx":178,"./ContactDetailsEdit.jsx":182,"./DeleteButton.jsx":183,"./DeleteModal.jsx":184,"./DescriptionEdit.jsx":185,"./EditButton.jsx":186,"./ExperienceAndSpecialismEdit.jsx":187,"./PhotoEdit.jsx":192,"react":165}],182:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30394,7 +30362,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],182:[function(require,module,exports){
+},{"react":165}],183:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30417,7 +30385,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":183,"react":165,"react-dom":9}],183:[function(require,module,exports){
+},{"./DeleteModal.jsx":184,"react":165,"react-dom":9}],184:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30441,7 +30409,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":187,"./ModalFooter.jsx":188,"./ModalHeader.jsx":189,"react":165}],184:[function(require,module,exports){
+},{"./ModalBody.jsx":188,"./ModalFooter.jsx":189,"./ModalHeader.jsx":190,"react":165}],185:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30474,7 +30442,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],185:[function(require,module,exports){
+},{"react":165}],186:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30487,7 +30455,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],186:[function(require,module,exports){
+},{"react":165}],187:[function(require,module,exports){
 var React = require('react');
 
 var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAndSpecialismEdit",
@@ -30522,7 +30490,7 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 
 module.exports = ExperienceAndSpecialismEdit;
 
-},{"react":165}],187:[function(require,module,exports){
+},{"react":165}],188:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30537,7 +30505,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],188:[function(require,module,exports){
+},{"react":165}],189:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30555,7 +30523,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":190,"./YesButton.jsx":192,"react":165}],189:[function(require,module,exports){
+},{"./NoButton.jsx":191,"./YesButton.jsx":193,"react":165}],190:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30573,7 +30541,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],190:[function(require,module,exports){
+},{"react":165}],191:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30586,7 +30554,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],191:[function(require,module,exports){
+},{"react":165}],192:[function(require,module,exports){
 var React = require('react');
 
 var PhotoEdit = React.createClass({displayName: "PhotoEdit",
@@ -30616,7 +30584,7 @@ var PhotoEdit = React.createClass({displayName: "PhotoEdit",
 
 module.exports = PhotoEdit;
 
-},{"react":165}],192:[function(require,module,exports){
+},{"react":165}],193:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -30637,9 +30605,97 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":227,"react":165}],193:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":231,"react":165}],194:[function(require,module,exports){
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+
+var Button = React.createClass({displayName: "Button",
+	render: function () {
+		return (
+			React.createElement("button", {type: this.props.type, className: this.props.className, onClick: this.props.handleButtonClick}, this.props.label)
+		);
+	}
+});
+
+module.exports = Button;
+
+},{"react":165}],195:[function(require,module,exports){
+var React = require('react');
+var Button = require('./Button.jsx');
+var Link = require('./Link.jsx');
+var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
+
+var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
+
+	handleHomeClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToEmployerLandingPage();
+	},
+
+	handleViewCompanyProfileClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToCompanyProfile();
+	},
+
+	handleSearchClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToSearch();
+	},
+
+	handleSavedProfilesClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToSearch();
+	},
+
+	handleCreateExcavationClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToCreateExcavation();
+	},
+
+	handleSignOutClickEvent: function () {
+		EmployerLandingPageActionCreators.changeToLandingPage();
+	},
+
+	render: function () {
+		return (
+			React.createElement("nav", {className: "navbar navbar-inverse"}, 
+			  			React.createElement("div", {className: "container-fluid"}, 
+						    React.createElement("div", {className: "navbar-header"}, 
+						      React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#landing-page-nav", "aria-expanded": "false"}, 
+						        React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+						        React.createElement("span", {className: "icon-bar"}), 
+						        React.createElement("span", {className: "icon-bar"}), 
+						        React.createElement("span", {className: "icon-bar"})
+						      )
+						    ), 
+						    React.createElement("div", {className: "collapse navbar-collapse", id: "landing-page-nav"}, 
+						    	React.createElement("ul", {className: "nav navbar-nav"}, 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-left", handleButtonClick: this.handleHomeClickEvent, label: "HOME"}), 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewCompanyProfileClickEvent, label: "View Company Profile"}), 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleSearchClickEvent, label: "Search"}), 
+						    		React.createElement(Link, {role: "button", href: "#saved-profiles", className: "btn btn-default navbar-btn", handleButtonClick: this.handleSavedProfilesClickEvent, label: "Saved Profiles"}), 
+						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleCreateExcavationClickEvent, label: "Create Excavation"}), 
+							        React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-right", handleButtonClick: this.handleSignOutClickEvent, label: "Sign Out"})
+							    )
+							)
+						)
+					)
+		);
+	}
+});
+
+module.exports = EmployerNavbar;
+
+},{"../../actions/EmployerLandingPageActionCreators.js":172,"./Button.jsx":194,"./Link.jsx":196,"react":165}],196:[function(require,module,exports){
+var React = require('react');
+
+var Link = React.createClass({displayName: "Link",
+	render: function () {
+		return (
+			React.createElement("a", {role: this.props.role, href: this.props.href, className: this.props.className, onClick: this.props.handleButtonClick}, this.props.label)
+		);
+	}
+});
+
+module.exports = Link;
+
+},{"react":165}],197:[function(require,module,exports){
+var React = require('react');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var UrlEdit = require('./UrlEdit.jsx');
@@ -30872,7 +30928,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":221,"../../stores/CompanyProfileDetailsStore.js":224,"../../stores/SignInDetailsStore.js":227,"../EmployerNavbar.jsx":177,"./ContactDetailsEdit.jsx":194,"./DeleteButton.jsx":195,"./DeleteModal.jsx":196,"./DescriptionEdit.jsx":197,"./EditButton.jsx":198,"./UrlEdit.jsx":203,"react":165}],194:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":225,"../../stores/CompanyProfileDetailsStore.js":228,"../../stores/SignInDetailsStore.js":231,"../company-navbar/EmployerNavbar.jsx":195,"./ContactDetailsEdit.jsx":198,"./DeleteButton.jsx":199,"./DeleteModal.jsx":200,"./DescriptionEdit.jsx":201,"./EditButton.jsx":202,"./UrlEdit.jsx":207,"react":165}],198:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30915,7 +30971,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],195:[function(require,module,exports){
+},{"react":165}],199:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30938,7 +30994,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":196,"react":165,"react-dom":9}],196:[function(require,module,exports){
+},{"./DeleteModal.jsx":200,"react":165,"react-dom":9}],200:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30962,7 +31018,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":199,"./ModalFooter.jsx":200,"./ModalHeader.jsx":201,"react":165}],197:[function(require,module,exports){
+},{"./ModalBody.jsx":203,"./ModalFooter.jsx":204,"./ModalHeader.jsx":205,"react":165}],201:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30995,7 +31051,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],198:[function(require,module,exports){
+},{"react":165}],202:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -31008,7 +31064,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],199:[function(require,module,exports){
+},{"react":165}],203:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -31023,7 +31079,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],200:[function(require,module,exports){
+},{"react":165}],204:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -31041,7 +31097,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":202,"./YesButton.jsx":204,"react":165}],201:[function(require,module,exports){
+},{"./NoButton.jsx":206,"./YesButton.jsx":208,"react":165}],205:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -31059,7 +31115,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],202:[function(require,module,exports){
+},{"react":165}],206:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -31072,7 +31128,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],203:[function(require,module,exports){
+},{"react":165}],207:[function(require,module,exports){
 var React = require('react');
 
 var UrlEdit = React.createClass({displayName: "UrlEdit",
@@ -31105,7 +31161,7 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 
 module.exports = UrlEdit;
 
-},{"react":165}],204:[function(require,module,exports){
+},{"react":165}],208:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -31126,9 +31182,9 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":227,"react":165}],205:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":231,"react":165}],209:[function(require,module,exports){
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 
 var CreateExcavation = React.createClass({displayName: "CreateExcavation",
@@ -31191,9 +31247,9 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":171,"../EmployerNavbar.jsx":177,"react":165}],206:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":171,"../company-navbar/EmployerNavbar.jsx":195,"react":165}],210:[function(require,module,exports){
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
@@ -31250,7 +31306,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":227,"../EmployerNavbar.jsx":177,"react":165}],207:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":231,"../company-navbar/EmployerNavbar.jsx":195,"react":165}],211:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31298,7 +31354,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 
 module.exports = ArchSignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":178,"react":165}],208:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":176,"react":165}],212:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
 var HashID = require('../../services/HashID.js');
@@ -31366,7 +31422,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 module.exports = ArchSignUpForm;
 
-},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":222,"./ArchaeologistProfileDetails.jsx":209,"react":165}],209:[function(require,module,exports){
+},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":226,"./ArchaeologistProfileDetails.jsx":213,"react":165}],213:[function(require,module,exports){
 var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({displayName: "ArchaeologistProfileDetails",
@@ -31386,7 +31442,7 @@ var ArchaeologistProfileDetails = React.createClass({displayName: "Archaeologist
 
 module.exports = ArchaeologistProfileDetails;
 
-},{"react":165}],210:[function(require,module,exports){
+},{"react":165}],214:[function(require,module,exports){
 var React = require('react');
 
 var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetails",
@@ -31406,7 +31462,7 @@ var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetai
 
 module.exports = CompanyProfileDetails;
 
-},{"react":165}],211:[function(require,module,exports){
+},{"react":165}],215:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31454,7 +31510,7 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 
 module.exports = CompanySignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":178,"react":165}],212:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":176,"react":165}],216:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
 var HashID = require('../../services/HashID.js');
@@ -31515,7 +31571,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 module.exports = CompanySignUpForm;
 
-},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":222,"./CompanyProfileDetails.jsx":210,"react":165}],213:[function(require,module,exports){
+},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":226,"./CompanyProfileDetails.jsx":214,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
@@ -31697,7 +31753,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../actions/TokenActionCreators.js":174,"../../services/Authentication.js":221,"../MainButton.jsx":178,"./ArchSignInForm.jsx":207,"./ArchSignUpForm.jsx":208,"./CompanySignInForm.jsx":211,"./CompanySignUpForm.jsx":212,"react":165}],214:[function(require,module,exports){
+},{"../../actions/TokenActionCreators.js":174,"../../services/Authentication.js":225,"../MainButton.jsx":176,"./ArchSignInForm.jsx":211,"./ArchSignUpForm.jsx":212,"./CompanySignInForm.jsx":215,"./CompanySignUpForm.jsx":216,"react":165}],218:[function(require,module,exports){
 var React = require('react');
 
 var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
@@ -31763,7 +31819,7 @@ var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
 
 module.exports = AdvancedSearch;
 
-},{"react":165}],215:[function(require,module,exports){
+},{"react":165}],219:[function(require,module,exports){
 var React = require('react');
 
 var BasicSearch = React.createClass({displayName: "BasicSearch",
@@ -31816,9 +31872,9 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"react":165}],216:[function(require,module,exports){
+},{"react":165}],220:[function(require,module,exports){
 var React = require('react');
-var EmployerNavbar = require('../EmployerNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
 var AdvancedSearch = require('./AdvancedSearch.jsx');
 var Thumbnail = require('../thumbnail/Thumbnail.jsx');
@@ -31872,7 +31928,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../EmployerNavbar.jsx":177,"../thumbnail/Thumbnail.jsx":217,"./AdvancedSearch.jsx":214,"./BasicSearch.jsx":215,"react":165}],217:[function(require,module,exports){
+},{"../company-navbar/EmployerNavbar.jsx":195,"../thumbnail/Thumbnail.jsx":221,"./AdvancedSearch.jsx":218,"./BasicSearch.jsx":219,"react":165}],221:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -31908,7 +31964,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":226,"./ThumbnailCaption.jsx":218,"./ThumbnailImage.jsx":219,"react":165}],218:[function(require,module,exports){
+},{"../../stores/SearchStore.js":230,"./ThumbnailCaption.jsx":222,"./ThumbnailImage.jsx":223,"react":165}],222:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -31927,7 +31983,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 
 module.exports = ThumbnailCaption;
 
-},{"react":165}],219:[function(require,module,exports){
+},{"react":165}],223:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
@@ -31940,12 +31996,12 @@ var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 
 module.exports = ThumbnailImage;
 
-},{"react":165}],220:[function(require,module,exports){
+},{"react":165}],224:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],221:[function(require,module,exports){
+},{"flux":4}],225:[function(require,module,exports){
 var jQuery = require('jquery');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -32307,7 +32363,7 @@ module.exports = {
 };
 
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],222:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],226:[function(require,module,exports){
 'use strict';
 
 /**
@@ -32379,7 +32435,7 @@ HashID.generateUnique = function(previous) {
 
 module.exports = HashID;
 
-},{}],223:[function(require,module,exports){
+},{}],227:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32436,7 +32492,7 @@ ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],224:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],228:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32491,7 +32547,7 @@ CompanyProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = CompanyProfileDetailsStore;
 
-},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],225:[function(require,module,exports){
+},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],229:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32580,7 +32636,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],226:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],230:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32612,7 +32668,7 @@ var SearchStore = objectAssign({}, EventEmitter.prototype, {
 
 module.exports = SearchStore;
 
-},{"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}],227:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],231:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32663,4 +32719,4 @@ SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SignInDetailsStore;
 
-},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":174,"../dispatcher/Dispatcher.js":220,"events":2,"object-assign":8}]},{},[1]);
+},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":174,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}]},{},[1]);
