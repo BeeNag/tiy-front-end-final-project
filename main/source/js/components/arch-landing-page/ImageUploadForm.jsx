@@ -44,7 +44,7 @@ var ImageUploadForm = React.createClass({
 	render: function () {
 		return (
 			<div className="container form">
-				<div className="col-xs-6">
+				<div className="col-xs-offset-3 col-xs-6">
 	    			<div id="logbox">
 						<form className="upload-picture-form" action="http://localhost:8383/images/upload" method="post" encType="mulitpart/form-data">
 							<div>

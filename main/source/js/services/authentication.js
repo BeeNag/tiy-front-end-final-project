@@ -4,7 +4,6 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
-  // SIGN_UP: '/api/users',
   ARCHAEOLOGIST_LOG_IN: '/api/archaeologists/authenticate',
   COMPANY_LOG_IN: '/api/companies/authenticate',
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
@@ -16,29 +15,6 @@ var API_ENDPOINTS = {
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   DELETE_COMPANY: '/api/companies/id?token='
 };
-
-// function signUp(email, password, handleResponse) {
-
-//   var data = {
-//     email: email,
-//     password: password
-//   };
-
-//   var request = jQuery.ajax({
-//     method: 'post',
-//     url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
-//     dataType: 'json',
-//     data: data
-//   });
-
-//   request.fail(function (jqXHR, textStatus, errorThrown) {
-//     handleResponse(jqXHR, null);
-//   });
-
-//   request.done(function () {
-//     handleResponse(null, data);
-//   });
-// }
 
 function archaeologistSignIn(email, password, handleResponse) {
 

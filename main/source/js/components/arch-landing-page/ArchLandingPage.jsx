@@ -1,9 +1,22 @@
 var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
+var ImageUploadForm = require('./ImageUploadForm.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ArchLandingPage = React.createClass({
+
+	getInitialState: function () {
+		return {
+			isImageUpload: false
+		};
+	},
+
+	handleImageUploadButtonClickEvent: function () {
+		this.setState({
+			isImageUpload: true
+		});
+	},
 
 	handleArchaeologistProfileClickEvent: function () {
 		console.log(SignInDetailsStore.getToken());
@@ -36,9 +49,15 @@ var ArchLandingPage = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-4 col-xs-offset-4">
+					<div className="col-xs-4 col-xs-offset-2">
 						<button onClick={this.handleArchaeologistProfileClickEvent} type="button" className="btn btn-success">View Your Profile</button>
 					</div>
+					<div className="col-xs-4 col-xs-offset-2">
+						<button onClick={this.handleImageUploadButtonClickEvent} type="button" className="btn btn-primary">Upload An Image For Your Profile</button>
+					</div>
+				</div>
+				<div className="row">
+					{ this.state.isImageUpload ? <ImageUploadForm /> : null }
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-2">
