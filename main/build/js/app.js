@@ -29518,7 +29518,7 @@ module.exports = {
 	getArchProfile: getArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],167:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"../services/Authentication.js":226}],167:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29534,7 +29534,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":224}],168:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225}],168:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29627,7 +29627,7 @@ module.exports = {
 	deleteArchProfile: deleteArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"../services/Authentication.js":226}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29718,7 +29718,7 @@ module.exports = {
 
 };
 
-},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"../services/Authentication.js":226}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29734,7 +29734,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":224}],171:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225}],171:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToCompanyProfile() {
@@ -29749,7 +29749,7 @@ module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":224}],172:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225}],172:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29819,7 +29819,7 @@ module.exports = {
 	getCompanyProfile: getCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":224,"../services/Authentication.js":225}],173:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"../services/Authentication.js":226}],173:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToArchLandingPage() {
@@ -29845,7 +29845,7 @@ module.exports = {
 
 
 
-},{"../dispatcher/Dispatcher.js":224}],174:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setArchaeologistAuthenticationToken(token) {
@@ -29871,7 +29871,7 @@ module.exports = {
 	setCompanyAuthenticationToken: setCompanyAuthenticationToken
 };
 
-},{"../dispatcher/Dispatcher.js":224}],175:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225}],175:[function(require,module,exports){
 var React = require('react');
 var PageStateStore = require('../stores/PageStateStore.js');
 var ArchLandingPage = require('./arch-landing-page/ArchLandingPage.jsx');
@@ -29945,7 +29945,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":229,"./arch-landing-page/ArchLandingPage.jsx":177,"./archaeologist-profile/ArchaeologistProfile.jsx":181,"./company-profile/CompanyProfile.jsx":197,"./create-excavation/CreateExcavation.jsx":209,"./employer-landing-page/EmployerLandingPage.jsx":210,"./landing-page/LandingPage.jsx":217,"./search/Search.jsx":220,"react":165}],176:[function(require,module,exports){
+},{"../stores/PageStateStore.js":230,"./arch-landing-page/ArchLandingPage.jsx":177,"./archaeologist-profile/ArchaeologistProfile.jsx":181,"./company-profile/CompanyProfile.jsx":197,"./create-excavation/CreateExcavation.jsx":209,"./employer-landing-page/EmployerLandingPage.jsx":210,"./landing-page/LandingPage.jsx":218,"./search/Search.jsx":221,"react":165}],176:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -30016,7 +30016,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":231,"../arch-navbar/ArchNavbar.jsx":178,"react":165}],178:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":232,"../arch-navbar/ArchNavbar.jsx":178,"react":165}],178:[function(require,module,exports){
 var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
@@ -30327,7 +30327,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":225,"../../stores/ArchProfileDetailsStore.js":227,"../../stores/SignInDetailsStore.js":231,"../arch-navbar/ArchNavbar.jsx":178,"./ContactDetailsEdit.jsx":182,"./DeleteButton.jsx":183,"./DeleteModal.jsx":184,"./DescriptionEdit.jsx":185,"./EditButton.jsx":186,"./ExperienceAndSpecialismEdit.jsx":187,"./PhotoEdit.jsx":192,"react":165}],182:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":226,"../../stores/ArchProfileDetailsStore.js":228,"../../stores/SignInDetailsStore.js":232,"../arch-navbar/ArchNavbar.jsx":178,"./ContactDetailsEdit.jsx":182,"./DeleteButton.jsx":183,"./DeleteModal.jsx":184,"./DescriptionEdit.jsx":185,"./EditButton.jsx":186,"./ExperienceAndSpecialismEdit.jsx":187,"./PhotoEdit.jsx":192,"react":165}],182:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30615,7 +30615,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":231,"react":165}],194:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":232,"react":165}],194:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -30938,7 +30938,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":225,"../../stores/CompanyProfileDetailsStore.js":228,"../../stores/SignInDetailsStore.js":231,"../company-navbar/EmployerNavbar.jsx":195,"./ContactDetailsEdit.jsx":198,"./DeleteButton.jsx":199,"./DeleteModal.jsx":200,"./DescriptionEdit.jsx":201,"./EditButton.jsx":202,"./UrlEdit.jsx":207,"react":165}],198:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":226,"../../stores/CompanyProfileDetailsStore.js":229,"../../stores/SignInDetailsStore.js":232,"../company-navbar/EmployerNavbar.jsx":195,"./ContactDetailsEdit.jsx":198,"./DeleteButton.jsx":199,"./DeleteModal.jsx":200,"./DescriptionEdit.jsx":201,"./EditButton.jsx":202,"./UrlEdit.jsx":207,"react":165}],198:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31192,7 +31192,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":231,"react":165}],209:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":232,"react":165}],209:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
@@ -31316,7 +31316,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":231,"../company-navbar/EmployerNavbar.jsx":195,"react":165}],211:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":232,"../company-navbar/EmployerNavbar.jsx":195,"react":165}],211:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31367,6 +31367,7 @@ module.exports = ArchSignInForm;
 },{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":176,"react":165}],212:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
+var ImageUploadForm = require('./ImageUploadForm.jsx');
 var HashID = require('../../services/HashID.js');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 var ArchSignUpFormActionCreators = require('../../actions/ArchSignUpFormActionCreators.js');
@@ -31398,41 +31399,44 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container form"}, 
-				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
-	    			React.createElement("div", {id: "logbox"}, 
-	      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleArchSignUpFormSubmit}, 
-	        				React.createElement("h1", null, "Create an Account"), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "First Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "first_name"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Last Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "last_name"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "date", placeholder: "Date of Birth", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "date_of_birth"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 1", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address1"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 2", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address2"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 3", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address3"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "City", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "city"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Postcode", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "postcode"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Home Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "home_phone_number"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Mobile Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "mobile_phone_number"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "number", placeholder: "Experience", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "experience"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Specialism", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "specialism"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "CSCS Card", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "cscs_card"}), 
-	        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Description", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "description"}), 
-	        				React.createElement("label", {htmlFor: "upload-picture", className: "upload"}, "Upload a Picture of Yourself"), 
-    			      		React.createElement("input", {type: "file", className: "form-control input pass", id: "upload-picture"}), 
-	        				React.createElement("input", {name: "user[email]", type: "email", placeholder: "Email Address", className: "form-control input pass", ref: "email"}), 
-	        				React.createElement("input", {name: "user[password]", type: "password", placeholder: "Choose a Password", required: "required", className: "form-control input pass", ref: "password"}), 	
-	        				React.createElement("input", {type: "submit", value: "Sign me up!", className: "form-control inputButton"})
-	      				)
-	    			)
+			React.createElement("div", null, 
+				React.createElement("div", null, 
+					React.createElement(ImageUploadForm, null)
+				), 
+				React.createElement("div", {className: "container form"}, 
+					React.createElement("div", {className: "col-xs-6"}, 
+		    			React.createElement("div", {id: "logbox"}, 
+		      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleArchSignUpFormSubmit}, 
+		        				React.createElement("h1", null, "Create an Account"), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "First Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "first_name"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Last Name", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "last_name"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "date", placeholder: "Date of Birth", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "date_of_birth"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 1", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address1"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 2", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address2"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Address Line 3", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "address3"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "City", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "city"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Postcode", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "postcode"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Home Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "home_phone_number"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Mobile Phone Number", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "mobile_phone_number"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "number", placeholder: "Experience", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "experience"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Specialism", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "specialism"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "CSCS Card", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "cscs_card"}), 
+		        				React.createElement(ArchaeologistProfileDetails, {type: "text", placeholder: "Description", className: "form-control input pass", handleInputChange: this.handleInputChange, name: "description"}), 
+		        				React.createElement("input", {name: "user[email]", type: "email", placeholder: "Email Address", className: "form-control input pass", ref: "email"}), 
+		        				React.createElement("input", {name: "user[password]", type: "password", placeholder: "Choose a Password", required: "required", className: "form-control input pass", ref: "password"}), 	
+		        				React.createElement("input", {type: "submit", value: "Sign me up!", className: "form-control inputButton"})
+		      				)
+		    			)
+		   			)
 	   			)
-   			)
+	   		)
 		);
 	}
 });
 
 module.exports = ArchSignUpForm;
 
-},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":226,"./ArchaeologistProfileDetails.jsx":213,"react":165}],213:[function(require,module,exports){
+},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":227,"./ArchaeologistProfileDetails.jsx":213,"./ImageUploadForm.jsx":217,"react":165}],213:[function(require,module,exports){
 var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({displayName: "ArchaeologistProfileDetails",
@@ -31581,7 +31585,74 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 module.exports = CompanySignUpForm;
 
-},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":226,"./CompanyProfileDetails.jsx":214,"react":165}],217:[function(require,module,exports){
+},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":227,"./CompanyProfileDetails.jsx":214,"react":165}],217:[function(require,module,exports){
+var React = require('react');
+
+var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
+
+	componentDidMount: function () {
+		console.log('waaaaah');
+		$(function () {
+
+			var SERVER_URL = 'http://localhost:8383';
+			var IMAGES_UPLOAD_URL = '/api/images/upload/';
+
+			var $fileInputElement = $('input[type="file"]');
+			var $uploadButtonElement = $('[data-upload-file-button]');
+
+			$('form').on('submit', function handleFormSubmit(submitEvent) {
+			    submitEvent.preventDefault();
+
+			    $fileInputElement.simpleUpload(SERVER_URL + IMAGES_UPLOAD_URL, {
+				    start: function handleStart(file) {
+				        // Upload started
+
+				        $uploadButtonElement.prop('disabled', true);
+				    },
+
+				    progress: function handleProgress(progress) {
+				        // Received progress
+				    },
+
+				    success: function handleSuccess(data) {
+				        // Upload successful
+				        $uploadButtonElement.prop('disabled', false);
+				    },
+
+				    error: function handleError(error) {
+				        // Upload failed
+
+				        console.error(error);
+				    }
+			    });
+			});
+		});
+	},
+
+	render: function () {
+		return (
+			React.createElement("div", {className: "container form"}, 
+				React.createElement("div", {className: "col-xs-6"}, 
+	    			React.createElement("div", {id: "logbox"}, 
+						React.createElement("form", {className: "upload-picture-form", action: "http://localhost:8383/images/upload", method: "post", encType: "mulitpart/form-data"}, 
+							React.createElement("div", null, 
+		        				React.createElement("label", {htmlFor: "upload-picture", className: "upload"}, "Upload a Picture of Yourself"), 
+	    			    		React.createElement("input", {type: "file", className: "form-control input pass", id: "upload-picture", name: "image"})
+	    					), 
+	    					React.createElement("div", null, 
+	    			    		React.createElement("input", {type: "submit", className: "btn btn-success btn-block", value: "Upload", "data-upload-file-button": true})
+    			    		)
+    					)
+    				)
+    			)
+    		)
+		);
+	}
+});
+
+module.exports = ImageUploadForm;
+
+},{"react":165}],218:[function(require,module,exports){
 var React = require('react');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
@@ -31748,7 +31819,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../actions/TokenActionCreators.js":174,"../../services/Authentication.js":225,"../MainButton.jsx":176,"./ArchSignInForm.jsx":211,"./ArchSignUpForm.jsx":212,"./CompanySignInForm.jsx":215,"./CompanySignUpForm.jsx":216,"react":165}],218:[function(require,module,exports){
+},{"../../actions/TokenActionCreators.js":174,"../../services/Authentication.js":226,"../MainButton.jsx":176,"./ArchSignInForm.jsx":211,"./ArchSignUpForm.jsx":212,"./CompanySignInForm.jsx":215,"./CompanySignUpForm.jsx":216,"react":165}],219:[function(require,module,exports){
 var React = require('react');
 
 var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
@@ -31814,7 +31885,7 @@ var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
 
 module.exports = AdvancedSearch;
 
-},{"react":165}],219:[function(require,module,exports){
+},{"react":165}],220:[function(require,module,exports){
 var React = require('react');
 
 var BasicSearch = React.createClass({displayName: "BasicSearch",
@@ -31867,7 +31938,7 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"react":165}],220:[function(require,module,exports){
+},{"react":165}],221:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
@@ -31923,7 +31994,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../company-navbar/EmployerNavbar.jsx":195,"../thumbnail/Thumbnail.jsx":221,"./AdvancedSearch.jsx":218,"./BasicSearch.jsx":219,"react":165}],221:[function(require,module,exports){
+},{"../company-navbar/EmployerNavbar.jsx":195,"../thumbnail/Thumbnail.jsx":222,"./AdvancedSearch.jsx":219,"./BasicSearch.jsx":220,"react":165}],222:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -31959,7 +32030,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":230,"./ThumbnailCaption.jsx":222,"./ThumbnailImage.jsx":223,"react":165}],222:[function(require,module,exports){
+},{"../../stores/SearchStore.js":231,"./ThumbnailCaption.jsx":223,"./ThumbnailImage.jsx":224,"react":165}],223:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -31978,7 +32049,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 
 module.exports = ThumbnailCaption;
 
-},{"react":165}],223:[function(require,module,exports){
+},{"react":165}],224:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
@@ -31991,12 +32062,12 @@ var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 
 module.exports = ThumbnailImage;
 
-},{"react":165}],224:[function(require,module,exports){
+},{"react":165}],225:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],225:[function(require,module,exports){
+},{"flux":4}],226:[function(require,module,exports){
 var jQuery = require('jquery');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -32388,7 +32459,7 @@ module.exports = {
 };
 
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],226:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],227:[function(require,module,exports){
 'use strict';
 
 /**
@@ -32460,7 +32531,7 @@ HashID.generateUnique = function(previous) {
 
 module.exports = HashID;
 
-},{}],227:[function(require,module,exports){
+},{}],228:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32517,7 +32588,7 @@ ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],228:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":225,"events":2,"object-assign":8}],229:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32572,7 +32643,7 @@ CompanyProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = CompanyProfileDetailsStore;
 
-},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],229:[function(require,module,exports){
+},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":225,"events":2,"object-assign":8}],230:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32661,7 +32732,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],230:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"events":2,"object-assign":8}],231:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32693,7 +32764,7 @@ var SearchStore = objectAssign({}, EventEmitter.prototype, {
 
 module.exports = SearchStore;
 
-},{"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}],231:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":225,"events":2,"object-assign":8}],232:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32751,4 +32822,4 @@ SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SignInDetailsStore;
 
-},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":174,"../dispatcher/Dispatcher.js":224,"events":2,"object-assign":8}]},{},[1]);
+},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":174,"../dispatcher/Dispatcher.js":225,"events":2,"object-assign":8}]},{},[1]);
