@@ -29848,9 +29848,18 @@ module.exports = {
 },{"../dispatcher/Dispatcher.js":224}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
-function setUserAuthenticationToken(token) {
+function setArchaeologistAuthenticationToken(token) {
 	var action = {
-		type: 'set-user-authentication-token',
+		type: 'set-archaeologist-authentication-token',
+		token: token
+	};
+	console.log(token);
+	Dispatcher.dispatch(action);
+}
+
+function setCompanyAuthenticationToken(token) {
+	var action = {
+		type: 'set-company-authentication-token',
 		token: token
 	};
 	console.log(token);
@@ -29858,7 +29867,8 @@ function setUserAuthenticationToken(token) {
 }
 
 module.exports = {
-	setUserAuthenticationToken: setUserAuthenticationToken,
+	setArchaeologistAuthenticationToken: setArchaeologistAuthenticationToken,
+	setCompanyAuthenticationToken: setCompanyAuthenticationToken
 };
 
 },{"../dispatcher/Dispatcher.js":224}],175:[function(require,module,exports){
@@ -30232,7 +30242,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, "Email")
+								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().email)
 							)
 						), 
 						React.createElement("div", {className: "row"}, 
@@ -30810,7 +30820,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 							), 
 							React.createElement("div", {className: "row"}, 
 								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, "Email")
+									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().email)
 								)
 							), 
 							React.createElement("div", {className: "row"}, 
@@ -31644,78 +31654,63 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 	},
 
 	handleArchSignInFormSubmit: function (email, password) {
-		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+		Authentication.archaeologistSignIn(email, password, function handleUserSignIn(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			TokenActionCreators.setUserAuthenticationToken(response.token);
-			console.log(response.token);
+			TokenActionCreators.setArchaeologistAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
 
 	handleArchSignUpFormSubmit: function (email, password, archFormValues) {
-		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+		Authentication.createArchaeologistProfile(email, password, archFormValues, function handleCreateArchaeologistProfile(error, response) {
 			if (error) {
-				console.log('Dumb Dumb!');
+				console.log('NO!');
 				return;
 			}
 
-			Authentication.createArchaeologistProfile(archFormValues, function handleCreateArchaeologistProfile(error, response) {
+			Authentication.archaeologistSignIn(email, password, function handleUserSignIn(error, response) {
 				if (error) {
-					console.log('NO!');
+					console.log('Dumb Dumb!');
 					return;
 				}
 
-				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
-					if (error) {
-						console.log('Dumb Dumb!');
-						return;
-					}
-
-					TokenActionCreators.setUserAuthenticationToken(response.token);
-					console.log('Success!');
-				}.bind(this));
+				TokenActionCreators.setArchaeologistAuthenticationToken(response.token);
+				console.log('Success!');
 			}.bind(this));
 		}.bind(this));
 	},
 
 	handleCompanySignInFormSubmit: function (email, password) {
-		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+		Authentication.companySignIn(email, password, function handleUserSignIn(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			TokenActionCreators.setUserAuthenticationToken(response.token);
+			TokenActionCreators.setCompanyAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
 
 	handleCompanySignUpFormSubmit: function (email, password, companyFormValues) {
-		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+		Authentication.createCompanyProfile(email, password, companyFormValues, function handleCreateCompanyProfile(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			Authentication.createCompanyProfile(companyFormValues, function handleCreateCompanyProfile(error, response) {
+			Authentication.companySignIn(email, password, function handleUserSignIn(error, response) {
 				if (error) {
-					console.log('NO!');
+					console.log("NO!");
 					return;
 				}
 
-				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
-					if (error) {
-						console.log("NO!");
-						return;
-					}
-
-					TokenActionCreators.setUserAuthenticationToken(response.token);
-					console.log('YES!');
-				}.bind(this));
+				TokenActionCreators.setCompanyAuthenticationToken(response.token);
+				console.log('YES!');
 			}.bind(this));
 		}.bind(this));
 	},
@@ -32008,8 +32003,9 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
-  SIGN_UP: '/api/users',
-  LOG_IN: '/api/users/authenticate',
+  // SIGN_UP: '/api/users',
+  ARCHAEOLOGIST_LOG_IN: '/api/archaeologists/authenticate',
+  COMPANY_LOG_IN: '/api/companies/authenticate',
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
   GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
@@ -32017,10 +32013,33 @@ var API_ENDPOINTS = {
   UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  DELETE_COMPANY: '/api/company/id?token='
+  DELETE_COMPANY: '/api/companies/id?token='
 };
 
-function signUp(email, password, handleResponse) {
+// function signUp(email, password, handleResponse) {
+
+//   var data = {
+//     email: email,
+//     password: password
+//   };
+
+//   var request = jQuery.ajax({
+//     method: 'post',
+//     url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
+//     dataType: 'json',
+//     data: data
+//   });
+
+//   request.fail(function (jqXHR, textStatus, errorThrown) {
+//     handleResponse(jqXHR, null);
+//   });
+
+//   request.done(function () {
+//     handleResponse(null, data);
+//   });
+// }
+
+function archaeologistSignIn(email, password, handleResponse) {
 
   var data = {
     email: email,
@@ -32029,30 +32048,7 @@ function signUp(email, password, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
-    dataType: 'json',
-    data: data
-  });
-
-  request.fail(function (jqXHR, textStatus, errorThrown) {
-    handleResponse(jqXHR, null);
-  });
-
-  request.done(function () {
-    handleResponse(null, data);
-  });
-}
-
-function signIn(email, password, handleResponse) {
-
-  var data = {
-    email: email,
-    password: password
-  };
-
-  var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.LOG_IN,
+    url: HOST_NAME + API_ENDPOINTS.ARCHAEOLOGIST_LOG_IN,
     dataType: 'json',
     data: data
   });
@@ -32066,7 +32062,30 @@ function signIn(email, password, handleResponse) {
   });
 }
 
-function createArchaeologistProfile(archFormValues, handleResponse) {
+function companySignIn(email, password, handleResponse) {
+
+  var data = {
+    email: email,
+    password: password
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.COMPANY_LOG_IN,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function createArchaeologistProfile(email, password, archFormValues, handleResponse) {
   var data = {
     id: archFormValues.id,
     first_name: archFormValues.first_name,
@@ -32082,7 +32101,10 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
     experience: archFormValues.experience,
     specialism: archFormValues.specialism,
     cscs_card: archFormValues.cscs_card,
-    description: archFormValues.description
+    description: archFormValues.description,
+    email: email,
+    password: password,
+    created_at: new Date()
   };
 
   var request = jQuery.ajax({
@@ -32101,7 +32123,7 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
   });
 }
 
-function createCompanyProfile(companyFormValues, handleResponse) {
+function createCompanyProfile(email, password, companyFormValues, handleResponse) {
   var data = {
     id: companyFormValues.id,
     name: companyFormValues.name,
@@ -32112,7 +32134,9 @@ function createCompanyProfile(companyFormValues, handleResponse) {
     postcode: companyFormValues.postcode,
     phone_number: companyFormValues.phone_number,
     url: companyFormValues.url,
-    description: companyFormValues.description
+    description: companyFormValues.description,
+    email: email,
+    password: password
   };
 
   var request = jQuery.ajax({
@@ -32346,10 +32370,11 @@ function deleteCompanyProfile(token, id, handleResponse) {
 }
 
 module.exports = {
-  signIn: signIn,
-  signUp: signUp,
+  archaeologistSignIn: archaeologistSignIn,
+  companySignIn: companySignIn,
+  // signUp: signUp,
   createArchaeologistProfile: createArchaeologistProfile,
-  createCompanyProfile:createCompanyProfile,
+  createCompanyProfile: createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
   getCompanyProfile: getCompanyProfile,
   updateArchaeologistProfileContactDetails: updateArchaeologistProfileContactDetails,
@@ -32678,7 +32703,12 @@ var ArchSignUpFormActionCreators = require('../actions/ArchSignUpFormActionCreat
 var token = null;
 var id = null;
 
-function setUserAuthenticationToken(newToken) {
+function setArchaeologistAuthenticationToken(newToken) {
+	token = newToken;
+	SignInDetailsStore.emit('change');
+}
+
+function setCompanyAuthenticationToken(newToken) {
 	token = newToken;
 	SignInDetailsStore.emit('change');
 }
@@ -32708,8 +32738,10 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction (action) {
-	if (action.type === 'set-user-authentication-token') {
-		setUserAuthenticationToken(action.token);
+	if (action.type === 'set-archaeologist-authentication-token') {
+		setArchaeologistAuthenticationToken(action.token);
+	} else if (action.type === 'set-company-authentication-token') {
+		setCompanyAuthenticationToken(action.token);
 	} else if (action.type === 'set-user-id') {
 		setUserId(action.id);
 	}

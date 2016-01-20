@@ -70,78 +70,63 @@ var LandingPage = React.createClass({
 	},
 
 	handleArchSignInFormSubmit: function (email, password) {
-		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+		Authentication.archaeologistSignIn(email, password, function handleUserSignIn(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			TokenActionCreators.setUserAuthenticationToken(response.token);
-			console.log(response.token);
+			TokenActionCreators.setArchaeologistAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
 
 	handleArchSignUpFormSubmit: function (email, password, archFormValues) {
-		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+		Authentication.createArchaeologistProfile(email, password, archFormValues, function handleCreateArchaeologistProfile(error, response) {
 			if (error) {
-				console.log('Dumb Dumb!');
+				console.log('NO!');
 				return;
 			}
 
-			Authentication.createArchaeologistProfile(archFormValues, function handleCreateArchaeologistProfile(error, response) {
+			Authentication.archaeologistSignIn(email, password, function handleUserSignIn(error, response) {
 				if (error) {
-					console.log('NO!');
+					console.log('Dumb Dumb!');
 					return;
 				}
 
-				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
-					if (error) {
-						console.log('Dumb Dumb!');
-						return;
-					}
-
-					TokenActionCreators.setUserAuthenticationToken(response.token);
-					console.log('Success!');
-				}.bind(this));
+				TokenActionCreators.setArchaeologistAuthenticationToken(response.token);
+				console.log('Success!');
 			}.bind(this));
 		}.bind(this));
 	},
 
 	handleCompanySignInFormSubmit: function (email, password) {
-		Authentication.signIn(email, password, function handleUserSignIn(error, response) {
+		Authentication.companySignIn(email, password, function handleUserSignIn(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			TokenActionCreators.setUserAuthenticationToken(response.token);
+			TokenActionCreators.setCompanyAuthenticationToken(response.token);
 			console.log('YES!');
 		}.bind(this));
 	},
 
 	handleCompanySignUpFormSubmit: function (email, password, companyFormValues) {
-		Authentication.signUp(email, password, function handleUserSignUp(error, response) {
+		Authentication.createCompanyProfile(email, password, companyFormValues, function handleCreateCompanyProfile(error, response) {
 			if (error) {
 				console.log('NO!');
 				return;
 			}
 
-			Authentication.createCompanyProfile(companyFormValues, function handleCreateCompanyProfile(error, response) {
+			Authentication.companySignIn(email, password, function handleUserSignIn(error, response) {
 				if (error) {
-					console.log('NO!');
+					console.log("NO!");
 					return;
 				}
 
-				Authentication.signIn(email, password, function handleUserSignIn(error, response) {
-					if (error) {
-						console.log("NO!");
-						return;
-					}
-
-					TokenActionCreators.setUserAuthenticationToken(response.token);
-					console.log('YES!');
-				}.bind(this));
+				TokenActionCreators.setCompanyAuthenticationToken(response.token);
+				console.log('YES!');
 			}.bind(this));
 		}.bind(this));
 	},

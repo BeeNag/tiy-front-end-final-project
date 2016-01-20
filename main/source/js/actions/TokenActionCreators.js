@@ -1,8 +1,17 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
-function setUserAuthenticationToken(token) {
+function setArchaeologistAuthenticationToken(token) {
 	var action = {
-		type: 'set-user-authentication-token',
+		type: 'set-archaeologist-authentication-token',
+		token: token
+	};
+	console.log(token);
+	Dispatcher.dispatch(action);
+}
+
+function setCompanyAuthenticationToken(token) {
+	var action = {
+		type: 'set-company-authentication-token',
 		token: token
 	};
 	console.log(token);
@@ -10,5 +19,6 @@ function setUserAuthenticationToken(token) {
 }
 
 module.exports = {
-	setUserAuthenticationToken: setUserAuthenticationToken,
+	setArchaeologistAuthenticationToken: setArchaeologistAuthenticationToken,
+	setCompanyAuthenticationToken: setCompanyAuthenticationToken
 };

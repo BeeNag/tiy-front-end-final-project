@@ -7,7 +7,12 @@ var ArchSignUpFormActionCreators = require('../actions/ArchSignUpFormActionCreat
 var token = null;
 var id = null;
 
-function setUserAuthenticationToken(newToken) {
+function setArchaeologistAuthenticationToken(newToken) {
+	token = newToken;
+	SignInDetailsStore.emit('change');
+}
+
+function setCompanyAuthenticationToken(newToken) {
 	token = newToken;
 	SignInDetailsStore.emit('change');
 }
@@ -37,8 +42,10 @@ var SignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction (action) {
-	if (action.type === 'set-user-authentication-token') {
-		setUserAuthenticationToken(action.token);
+	if (action.type === 'set-archaeologist-authentication-token') {
+		setArchaeologistAuthenticationToken(action.token);
+	} else if (action.type === 'set-company-authentication-token') {
+		setCompanyAuthenticationToken(action.token);
 	} else if (action.type === 'set-user-id') {
 		setUserId(action.id);
 	}

@@ -114,7 +114,7 @@ var CompanyProfile = React.createClass({
 							</div>
 							<div className="row">
 								<div className="col-xs-4">
-									<p>Email</p>
+									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().email}</p>
 								</div>
 							</div>
 							<div className="row">

@@ -140,7 +140,7 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-2">
-								<p>Email</p>
+								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().email}</p>
 							</div>
 						</div>
 						<div className="row">

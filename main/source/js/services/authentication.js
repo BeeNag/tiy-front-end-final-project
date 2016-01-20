@@ -4,8 +4,9 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 var HOST_NAME = 'http://localhost:8383';
 
 var API_ENDPOINTS = {
-  SIGN_UP: '/api/users',
-  LOG_IN: '/api/users/authenticate',
+  // SIGN_UP: '/api/users',
+  ARCHAEOLOGIST_LOG_IN: '/api/archaeologists/authenticate',
+  COMPANY_LOG_IN: '/api/companies/authenticate',
   CREATE_ARCHAEOLOGIST: '/api/archaeologists',
   CREATE_COMPANY: '/api/companies',
   GET_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
@@ -13,10 +14,33 @@ var API_ENDPOINTS = {
   UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  DELETE_COMPANY: '/api/company/id?token='
+  DELETE_COMPANY: '/api/companies/id?token='
 };
 
-function signUp(email, password, handleResponse) {
+// function signUp(email, password, handleResponse) {
+
+//   var data = {
+//     email: email,
+//     password: password
+//   };
+
+//   var request = jQuery.ajax({
+//     method: 'post',
+//     url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
+//     dataType: 'json',
+//     data: data
+//   });
+
+//   request.fail(function (jqXHR, textStatus, errorThrown) {
+//     handleResponse(jqXHR, null);
+//   });
+
+//   request.done(function () {
+//     handleResponse(null, data);
+//   });
+// }
+
+function archaeologistSignIn(email, password, handleResponse) {
 
   var data = {
     email: email,
@@ -25,30 +49,7 @@ function signUp(email, password, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.SIGN_UP,
-    dataType: 'json',
-    data: data
-  });
-
-  request.fail(function (jqXHR, textStatus, errorThrown) {
-    handleResponse(jqXHR, null);
-  });
-
-  request.done(function () {
-    handleResponse(null, data);
-  });
-}
-
-function signIn(email, password, handleResponse) {
-
-  var data = {
-    email: email,
-    password: password
-  };
-
-  var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.LOG_IN,
+    url: HOST_NAME + API_ENDPOINTS.ARCHAEOLOGIST_LOG_IN,
     dataType: 'json',
     data: data
   });
@@ -62,7 +63,30 @@ function signIn(email, password, handleResponse) {
   });
 }
 
-function createArchaeologistProfile(archFormValues, handleResponse) {
+function companySignIn(email, password, handleResponse) {
+
+  var data = {
+    email: email,
+    password: password
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.COMPANY_LOG_IN,
+    dataType: 'json',
+    data: data
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function createArchaeologistProfile(email, password, archFormValues, handleResponse) {
   var data = {
     id: archFormValues.id,
     first_name: archFormValues.first_name,
@@ -78,7 +102,10 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
     experience: archFormValues.experience,
     specialism: archFormValues.specialism,
     cscs_card: archFormValues.cscs_card,
-    description: archFormValues.description
+    description: archFormValues.description,
+    email: email,
+    password: password,
+    created_at: new Date()
   };
 
   var request = jQuery.ajax({
@@ -97,7 +124,7 @@ function createArchaeologistProfile(archFormValues, handleResponse) {
   });
 }
 
-function createCompanyProfile(companyFormValues, handleResponse) {
+function createCompanyProfile(email, password, companyFormValues, handleResponse) {
   var data = {
     id: companyFormValues.id,
     name: companyFormValues.name,
@@ -108,7 +135,9 @@ function createCompanyProfile(companyFormValues, handleResponse) {
     postcode: companyFormValues.postcode,
     phone_number: companyFormValues.phone_number,
     url: companyFormValues.url,
-    description: companyFormValues.description
+    description: companyFormValues.description,
+    email: email,
+    password: password
   };
 
   var request = jQuery.ajax({
@@ -342,10 +371,11 @@ function deleteCompanyProfile(token, id, handleResponse) {
 }
 
 module.exports = {
-  signIn: signIn,
-  signUp: signUp,
+  archaeologistSignIn: archaeologistSignIn,
+  companySignIn: companySignIn,
+  // signUp: signUp,
   createArchaeologistProfile: createArchaeologistProfile,
-  createCompanyProfile:createCompanyProfile,
+  createCompanyProfile: createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
   getCompanyProfile: getCompanyProfile,
   updateArchaeologistProfileContactDetails: updateArchaeologistProfileContactDetails,
