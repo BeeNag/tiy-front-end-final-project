@@ -30044,8 +30044,10 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 	componentDidMount: function () {
 		$(function () {
 
+			var token = SignInDetailsStore.getToken();
+
 			var SERVER_URL = 'http://localhost:8383';
-			var IMAGES_UPLOAD_URL = '/api/images/upload/';
+			var IMAGES_UPLOAD_URL = '/api/images/upload/?token=' + token;
 
 			var $fileInputElement = $('input[type="file"]');
 			var $uploadButtonElement = $('[data-upload-file-button]');
@@ -30055,9 +30057,10 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 
 			    $fileInputElement.simpleUpload(SERVER_URL + IMAGES_UPLOAD_URL, {
 			    	data: {
+			    		token: SignInDetailsStore.getToken(),
 			    		userId: SignInDetailsStore.getId()
 			    	},
-			    	
+
 				    start: function handleStart(file) {
 				        // Upload started
 
@@ -30308,7 +30311,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
 					), 
 					React.createElement("div", {className: "col-xs-3"}, 
-						React.createElement("img", {src: "http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg", alt: "power switched off"}), 
+						React.createElement("img", {src: 'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image, alt: "Profile Picture"}), 
 						React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showPhotoEdit}), 
 						 this.state.isPhoto ? React.createElement(PhotoEdit, {handlePhotoEditForm: this.hidePhotoEdit}) : null
 					)

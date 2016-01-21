@@ -6,8 +6,10 @@ var ImageUploadForm = React.createClass({
 	componentDidMount: function () {
 		$(function () {
 
+			var token = SignInDetailsStore.getToken();
+
 			var SERVER_URL = 'http://localhost:8383';
-			var IMAGES_UPLOAD_URL = '/api/images/upload/';
+			var IMAGES_UPLOAD_URL = '/api/images/upload/?token=' + token;
 
 			var $fileInputElement = $('input[type="file"]');
 			var $uploadButtonElement = $('[data-upload-file-button]');
@@ -17,9 +19,10 @@ var ImageUploadForm = React.createClass({
 
 			    $fileInputElement.simpleUpload(SERVER_URL + IMAGES_UPLOAD_URL, {
 			    	data: {
+			    		token: SignInDetailsStore.getToken(),
 			    		userId: SignInDetailsStore.getId()
 			    	},
-			    	
+
 				    start: function handleStart(file) {
 				        // Upload started
 

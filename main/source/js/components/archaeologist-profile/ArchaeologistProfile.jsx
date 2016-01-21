@@ -116,7 +116,7 @@ var ArchaeologistProfile = React.createClass({
 						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth}</p>
 					</div>
 					<div className="col-xs-3">
-						<img src="http://www.valuestockphoto.com/downloads/43521-2/power_button.jpg" alt="power switched off"></img>
+						<img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture"></img>
 						<EditButton label="Edit" handleButtonClick={this.showPhotoEdit} />
 						{ this.state.isPhoto ? <PhotoEdit handlePhotoEditForm={this.hidePhotoEdit} /> : null }
 					</div>
