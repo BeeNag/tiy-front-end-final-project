@@ -30037,11 +30037,11 @@ module.exports = ArchLandingPage;
 
 },{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":232,"../arch-navbar/ArchNavbar.jsx":179,"./ImageUploadForm.jsx":178,"react":165}],178:[function(require,module,exports){
 var React = require('react');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 
 	componentDidMount: function () {
-		console.log('waaaaah');
 		$(function () {
 
 			var SERVER_URL = 'http://localhost:8383';
@@ -30054,6 +30054,10 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 			    submitEvent.preventDefault();
 
 			    $fileInputElement.simpleUpload(SERVER_URL + IMAGES_UPLOAD_URL, {
+			    	data: {
+			    		userId: SignInDetailsStore.getId()
+			    	},
+			    	
 				    start: function handleStart(file) {
 				        // Upload started
 
@@ -30102,7 +30106,7 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 
 module.exports = ImageUploadForm;
 
-},{"react":165}],179:[function(require,module,exports){
+},{"../../stores/SignInDetailsStore.js":232,"react":165}],179:[function(require,module,exports){
 var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');

@@ -1,4 +1,5 @@
 var React = require('react');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ImageUploadForm = React.createClass({
 
@@ -15,6 +16,10 @@ var ImageUploadForm = React.createClass({
 			    submitEvent.preventDefault();
 
 			    $fileInputElement.simpleUpload(SERVER_URL + IMAGES_UPLOAD_URL, {
+			    	data: {
+			    		userId: SignInDetailsStore.getId()
+			    	},
+			    	
 				    start: function handleStart(file) {
 				        // Upload started
 
