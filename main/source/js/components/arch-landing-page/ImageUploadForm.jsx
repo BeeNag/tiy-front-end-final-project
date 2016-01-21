@@ -3,7 +3,6 @@ var React = require('react');
 var ImageUploadForm = React.createClass({
 
 	componentDidMount: function () {
-		console.log('waaaaah');
 		$(function () {
 
 			var SERVER_URL = 'http://localhost:8383';
