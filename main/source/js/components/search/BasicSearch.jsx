@@ -1,6 +1,16 @@
 var React = require('react');
+var SearchActionCreators = require('../../actions/SearchActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var BasicSearch = React.createClass({
+
+	handleSearch: function () {
+
+		var searchString = this.refs.input.value;
+
+		SearchActionCreators.searchArchaeologistProfiles(searchString, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
 	render: function () {
 		return (
 			<div className="row">
@@ -10,9 +20,9 @@ var BasicSearch = React.createClass({
     					<h2>Please enter a keyword that you would like to search for</h2>
             			<div id="search-input">
                 			<div className="input-group col-xs-12">
-                    			<input type="text" className="form-control input-lg" placeholder="Search..."></input>
+                    			<input type="text" className="form-control input-lg" placeholder="Search..." ref="input"></input>
                     			<span className="input-group-btn">
-                        			<a href="#search-results" className="btn btn-info btn-lg" role="button">
+                        			<a href="#search-results" className="btn btn-info btn-lg" role="button" onClick={this.handleSearch}>
                             			<span className="glyphicon glyphicon-search"></span>
                         			</a>
                     			</span>

@@ -48,9 +48,6 @@ h1 {
 .input:invalid {
   box-shadow: none; }
 
-.pass:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset; }
-
 .inputButton {
   position: relative;
   width: 85%;
