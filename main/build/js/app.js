@@ -29866,10 +29866,10 @@ function searchArchaeologistProfiles(searchString, token, id) {
 
 		var action = {
 			type: 'search-archaeologists',
-			searchString: searchString,
-			token: token,
 			data: response
 		};
+
+		console.log(response);
 
 		Dispatcher.dispatch(action);
 	});
@@ -31951,6 +31951,8 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 		var searchString = this.refs.input.value;
 
+		console.log(searchString);
+
 		SearchActionCreators.searchArchaeologistProfiles(searchString, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
@@ -32056,7 +32058,7 @@ var API_ENDPOINTS = {
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   DELETE_COMPANY: '/api/companies/id?token=',
-  SEARCH_ARCHAEOLOGISTS: '/api/search/id?token='
+  SEARCH_ARCHAEOLOGISTS: '/api/search/searchString/?token='
 };
 
 function archaeologistSignIn(email, password, handleResponse) {
@@ -32393,9 +32395,8 @@ function searchForArchaeologists(searchString, token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.SEARCH_ARCHAEOLOGISTS.replace('id', id) + token,
-    dataType: 'json',
-    searchString: searchString
+    url: HOST_NAME + API_ENDPOINTS.SEARCH_ARCHAEOLOGISTS.replace('searchString', searchString) + token,
+    dataType: 'json'
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {

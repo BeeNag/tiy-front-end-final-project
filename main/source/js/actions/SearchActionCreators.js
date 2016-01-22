@@ -18,10 +18,10 @@ function searchArchaeologistProfiles(searchString, token, id) {
 
 		var action = {
 			type: 'search-archaeologists',
-			searchString: searchString,
-			token: token,
 			data: response
 		};
+
+		console.log(response);
 
 		Dispatcher.dispatch(action);
 	});

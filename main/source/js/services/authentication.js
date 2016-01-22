@@ -14,7 +14,7 @@ var API_ENDPOINTS = {
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   DELETE_COMPANY: '/api/companies/id?token=',
-  SEARCH_ARCHAEOLOGISTS: '/api/search/id?token='
+  SEARCH_ARCHAEOLOGISTS: '/api/search/searchString/?token='
 };
 
 function archaeologistSignIn(email, password, handleResponse) {
@@ -351,9 +351,8 @@ function searchForArchaeologists(searchString, token, id, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.SEARCH_ARCHAEOLOGISTS.replace('id', id) + token,
-    dataType: 'json',
-    searchString: searchString
+    url: HOST_NAME + API_ENDPOINTS.SEARCH_ARCHAEOLOGISTS.replace('searchString', searchString) + token,
+    dataType: 'json'
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
