@@ -21,8 +21,6 @@ function searchArchaeologistProfiles(searchString, token, id) {
 			data: response
 		};
 
-		console.log(response);
-
 		Dispatcher.dispatch(action);
 	});
 }

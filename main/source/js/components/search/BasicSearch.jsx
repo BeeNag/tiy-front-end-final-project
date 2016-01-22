@@ -8,8 +8,6 @@ var BasicSearch = React.createClass({
 
 		var searchString = this.refs.input.value;
 
-		console.log(searchString);
-
 		SearchActionCreators.searchArchaeologistProfiles(searchString, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
