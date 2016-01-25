@@ -1,9 +1,11 @@
 var React = require('react');
+var ReactFire = require('reactfire');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var UrlEdit = require('./UrlEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
+var ExcavationDetails = require('./ExcavationDetails.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
@@ -73,6 +75,15 @@ var CompanyProfile = React.createClass({
 
 	handleUpdateDescriptionDetails: function (description, token, id) {
 		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	componentWillMount: function () {
+		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
+		firebaseRef.on("value", function (snapshot) {
+			console.log(snapshot.val());	
+		}, function (errorObject) {
+			console.log("The read failed: " + errorObject.code);
+		});
 	},
 
 	componentDidMount: function () {
@@ -153,6 +164,7 @@ var CompanyProfile = React.createClass({
 				<div className="row">
 					<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#excavation-view">View Your Excavations</button>
 					<div className="collapse" id="excavation-view">
+						<ExcavationDetails />
 						<div className="row">
 							<div className="container">
 								<div className="row">

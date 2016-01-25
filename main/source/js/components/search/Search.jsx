@@ -3,8 +3,31 @@ var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
 var AdvancedSearch = require('./AdvancedSearch.jsx');
 var Thumbnail = require('../thumbnail/Thumbnail.jsx');
+var SearchStore = require('../../stores/SearchStore.js');
 
 var Search = React.createClass({
+
+	getInitialState: function () {
+		return {
+			isThumbnailShowing: false
+		};
+	},
+
+	updateState: function () {
+		this.setState({
+			data: SearchStore.getThumbnailSearchData(),
+			isThumbnailShowing: true
+		});
+	},
+
+	componentDidMount: function () {
+		SearchStore.addChangeListener(this.updateState);
+	},
+
+	componentWillUnMount: function () {
+		SearchStore.removeChangeListener(this.updateState);
+	},
+
 	render: function () {
 		return (
 			<div className="container-fluid">
@@ -17,12 +40,11 @@ var Search = React.createClass({
 					</div>
 				</div>
 				<BasicSearch />
-				<AdvancedSearch />
 				<div className="row">
 					<h3>Recent Archaeologists</h3>
 				</div>
 				<div className="row">
-					<Thumbnail />
+			
 				</div>
 				<div className="row">
 					<div className="col-xs-8">
@@ -30,10 +52,7 @@ var Search = React.createClass({
 					</div>
 				</div>
 				<div className="row">
-					
-					<div className="col-xs-3 col-xs-offset-3">
-						<div data-drop-zone className="drop-zone">Drag Desired Candidates in Here and They Will be Saved For You</div>
-					</div>
+					{this.state.isThumbnailShowing ? <Thumbnail /> : null}
 				</div>
 				<div className="row">
 					<div className="col-xs-8">

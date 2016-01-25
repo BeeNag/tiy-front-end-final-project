@@ -7,13 +7,15 @@ var Thumbnail = React.createClass({
 
 	addThumbnails: function () {
 
-		var thumbnailArray = SearchStore.getThumbnailDataArray();
+		var thumbnailArray = SearchStore.getThumbnailSearchData();
 
 		var thumbnails = thumbnailArray.map(function (element, index) {
+
+			console.log(element);
 			return (
 				<div className="col-xs-3" key={index}>
 					<div className="thumbnail">
-						<ThumbnailImage imageUrl={element.imageUrl} imageAlt={element.imageAlt} />
+						<ThumbnailImage image={element.image} />
 						<ThumbnailCaption name={element.name} email={element.email} specialism={element.specialism} experience={element.experience} />
 					</div>
 				</div>

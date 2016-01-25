@@ -133,18 +133,11 @@ var LandingPage = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
-				<div className="row">
-					<div className="col-xs-8 col-xs-offset-2">
-						<h1>Welcome to FreeArch</h1>
-					</div>
+			<div className="container-fluid landing-page-background">
+				<div className="jumbotron">
+					<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
 				</div>
-				<div className="row">
-					<div className="col-xs-6 col-xs-offset-3">
-						<h3>Are you an Archaeologist or a potential Employer?</h3>
-					</div>
-				</div>
-				<div className="row">
+				<div className="row landing-page-buttons">
 					<div className="col-xs-4 col-xs-offset-2">
 						<MainButton label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
 					</div>

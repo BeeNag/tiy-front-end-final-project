@@ -13,7 +13,8 @@ var API_ENDPOINTS = {
   UPDATE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
   UPDATE_COMPANY: '/api/companies/id?token=',
   DELETE_ARCHAEOLOGIST: '/api/archaeologists/id?token=',
-  DELETE_COMPANY: '/api/companies/id?token='
+  DELETE_COMPANY: '/api/companies/id?token=',
+  SEARCH_ARCHAEOLOGISTS: '/api/search/searchString/?token='
 };
 
 function archaeologistSignIn(email, password, handleResponse) {
@@ -346,10 +347,26 @@ function deleteCompanyProfile(token, id, handleResponse) {
   });
 }
 
+function searchForArchaeologists(searchString, token, id, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.SEARCH_ARCHAEOLOGISTS.replace('searchString', searchString) + token,
+    dataType: 'json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
 module.exports = {
   archaeologistSignIn: archaeologistSignIn,
   companySignIn: companySignIn,
-  // signUp: signUp,
   createArchaeologistProfile: createArchaeologistProfile,
   createCompanyProfile: createCompanyProfile,
   getArchaeologistProfile: getArchaeologistProfile,
@@ -361,5 +378,6 @@ module.exports = {
   updateCompanyProfileUrlDetails: updateCompanyProfileUrlDetails,
   updateCompanyProfileDesriptionDetails: updateCompanyProfileDesriptionDetails,
   deleteArchaeologistProfile: deleteArchaeologistProfile,
-  deleteCompanyProfile: deleteCompanyProfile
+  deleteCompanyProfile: deleteCompanyProfile,
+  searchForArchaeologists: searchForArchaeologists
 };
