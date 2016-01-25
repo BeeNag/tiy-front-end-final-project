@@ -1,15 +1,8 @@
-::selection {
-  background-color: #b5e2e7;
-}
-
-::-moz-selection {
-  background-color: #8ac7d8;
-}
-
 .container .form {
   display: -webkit-flex;
   display: flex;
   height: 100%;
+  z-index: 999;
 }
 
 #logbox {
@@ -127,4 +120,17 @@ h1 {
 
 #search-input .glyphicon-search{
     font-size: 23px;
+}
+
+.landing-page-background {
+  background: url(../../source/images/landing-page-background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.landing-page-buttons {
+  margin-top: 27vh;
+  margin-bottom: 23vh;
 }

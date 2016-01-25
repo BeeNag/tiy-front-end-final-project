@@ -5,7 +5,7 @@ var Application = require('./components/Application.jsx');
 
 ReactDOM.render(React.createElement(Application, null), document.querySelector('[data-react-application]'));
 
-},{"./components/Application.jsx":176,"react":165,"react-dom":9}],2:[function(require,module,exports){
+},{"./components/Application.jsx":177,"react":165,"react-dom":9}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29466,6 +29466,373 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":33}],166:[function(require,module,exports){
+/*!
+ * ReactFire is an open-source JavaScript library that allows you to add a
+ * realtime data source to your React apps by providing an easy way to let
+ * Firebase populate the state of React components.
+ *
+ * ReactFire 0.5.1
+ * https://github.com/firebase/reactfire/
+ * License: MIT
+ */
+/* eslint "strict": [2, "function"] */
+(function(root, factory) {
+  'use strict';
+
+  /* istanbul ignore next */
+  if (typeof define === 'function' && define.amd) {
+    // AMD
+    define([], function() {
+      return (root.ReactFireMixin = factory());
+    });
+  } else if (typeof exports === 'object') {
+    // CommonJS
+    module.exports = factory();
+  } else {
+    // Global variables
+    root.ReactFireMixin = factory();
+  }
+}(this, function() {
+  'use strict';
+
+  /*************/
+  /*  HELPERS  */
+  /*************/
+  /**
+   * Returns the index of the key in the list. If an item with the key is not in the list, -1 is
+   * returned.
+   *
+   * @param {Array<any>} list A list of items.
+   * @param {string} key The key for which to search.
+   * @return {number} The index of the item which has the provided key or -1 if no items have the
+   * provided key.
+   */
+  function _indexForKey(list, key) {
+    for (var i = 0, length = list.length; i < length; ++i) {
+      if (list[i]['.key'] === key) {
+        return i;
+      }
+    }
+
+    /* istanbul ignore next */
+    return -1;
+  }
+
+  /**
+   * Throws a formatted error message.
+   *
+   * @param {string} message The error message to throw.
+   */
+  function _throwError(message) {
+    throw new Error('ReactFire: ' + message);
+  }
+
+  /**
+   * Validates the name of the variable which is being bound.
+   *
+   * @param {string} bindVar The variable which is being bound.
+   */
+  function _validateBindVar(bindVar) {
+    var errorMessage;
+
+    if (typeof bindVar !== 'string') {
+      errorMessage = 'Bind variable must be a string. Got: ' + bindVar;
+    } else if (bindVar.length === 0) {
+      errorMessage = 'Bind variable must be a non-empty string. Got: ""';
+    } else if (bindVar.length > 768) {
+      // Firebase can only stored child paths up to 768 characters
+      errorMessage = 'Bind variable is too long to be stored in Firebase. Got: ' + bindVar;
+    } else if (/[\[\].#$\/\u0000-\u001F\u007F]/.test(bindVar)) {
+      // Firebase does not allow node keys to contain the following characters
+      errorMessage = 'Bind variable cannot contain any of the following characters: . # $ ] [ /. Got: ' + bindVar;
+    }
+
+    if (typeof errorMessage !== 'undefined') {
+      _throwError(errorMessage);
+    }
+  }
+
+  /**
+   * Creates a new record given a key-value pair.
+   *
+   * @param {string} key The new record's key.
+   * @param {any} value The new record's value.
+   * @return {Object} The new record.
+   */
+  function _createRecord(key, value) {
+    var record = {};
+    if (typeof value === 'object' && value !== null) {
+      record = value;
+    } else {
+      record['.value'] = value;
+    }
+    record['.key'] = key;
+
+    return record;
+  }
+
+
+  /******************************/
+  /*  BIND AS OBJECT LISTENERS  */
+  /******************************/
+  /**
+   * 'value' listener which updates the value of the bound state variable.
+   *
+   * @param {string} bindVar The state variable to which the data is being bound.
+   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data being bound.
+   */
+  function _objectValue(bindVar, snapshot) {
+    var key = snapshot.key();
+    var value = snapshot.val();
+
+    this.data[bindVar] = _createRecord(key, value);
+
+    this.setState(this.data);
+  }
+
+
+  /*****************************/
+  /*  BIND AS ARRAY LISTENERS  */
+  /*****************************/
+  /**
+   * 'child_added' listener which adds a new record to the bound array.
+   *
+   * @param {string} bindVar The state variable to which the data is being bound.
+   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data being bound.
+   * @param {string|null} previousChildKey The key of the child after which the provided snapshot
+   * is positioned; null if the provided snapshot is in the first position.
+   */
+  function _arrayChildAdded(bindVar, snapshot, previousChildKey) {
+    var key = snapshot.key();
+    var value = snapshot.val();
+    var array = this.data[bindVar];
+
+    // Determine where to insert the new record
+    var insertionIndex;
+    if (previousChildKey === null) {
+      insertionIndex = 0;
+    } else {
+      var previousChildIndex = _indexForKey(array, previousChildKey);
+      insertionIndex = previousChildIndex + 1;
+    }
+
+    // Add the new record to the array
+    array.splice(insertionIndex, 0, _createRecord(key, value));
+
+    // Update state
+    this.setState(this.data);
+  }
+
+  /**
+   * 'child_removed' listener which removes a record from the bound array.
+   *
+   * @param {string} bindVar The state variable to which the data is bound.
+   * @param {Firebase.DataSnapshot} snapshot A snapshot of the bound data.
+   */
+  function _arrayChildRemoved(bindVar, snapshot) {
+    var array = this.data[bindVar];
+
+    // Look up the record's index in the array
+    var index = _indexForKey(array, snapshot.key());
+
+    // Splice out the record from the array
+    array.splice(index, 1);
+
+    // Update state
+    this.setState(this.data);
+  }
+
+  /**
+   * 'child_changed' listener which updates a record's value in the bound array.
+   *
+   * @param {string} bindVar The state variable to which the data is bound.
+   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data to bind.
+   */
+  function _arrayChildChanged(bindVar, snapshot) {
+    var key = snapshot.key();
+    var value = snapshot.val();
+    var array = this.data[bindVar];
+
+    // Look up the record's index in the array
+    var index = _indexForKey(array, key);
+
+    // Update the record's value in the array
+    array[index] = _createRecord(key, value);
+
+    // Update state
+    this.setState(this.data);
+  }
+
+  /**
+   * 'child_moved' listener which updates a record's position in the bound array.
+   *
+   * @param {string} bindVar The state variable to which the data is bound.
+   * @param {Firebase.DataSnapshot} snapshot A snapshot of the bound data.
+   * @param {string|null} previousChildKey The key of the child after which the provided snapshot
+   * is positioned; null if the provided snapshot is in the first position.
+   */
+  function _arrayChildMoved(bindVar, snapshot, previousChildKey) {
+    var key = snapshot.key();
+    var array = this.data[bindVar];
+
+    // Look up the record's index in the array
+    var currentIndex = _indexForKey(array, key);
+
+    // Splice out the record from the array
+    var record = array.splice(currentIndex, 1)[0];
+
+    // Determine where to re-insert the record
+    var insertionIndex;
+    if (previousChildKey === null) {
+      insertionIndex = 0;
+    } else {
+      var previousChildIndex = _indexForKey(array, previousChildKey);
+      insertionIndex = previousChildIndex + 1;
+    }
+
+    // Re-insert the record into the array
+    array.splice(insertionIndex, 0, record);
+
+    // Update state
+    this.setState(this.data);
+  }
+
+
+  /*************/
+  /*  BINDING  */
+  /*************/
+  /**
+   * Creates a binding between Firebase and the inputted bind variable as either an array or
+   * an object.
+   *
+   * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+   * @param {string} bindVar The state variable to which to bind the data.
+   * @param {function} cancelCallback The Firebase reference's cancel callback.
+   * @param {boolean} bindAsArray Whether or not to bind as an array or object.
+   */
+  function _bind(firebaseRef, bindVar, cancelCallback, bindAsArray) {
+    if (Object.prototype.toString.call(firebaseRef) !== '[object Object]') {
+      _throwError('Invalid Firebase reference');
+    }
+
+    _validateBindVar(bindVar);
+
+    if (typeof this.firebaseRefs[bindVar] !== 'undefined') {
+      _throwError('this.state.' + bindVar + ' is already bound to a Firebase reference');
+    }
+
+    // Keep track of the Firebase reference we are setting up listeners on
+    this.firebaseRefs[bindVar] = firebaseRef.ref();
+
+    if (bindAsArray) {
+      // Set initial state to an empty array
+      this.data[bindVar] = [];
+      this.setState(this.data);
+
+      // Add listeners for all 'child_*' events
+      this.firebaseListeners[bindVar] = {
+        child_added: firebaseRef.on('child_added', _arrayChildAdded.bind(this, bindVar), cancelCallback),
+        child_removed: firebaseRef.on('child_removed', _arrayChildRemoved.bind(this, bindVar), cancelCallback),
+        child_changed: firebaseRef.on('child_changed', _arrayChildChanged.bind(this, bindVar), cancelCallback),
+        child_moved: firebaseRef.on('child_moved', _arrayChildMoved.bind(this, bindVar), cancelCallback)
+      };
+    } else {
+      // Add listener for 'value' event
+      this.firebaseListeners[bindVar] = {
+        value: firebaseRef.on('value', _objectValue.bind(this, bindVar), cancelCallback)
+      };
+    }
+  }
+
+
+  var ReactFireMixin = {
+    /********************/
+    /*  MIXIN LIFETIME  */
+    /********************/
+    /**
+     * Initializes the Firebase refs and listeners arrays.
+     **/
+    componentWillMount: function() {
+      this.data = {};
+      this.firebaseRefs = {};
+      this.firebaseListeners = {};
+    },
+
+    /**
+     * Unbinds any remaining Firebase listeners.
+     */
+    componentWillUnmount: function() {
+      for (var bindVar in this.firebaseRefs) {
+        /* istanbul ignore else */
+        if (this.firebaseRefs.hasOwnProperty(bindVar)) {
+          this.unbind(bindVar);
+        }
+      }
+    },
+
+
+    /*************/
+    /*  BINDING  */
+    /*************/
+    /**
+     * Creates a binding between Firebase and the inputted bind variable as an array.
+     *
+     * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+     * @param {string} bindVar The state variable to which to bind the data.
+     * @param {function} cancelCallback The Firebase reference's cancel callback.
+     */
+    bindAsArray: function(firebaseRef, bindVar, cancelCallback) {
+      var bindPartial = _bind.bind(this);
+      bindPartial(firebaseRef, bindVar, cancelCallback, /* bindAsArray */ true);
+    },
+
+    /**
+     * Creates a binding between Firebase and the inputted bind variable as an object.
+     *
+     * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+     * @param {string} bindVar The state variable to which to bind the data.
+     * @param {function} cancelCallback The Firebase reference's cancel callback.
+     */
+    bindAsObject: function(firebaseRef, bindVar, cancelCallback) {
+      var bindPartial = _bind.bind(this);
+      bindPartial(firebaseRef, bindVar, cancelCallback, /* bindAsArray */ false);
+    },
+
+    /**
+     * Removes the binding between Firebase and the inputted bind variable.
+     *
+     * @param {string} bindVar The state variable to which the data is bound.
+     * @param {function} callback Called when the data is unbound and the state has been updated.
+     */
+    unbind: function(bindVar, callback) {
+      _validateBindVar(bindVar);
+
+      if (typeof this.firebaseRefs[bindVar] === 'undefined') {
+        _throwError('this.state.' + bindVar + ' is not bound to a Firebase reference');
+      }
+
+      // Turn off all Firebase listeners
+      for (var event in this.firebaseListeners[bindVar]) {
+        /* istanbul ignore else */
+        if (this.firebaseListeners[bindVar].hasOwnProperty(event)) {
+          var offListener = this.firebaseListeners[bindVar][event];
+          this.firebaseRefs[bindVar].off(event, offListener);
+        }
+      }
+      delete this.firebaseRefs[bindVar];
+      delete this.firebaseListeners[bindVar];
+
+      // Update state
+      var newState = {};
+      newState[bindVar] = undefined;
+      this.setState(newState, callback);
+    }
+  };
+
+  return ReactFireMixin;
+}));
+
+},{}],167:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29518,7 +29885,7 @@ module.exports = {
 	getArchProfile: getArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":226,"../services/Authentication.js":227}],167:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"../services/Authentication.js":229}],168:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29534,7 +29901,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":226}],168:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228}],169:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29627,7 +29994,7 @@ module.exports = {
 	deleteArchProfile: deleteArchProfile
 };
 
-},{"../dispatcher/Dispatcher.js":226,"../services/Authentication.js":227}],169:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"../services/Authentication.js":229}],170:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29718,7 +30085,7 @@ module.exports = {
 
 };
 
-},{"../dispatcher/Dispatcher.js":226,"../services/Authentication.js":227}],170:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"../services/Authentication.js":229}],171:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setUserId(id) {
@@ -29734,7 +30101,7 @@ module.exports = {
 	setUserId: setUserId
 };
 
-},{"../dispatcher/Dispatcher.js":226}],171:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228}],172:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToCompanyProfile() {
@@ -29749,7 +30116,7 @@ module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":226}],172:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228}],173:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -29819,7 +30186,7 @@ module.exports = {
 	getCompanyProfile: getCompanyProfile
 };
 
-},{"../dispatcher/Dispatcher.js":226,"../services/Authentication.js":227}],173:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"../services/Authentication.js":229}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function changeToArchLandingPage() {
@@ -29845,7 +30212,7 @@ module.exports = {
 
 
 
-},{"../dispatcher/Dispatcher.js":226}],174:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228}],175:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js')
 
@@ -29878,7 +30245,7 @@ module.exports = {
 	searchArchaeologistProfiles: searchArchaeologistProfiles
 };
 
-},{"../dispatcher/Dispatcher.js":226,"../services/Authentication.js":227}],175:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"../services/Authentication.js":229}],176:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 
 function setArchaeologistAuthenticationToken(token) {
@@ -29904,7 +30271,7 @@ module.exports = {
 	setCompanyAuthenticationToken: setCompanyAuthenticationToken
 };
 
-},{"../dispatcher/Dispatcher.js":226}],176:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228}],177:[function(require,module,exports){
 var React = require('react');
 var PageStateStore = require('../stores/PageStateStore.js');
 var ArchLandingPage = require('./arch-landing-page/ArchLandingPage.jsx');
@@ -29978,7 +30345,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":231,"./arch-landing-page/ArchLandingPage.jsx":178,"./archaeologist-profile/ArchaeologistProfile.jsx":183,"./company-profile/CompanyProfile.jsx":199,"./create-excavation/CreateExcavation.jsx":211,"./employer-landing-page/EmployerLandingPage.jsx":212,"./landing-page/LandingPage.jsx":219,"./search/Search.jsx":222,"react":165}],177:[function(require,module,exports){
+},{"../stores/PageStateStore.js":233,"./arch-landing-page/ArchLandingPage.jsx":179,"./archaeologist-profile/ArchaeologistProfile.jsx":184,"./company-profile/CompanyProfile.jsx":200,"./create-excavation/CreateExcavation.jsx":213,"./employer-landing-page/EmployerLandingPage.jsx":214,"./landing-page/LandingPage.jsx":221,"./search/Search.jsx":224,"react":165}],178:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -29991,7 +30358,7 @@ var MainButton = React.createClass({displayName: "MainButton",
 
 module.exports = MainButton;
 
-},{"react":165}],178:[function(require,module,exports){
+},{"react":165}],179:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ImageUploadForm = require('./ImageUploadForm.jsx');
@@ -30068,7 +30435,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"../../stores/SignInDetailsStore.js":233,"../arch-navbar/ArchNavbar.jsx":180,"./ImageUploadForm.jsx":179,"react":165}],179:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../stores/SignInDetailsStore.js":235,"../arch-navbar/ArchNavbar.jsx":181,"./ImageUploadForm.jsx":180,"react":165}],180:[function(require,module,exports){
 var React = require('react');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
@@ -30142,7 +30509,7 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 
 module.exports = ImageUploadForm;
 
-},{"../../stores/SignInDetailsStore.js":233,"react":165}],180:[function(require,module,exports){
+},{"../../stores/SignInDetailsStore.js":235,"react":165}],181:[function(require,module,exports){
 var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
@@ -30199,7 +30566,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 module.exports = ArchNavbar;
 
-},{"../../actions/ArchLandingPageActionCreators.js":166,"./Button.jsx":181,"./Link.jsx":182,"react":165}],181:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"./Button.jsx":182,"./Link.jsx":183,"react":165}],182:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -30212,7 +30579,7 @@ var Button = React.createClass({displayName: "Button",
 
 module.exports = Button;
 
-},{"react":165}],182:[function(require,module,exports){
+},{"react":165}],183:[function(require,module,exports){
 var React = require('react');
 
 var Link = React.createClass({displayName: "Link",
@@ -30225,7 +30592,7 @@ var Link = React.createClass({displayName: "Link",
 
 module.exports = Link;
 
-},{"react":165}],183:[function(require,module,exports){
+},{"react":165}],184:[function(require,module,exports){
 var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
@@ -30453,7 +30820,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../services/Authentication.js":227,"../../stores/ArchProfileDetailsStore.js":229,"../../stores/SignInDetailsStore.js":233,"../arch-navbar/ArchNavbar.jsx":180,"./ContactDetailsEdit.jsx":184,"./DeleteButton.jsx":185,"./DeleteModal.jsx":186,"./DescriptionEdit.jsx":187,"./EditButton.jsx":188,"./ExperienceAndSpecialismEdit.jsx":189,"./PhotoEdit.jsx":194,"react":165}],184:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":169,"../../services/Authentication.js":229,"../../stores/ArchProfileDetailsStore.js":231,"../../stores/SignInDetailsStore.js":235,"../arch-navbar/ArchNavbar.jsx":181,"./ContactDetailsEdit.jsx":185,"./DeleteButton.jsx":186,"./DeleteModal.jsx":187,"./DescriptionEdit.jsx":188,"./EditButton.jsx":189,"./ExperienceAndSpecialismEdit.jsx":190,"./PhotoEdit.jsx":195,"react":165}],185:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -30498,7 +30865,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],185:[function(require,module,exports){
+},{"react":165}],186:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -30521,7 +30888,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":186,"react":165,"react-dom":9}],186:[function(require,module,exports){
+},{"./DeleteModal.jsx":187,"react":165,"react-dom":9}],187:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -30545,7 +30912,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":190,"./ModalFooter.jsx":191,"./ModalHeader.jsx":192,"react":165}],187:[function(require,module,exports){
+},{"./ModalBody.jsx":191,"./ModalFooter.jsx":192,"./ModalHeader.jsx":193,"react":165}],188:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -30578,7 +30945,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],188:[function(require,module,exports){
+},{"react":165}],189:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -30591,7 +30958,7 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],189:[function(require,module,exports){
+},{"react":165}],190:[function(require,module,exports){
 var React = require('react');
 
 var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAndSpecialismEdit",
@@ -30626,7 +30993,7 @@ var ExperienceAndSpecialismEdit = React.createClass({displayName: "ExperienceAnd
 
 module.exports = ExperienceAndSpecialismEdit;
 
-},{"react":165}],190:[function(require,module,exports){
+},{"react":165}],191:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -30641,7 +31008,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],191:[function(require,module,exports){
+},{"react":165}],192:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -30659,7 +31026,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":193,"./YesButton.jsx":195,"react":165}],192:[function(require,module,exports){
+},{"./NoButton.jsx":194,"./YesButton.jsx":196,"react":165}],193:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -30677,7 +31044,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],193:[function(require,module,exports){
+},{"react":165}],194:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -30690,7 +31057,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],194:[function(require,module,exports){
+},{"react":165}],195:[function(require,module,exports){
 var React = require('react');
 
 var PhotoEdit = React.createClass({displayName: "PhotoEdit",
@@ -30720,7 +31087,7 @@ var PhotoEdit = React.createClass({displayName: "PhotoEdit",
 
 module.exports = PhotoEdit;
 
-},{"react":165}],195:[function(require,module,exports){
+},{"react":165}],196:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -30741,7 +31108,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":168,"../../stores/SignInDetailsStore.js":233,"react":165}],196:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":235,"react":165}],197:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -30754,7 +31121,7 @@ var Button = React.createClass({displayName: "Button",
 
 module.exports = Button;
 
-},{"react":165}],197:[function(require,module,exports){
+},{"react":165}],198:[function(require,module,exports){
 var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
@@ -30816,7 +31183,7 @@ var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 
 module.exports = EmployerNavbar;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":172,"./Button.jsx":196,"./Link.jsx":198,"react":165}],198:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":173,"./Button.jsx":197,"./Link.jsx":199,"react":165}],199:[function(require,module,exports){
 var React = require('react');
 
 var Link = React.createClass({displayName: "Link",
@@ -30829,13 +31196,15 @@ var Link = React.createClass({displayName: "Link",
 
 module.exports = Link;
 
-},{"react":165}],199:[function(require,module,exports){
+},{"react":165}],200:[function(require,module,exports){
 var React = require('react');
+var ReactFire = require('reactfire');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var UrlEdit = require('./UrlEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
+var ExcavationDetails = require('./ExcavationDetails.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
@@ -30905,6 +31274,15 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 	handleUpdateDescriptionDetails: function (description, token, id) {
 		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+	},
+
+	componentWillMount: function () {
+		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
+		firebaseRef.on("value", function (snapshot) {
+			console.log(snapshot.val());	
+		}, function (errorObject) {
+			console.log("The read failed: " + errorObject.code);
+		});
 	},
 
 	componentDidMount: function () {
@@ -30985,6 +31363,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 				React.createElement("div", {className: "row"}, 
 					React.createElement("button", {type: "button", className: "btn btn-info", "data-toggle": "collapse", "data-target": "#excavation-view"}, "View Your Excavations"), 
 					React.createElement("div", {className: "collapse", id: "excavation-view"}, 
+						React.createElement(ExcavationDetails, null), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "container"}, 
 								React.createElement("div", {className: "row"}, 
@@ -31064,7 +31443,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../services/Authentication.js":227,"../../stores/CompanyProfileDetailsStore.js":230,"../../stores/SignInDetailsStore.js":233,"../company-navbar/EmployerNavbar.jsx":197,"./ContactDetailsEdit.jsx":200,"./DeleteButton.jsx":201,"./DeleteModal.jsx":202,"./DescriptionEdit.jsx":203,"./EditButton.jsx":204,"./UrlEdit.jsx":209,"react":165}],200:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":170,"../../services/Authentication.js":229,"../../stores/CompanyProfileDetailsStore.js":232,"../../stores/SignInDetailsStore.js":235,"../company-navbar/EmployerNavbar.jsx":198,"./ContactDetailsEdit.jsx":201,"./DeleteButton.jsx":202,"./DeleteModal.jsx":203,"./DescriptionEdit.jsx":204,"./EditButton.jsx":205,"./ExcavationDetails.jsx":206,"./UrlEdit.jsx":211,"react":165,"reactfire":166}],201:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31107,7 +31486,7 @@ var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
 
 module.exports = ContactDetailsEdit;
 
-},{"react":165}],201:[function(require,module,exports){
+},{"react":165}],202:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var DeleteModal = require('./DeleteModal.jsx');
@@ -31130,7 +31509,7 @@ var DeleteButton = React.createClass({displayName: "DeleteButton",
 
 module.exports = DeleteButton;
 
-},{"./DeleteModal.jsx":202,"react":165,"react-dom":9}],202:[function(require,module,exports){
+},{"./DeleteModal.jsx":203,"react":165,"react-dom":9}],203:[function(require,module,exports){
 var React = require('react');
 var ModalHeader = require('./ModalHeader.jsx');
 var ModalBody = require('./ModalBody.jsx');
@@ -31154,7 +31533,7 @@ var DeleteModal = React.createClass({displayName: "DeleteModal",
 
 module.exports = DeleteModal;
 
-},{"./ModalBody.jsx":205,"./ModalFooter.jsx":206,"./ModalHeader.jsx":207,"react":165}],203:[function(require,module,exports){
+},{"./ModalBody.jsx":207,"./ModalFooter.jsx":208,"./ModalHeader.jsx":209,"react":165}],204:[function(require,module,exports){
 var React = require('react');
 
 var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
@@ -31187,7 +31566,7 @@ var DescriptionEdit = React.createClass({displayName: "DescriptionEdit",
 
 module.exports = DescriptionEdit;
 
-},{"react":165}],204:[function(require,module,exports){
+},{"react":165}],205:[function(require,module,exports){
 var React = require('react');
 
 var EditButton = React.createClass({displayName: "EditButton",
@@ -31200,7 +31579,40 @@ var EditButton = React.createClass({displayName: "EditButton",
 
 module.exports = EditButton;
 
-},{"react":165}],205:[function(require,module,exports){
+},{"react":165}],206:[function(require,module,exports){
+var React = require('react');
+var ReactFire = require('reactfire');
+
+var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
+	render: function () {
+		return (
+			React.createElement("div", {className: "container"}, 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-2"}, 
+						React.createElement("p", null, Object.name)
+					), 
+					React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
+						React.createElement("p", null, "MAP")
+					)
+				), 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-6"}, 
+						React.createElement("p", null, Object.excavation_description)
+					)
+				), 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-4"}, 
+						React.createElement("a", {type: "submit", className: "btn btn-info", href: Object.excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = ExcavationDetails;
+
+},{"react":165,"reactfire":166}],207:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -31215,7 +31627,7 @@ var ModalBody = React.createClass({displayName: "ModalBody",
 
 module.exports = ModalBody;
 
-},{"react":165}],206:[function(require,module,exports){
+},{"react":165}],208:[function(require,module,exports){
 var React = require('react');
 var YesButton = require('./YesButton.jsx');
 var NoButton = require('./NoButton.jsx');
@@ -31233,7 +31645,7 @@ var ModalFooter = React.createClass({displayName: "ModalFooter",
 
 module.exports = ModalFooter;
 
-},{"./NoButton.jsx":208,"./YesButton.jsx":210,"react":165}],207:[function(require,module,exports){
+},{"./NoButton.jsx":210,"./YesButton.jsx":212,"react":165}],209:[function(require,module,exports){
 var React = require('react');
 
 var ModalHeader = React.createClass({displayName: "ModalHeader",
@@ -31251,7 +31663,7 @@ var ModalHeader = React.createClass({displayName: "ModalHeader",
 
 module.exports = ModalHeader;
 
-},{"react":165}],208:[function(require,module,exports){
+},{"react":165}],210:[function(require,module,exports){
 var React = require('react');
 
 var NoButton = React.createClass({displayName: "NoButton",
@@ -31264,7 +31676,7 @@ var NoButton = React.createClass({displayName: "NoButton",
 
 module.exports = NoButton;
 
-},{"react":165}],209:[function(require,module,exports){
+},{"react":165}],211:[function(require,module,exports){
 var React = require('react');
 
 var UrlEdit = React.createClass({displayName: "UrlEdit",
@@ -31297,7 +31709,7 @@ var UrlEdit = React.createClass({displayName: "UrlEdit",
 
 module.exports = UrlEdit;
 
-},{"react":165}],210:[function(require,module,exports){
+},{"react":165}],212:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -31318,15 +31730,114 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":169,"../../stores/SignInDetailsStore.js":233,"react":165}],211:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":170,"../../stores/SignInDetailsStore.js":235,"react":165}],213:[function(require,module,exports){
 var React = require('react');
+var ReactFire = require('reactfire');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
+	getInitialState: function () {
+		return {
+			name: '',
+			address1: '',
+			address2: '',
+			address3: '',
+			postcode: '',
+			duration: '',
+			excavation_url: '',
+			excavation_description: ''
+		};
+	},
+
+	updateNameState: function (e) {
+		this.setState({
+			name: e.target.value
+		});
+	},
+
+	updateAddressOneState: function (e) {
+		this.setState({
+			address1: e.target.value
+		});
+	},
+
+	updateAddressTwoState: function (e) {
+		this.setState({
+			address2: e.target.value
+		});
+	},
+
+	updateAddressThreeState: function (e) {
+		this.setState({
+			address3: e.target.value
+		});
+	},
+
+	updatePostcodeState: function (e) {
+		this.setState({
+			postcode: e.target.value
+		});
+	},
+
+	updateDurationState: function (e) {
+		this.setState({
+			duration: e.target.value
+		});
+	},
+
+	updateExcavationUrlState: function (e) {
+		this.setState({
+			excavation_url: e.target.value
+		});
+	},
+
+	updateExcavationDescriptionState: function (e) {
+		this.setState({
+			excavation_description: e.target.value
+		});
+	},
+
 	handleCreateExcavationClickEvent: function () {
 		CreateExcavationActionCreators.changeToCompanyProfile();
+	},
+
+	handleSubmit: function (submitEvent) {
+		submitEvent.preventDefault();
+		console.log('running');
+		this.firebaseRef.set({
+			name: this.state.name,
+			address1: this.state.address1,
+			address2: this.state.address2,
+			address3: this.state.address3,
+			postcode: this.state.postcode,
+			duration: this.state.duration,
+			excavation_url: this.state.excavation_url,
+			excavation_description: this.state.excavation_description
+		});
+		this.setState({
+			name: '',
+			address1: '',
+			address2: '',
+			address3: '',
+			postcode: '',
+			duration: '',
+			excavation_url: '',
+			excavation_description: ''
+		});
+	},
+
+	componentWillMount: function () {
+		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
+		this.firebaseRef.on("child_added", function () {
+			console.log('hello');
+		}.bind(this));
+	},
+
+	componentWillUnmount: function () {
+		this.firebaseRef.off();
 	},
 
 	render: function () {
@@ -31335,45 +31846,48 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 				React.createElement("div", {className: "row"}, 
 					React.createElement(EmployerNavbar, null)
 				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("form", null, 
+				React.createElement("div", {id: "logbox"}, 
+					React.createElement("form", {onSubmit: this.handleSubmit}, 
 						React.createElement("div", {className: "form-group"}, 
 							React.createElement("label", {htmlFor: "inputExcavationName"}, "Excavation Name"), 
-							React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name", ref: "name"})
+							React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name", value: this.state.name, onChange: this.updateNameState})
 						), 
 						React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineOne"}, "Address Line 1"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1", ref: "address1"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1", value: this.state.address1, onChange: this.updateAddressOneState})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineTwo"}, "Address Line 2"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2", ref: "address2"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2", value: this.state.address2, onChange: this.updateAddressTwoState})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputAddressLineThree"}, "Address Line 3"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3", ref: "address3"})
+	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3", value: this.state.address3, onChange: this.updateAddressThreeState})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "inputPostcode"}, "Postcode"), 
-	                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode", ref: "postcode"})
+	                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode", value: this.state.postcode, onChange: this.updatePostcodeState})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "selectDuration"}, "Duration of Excavation"), 
-	                    	React.createElement("input", {type: "text", className: "form-control", id: "selectDuration", placeholder: "Duration", ref: "duration"})
+	                    	React.createElement("input", {type: "text", className: "form-control", id: "selectDuration", placeholder: "Duration", value: this.state.duration, onChange: this.updateDurationState})
 	                    ), 
 	                    React.createElement("div", {className: "form-group"}, 
       						React.createElement("label", {htmlFor: "enterExcavationUrl"}, "Excavation Home Page"), 
-      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL", ref: "url"})
+      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL", value: this.state.excavation_url, onChange: this.updateExcavationUrlState})
     					), 
     					React.createElement("div", {className: "form-group"}, 
 	                    	React.createElement("label", {htmlFor: "describeExcavation"}, "Please Enter a Brief Description of the Excavation (max. 250 words)"), 
-	                    	React.createElement("input", {type: "text", className: "form-control", id: "describeExcavation", placeholder: "Description", ref: "description"})
-	                    )
+	                    	React.createElement("input", {type: "text", className: "form-control", id: "describeExcavation", placeholder: "Description", value: this.state.excavation_description, onChange: this.updateExcavationDescriptionState})
+	                    ), 
+	                    React.createElement("div", {className: "form-group"}, 
+							React.createElement("input", {type: "submit", value: "Submit Your Excavation Details", className: "form-control inputButton"})
+						)
 					)
 				), 
-				React.createElement("div", {className: "form-group"}, 
+				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
-						React.createElement("button", {onClick: this.handleCreateExcavationClickEvent, type: "button", className: "btn btn-success"}, "Create Excavation Profile")
+						React.createElement("button", {type: "button", onClick: this.handleCreateExcavationClickEvent, className: "btn btn-success"}, "Create Excavation Profile")
 					)
 				)
 			)
@@ -31383,7 +31897,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":171,"../company-navbar/EmployerNavbar.jsx":197,"react":165}],212:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":172,"../../stores/SignInDetailsStore.js":235,"../company-navbar/EmployerNavbar.jsx":198,"react":165,"reactfire":166}],214:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
@@ -31442,7 +31956,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":172,"../../stores/SignInDetailsStore.js":233,"../company-navbar/EmployerNavbar.jsx":197,"react":165}],213:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":173,"../../stores/SignInDetailsStore.js":235,"../company-navbar/EmployerNavbar.jsx":198,"react":165}],215:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31490,7 +32004,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 
 module.exports = ArchSignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":177,"react":165}],214:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":174,"../MainButton.jsx":178,"react":165}],216:[function(require,module,exports){
 var React = require('react');
 var ArchaeologistProfileDetails = require('./ArchaeologistProfileDetails.jsx');
 var HashID = require('../../services/HashID.js');
@@ -31556,7 +32070,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 module.exports = ArchSignUpForm;
 
-},{"../../actions/ArchSignUpFormActionCreators.js":167,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":228,"./ArchaeologistProfileDetails.jsx":215,"react":165}],215:[function(require,module,exports){
+},{"../../actions/ArchSignUpFormActionCreators.js":168,"../../actions/LandingPageActionCreators.js":174,"../../services/HashID.js":230,"./ArchaeologistProfileDetails.jsx":217,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 
 var ArchaeologistProfileDetails = React.createClass({displayName: "ArchaeologistProfileDetails",
@@ -31576,7 +32090,7 @@ var ArchaeologistProfileDetails = React.createClass({displayName: "Archaeologist
 
 module.exports = ArchaeologistProfileDetails;
 
-},{"react":165}],216:[function(require,module,exports){
+},{"react":165}],218:[function(require,module,exports){
 var React = require('react');
 
 var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetails",
@@ -31596,7 +32110,7 @@ var CompanyProfileDetails = React.createClass({displayName: "CompanyProfileDetai
 
 module.exports = CompanyProfileDetails;
 
-},{"react":165}],217:[function(require,module,exports){
+},{"react":165}],219:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -31644,7 +32158,7 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 
 module.exports = CompanySignInForm;
 
-},{"../../actions/LandingPageActionCreators.js":173,"../MainButton.jsx":177,"react":165}],218:[function(require,module,exports){
+},{"../../actions/LandingPageActionCreators.js":174,"../MainButton.jsx":178,"react":165}],220:[function(require,module,exports){
 var React = require('react');
 var CompanyProfileDetails = require('./CompanyProfileDetails.jsx');
 var HashID = require('../../services/HashID.js');
@@ -31705,7 +32219,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 
 module.exports = CompanySignUpForm;
 
-},{"../../actions/CompanySignUpFormActionCreators.js":170,"../../actions/LandingPageActionCreators.js":173,"../../services/HashID.js":228,"./CompanyProfileDetails.jsx":216,"react":165}],219:[function(require,module,exports){
+},{"../../actions/CompanySignUpFormActionCreators.js":171,"../../actions/LandingPageActionCreators.js":174,"../../services/HashID.js":230,"./CompanyProfileDetails.jsx":218,"react":165}],221:[function(require,module,exports){
 var React = require('react');
 var ArchSignInForm = require('./ArchSignInForm.jsx');
 var CompanySignInForm = require('./CompanySignInForm.jsx');
@@ -31841,18 +32355,11 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-						React.createElement("h1", null, "Welcome to FreeArch")
-					)
+			React.createElement("div", {className: "container-fluid landing-page-background"}, 
+				React.createElement("div", {className: "jumbotron"}, 
+					React.createElement("h1", null, "Welcome to FreeArch", React.createElement("br", null), React.createElement("small", null, "Are you an Archaeologist or a potential Employer?"))
 				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
-						React.createElement("h3", null, "Are you an Archaeologist or a potential Employer?")
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
+				React.createElement("div", {className: "row landing-page-buttons"}, 
 					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
 						React.createElement(MainButton, {label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
 					), 
@@ -31872,7 +32379,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 module.exports = LandingPage;
 
-},{"../../actions/TokenActionCreators.js":175,"../../services/Authentication.js":227,"../MainButton.jsx":177,"./ArchSignInForm.jsx":213,"./ArchSignUpForm.jsx":214,"./CompanySignInForm.jsx":217,"./CompanySignUpForm.jsx":218,"react":165}],220:[function(require,module,exports){
+},{"../../actions/TokenActionCreators.js":176,"../../services/Authentication.js":229,"../MainButton.jsx":178,"./ArchSignInForm.jsx":215,"./ArchSignUpForm.jsx":216,"./CompanySignInForm.jsx":219,"./CompanySignUpForm.jsx":220,"react":165}],222:[function(require,module,exports){
 var React = require('react');
 
 var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
@@ -31938,7 +32445,7 @@ var AdvancedSearch = React.createClass({displayName: "AdvancedSearch",
 
 module.exports = AdvancedSearch;
 
-},{"react":165}],221:[function(require,module,exports){
+},{"react":165}],223:[function(require,module,exports){
 var React = require('react');
 var SearchActionCreators = require('../../actions/SearchActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -31978,7 +32485,7 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"../../actions/SearchActionCreators.js":174,"../../stores/SignInDetailsStore.js":233,"react":165}],222:[function(require,module,exports){
+},{"../../actions/SearchActionCreators.js":175,"../../stores/SignInDetailsStore.js":235,"react":165}],224:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
@@ -32053,7 +32560,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../../stores/SearchStore.js":232,"../company-navbar/EmployerNavbar.jsx":197,"../thumbnail/Thumbnail.jsx":223,"./AdvancedSearch.jsx":220,"./BasicSearch.jsx":221,"react":165}],223:[function(require,module,exports){
+},{"../../stores/SearchStore.js":234,"../company-navbar/EmployerNavbar.jsx":198,"../thumbnail/Thumbnail.jsx":225,"./AdvancedSearch.jsx":222,"./BasicSearch.jsx":223,"react":165}],225:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -32091,7 +32598,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":232,"./ThumbnailCaption.jsx":224,"./ThumbnailImage.jsx":225,"react":165}],224:[function(require,module,exports){
+},{"../../stores/SearchStore.js":234,"./ThumbnailCaption.jsx":226,"./ThumbnailImage.jsx":227,"react":165}],226:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -32110,7 +32617,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 
 module.exports = ThumbnailCaption;
 
-},{"react":165}],225:[function(require,module,exports){
+},{"react":165}],227:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
@@ -32123,12 +32630,12 @@ var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 
 module.exports = ThumbnailImage;
 
-},{"react":165}],226:[function(require,module,exports){
+},{"react":165}],228:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],227:[function(require,module,exports){
+},{"flux":4}],229:[function(require,module,exports){
 var jQuery = require('jquery');
 var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCreators.js');
 
@@ -32514,7 +33021,7 @@ module.exports = {
 };
 
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"jquery":7}],228:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":167,"jquery":7}],230:[function(require,module,exports){
 'use strict';
 
 /**
@@ -32586,7 +33093,7 @@ HashID.generateUnique = function(previous) {
 
 module.exports = HashID;
 
-},{}],229:[function(require,module,exports){
+},{}],231:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32643,7 +33150,7 @@ ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = ArchProfileDetailsStore;
 
-},{"../actions/ArchLandingPageActionCreators.js":166,"../dispatcher/Dispatcher.js":226,"events":2,"object-assign":8}],230:[function(require,module,exports){
+},{"../actions/ArchLandingPageActionCreators.js":167,"../dispatcher/Dispatcher.js":228,"events":2,"object-assign":8}],232:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32698,7 +33205,7 @@ CompanyProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = CompanyProfileDetailsStore;
 
-},{"../actions/EmployerLandingPageActionCreators.js":172,"../dispatcher/Dispatcher.js":226,"events":2,"object-assign":8}],231:[function(require,module,exports){
+},{"../actions/EmployerLandingPageActionCreators.js":173,"../dispatcher/Dispatcher.js":228,"events":2,"object-assign":8}],233:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32787,7 +33294,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":226,"events":2,"object-assign":8}],232:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":228,"events":2,"object-assign":8}],234:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32828,7 +33335,7 @@ SearchStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SearchStore;
 
-},{"../actions/SearchActionCreators.js":174,"../dispatcher/Dispatcher.js":226,"events":2,"object-assign":8}],233:[function(require,module,exports){
+},{"../actions/SearchActionCreators.js":175,"../dispatcher/Dispatcher.js":228,"events":2,"object-assign":8}],235:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -32886,4 +33393,4 @@ SignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SignInDetailsStore;
 
-},{"../actions/ArchSignUpFormActionCreators.js":167,"../actions/TokenActionCreators.js":175,"../dispatcher/Dispatcher.js":226,"events":2,"object-assign":8}]},{},[1]);
+},{"../actions/ArchSignUpFormActionCreators.js":168,"../actions/TokenActionCreators.js":176,"../dispatcher/Dispatcher.js":228,"events":2,"object-assign":8}]},{},[1]);
