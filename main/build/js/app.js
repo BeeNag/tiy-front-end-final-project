@@ -31276,15 +31276,6 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
-	componentWillMount: function () {
-		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
-		firebaseRef.on("value", function (snapshot) {
-			console.log(snapshot.val());	
-		}, function (errorObject) {
-			console.log("The read failed: " + errorObject.code);
-		});
-	},
-
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
 	},
@@ -31582,14 +31573,25 @@ module.exports = EditButton;
 },{"react":165}],206:[function(require,module,exports){
 var React = require('react');
 var ReactFire = require('reactfire');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
+
+	componentWillMount: function () {
+		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
+		firebaseRef.on("value", function (snapshot) {
+			console.log(snapshot.val());	
+		}, function (errorObject) {
+			console.log("The read failed: " + errorObject.code);
+		});
+	},
+
 	render: function () {
 		return (
 			React.createElement("div", {className: "container"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-2"}, 
-						React.createElement("p", null, Object.name)
+						React.createElement("p", null, snapshot.val().name)
 					), 
 					React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
 						React.createElement("p", null, "MAP")
@@ -31597,12 +31599,12 @@ var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-6"}, 
-						React.createElement("p", null, Object.excavation_description)
+						React.createElement("p", null, snapshot.val().excavation_description)
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("a", {type: "submit", className: "btn btn-info", href: Object.excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
+						React.createElement("a", {type: "submit", className: "btn btn-info", href: snapshot.val().excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
 					)
 				)
 			)
@@ -31612,7 +31614,7 @@ var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
 
 module.exports = ExcavationDetails;
 
-},{"react":165,"reactfire":166}],207:[function(require,module,exports){
+},{"../../stores/SignInDetailsStore.js":235,"react":165,"reactfire":166}],207:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -31733,6 +31735,7 @@ module.exports = YesButton;
 },{"../../actions/CompanyProfileActionCreators.js":170,"../../stores/SignInDetailsStore.js":235,"react":165}],213:[function(require,module,exports){
 var React = require('react');
 var ReactFire = require('reactfire');
+var HashID = require('../../services/HashID.js');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -31741,6 +31744,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 	getInitialState: function () {
 		return {
+			id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -31808,6 +31812,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 		submitEvent.preventDefault();
 		console.log('running');
 		this.firebaseRef.set({
+			id: SignInDetailsStore.getId(),
 			name: this.state.name,
 			address1: this.state.address1,
 			address2: this.state.address2,
@@ -31818,6 +31823,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 			excavation_description: this.state.excavation_description
 		});
 		this.setState({
+			id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -31830,7 +31836,8 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 	},
 
 	componentWillMount: function () {
-		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
+		var excavationId = HashID.generate();
+		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
 		this.firebaseRef.on("child_added", function () {
 			console.log('hello');
 		}.bind(this));
@@ -31897,7 +31904,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":172,"../../stores/SignInDetailsStore.js":235,"../company-navbar/EmployerNavbar.jsx":198,"react":165,"reactfire":166}],214:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":172,"../../services/HashID.js":230,"../../stores/SignInDetailsStore.js":235,"../company-navbar/EmployerNavbar.jsx":198,"react":165,"reactfire":166}],214:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');

@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactFire = require('reactfire');
+var HashID = require('../../services/HashID.js');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
@@ -8,6 +9,7 @@ var CreateExcavation = React.createClass({
 
 	getInitialState: function () {
 		return {
+			id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -75,6 +77,7 @@ var CreateExcavation = React.createClass({
 		submitEvent.preventDefault();
 		console.log('running');
 		this.firebaseRef.set({
+			id: SignInDetailsStore.getId(),
 			name: this.state.name,
 			address1: this.state.address1,
 			address2: this.state.address2,
@@ -85,6 +88,7 @@ var CreateExcavation = React.createClass({
 			excavation_description: this.state.excavation_description
 		});
 		this.setState({
+			id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -97,7 +101,8 @@ var CreateExcavation = React.createClass({
 	},
 
 	componentWillMount: function () {
-		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
+		var excavationId = HashID.generate();
+		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
 		this.firebaseRef.on("child_added", function () {
 			console.log('hello');
 		}.bind(this));

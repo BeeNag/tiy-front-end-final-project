@@ -77,15 +77,6 @@ var CompanyProfile = React.createClass({
 		CompanyProfileActionCreators.updateCompanyProfileDescriptionDetails(description, SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 	},
 
-	componentWillMount: function () {
-		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + SignInDetailsStore.getId());
-		firebaseRef.on("value", function (snapshot) {
-			console.log(snapshot.val());	
-		}, function (errorObject) {
-			console.log("The read failed: " + errorObject.code);
-		});
-	},
-
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
 	},
