@@ -32616,7 +32616,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 				React.createElement("p", {className: "text-center"}, this.props.email), 
 				React.createElement("p", {className: "text-center"}, this.props.specialism), 
 				React.createElement("p", {className: "text-center"}, this.props.experience), 
-				React.createElement("p", {className: "text-center"}, React.createElement("a", {href: "#", className: "btn btn-primary", role: "button"}, "View Profile"))
+				React.createElement("p", {className: "text-center"}, React.createElement("button", {className: "btn btn-primary", type: "button"}, "View Profile"))
 			)
 		);
 	}
@@ -32630,7 +32630,7 @@ var React = require('react');
 var ThumbnailImage = React.createClass({displayName: "ThumbnailImage",
 	render: function () {
 		return (
-			React.createElement("img", {src: this.props.image, alt: "Profile Picture"})
+			React.createElement("img", {src: 'http://localhost:8383/uploads/' + this.props.image, alt: "Profile Picture"})
 		);
 	}
 });

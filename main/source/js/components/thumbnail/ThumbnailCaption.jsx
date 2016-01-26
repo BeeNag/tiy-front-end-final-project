@@ -8,7 +8,7 @@ var ThumbnailCaption = React.createClass({
 				<p className="text-center">{this.props.email}</p>
 				<p className="text-center">{this.props.specialism}</p>
 				<p className="text-center">{this.props.experience}</p>
-				<p className="text-center"><a href="#" className="btn btn-primary" role="button">View Profile</a></p>
+				<p className="text-center"><button className="btn btn-primary" type="button">View Profile</button></p>
 			</div>
 		);
 	}
