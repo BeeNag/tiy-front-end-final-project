@@ -30663,11 +30663,11 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 						    ), 
 						    React.createElement("div", {className: "collapse navbar-collapse", id: "landing-page-nav"}, 
 						    	React.createElement("ul", {className: "nav navbar-nav"}, 
-						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-left", handleButtonClick: this.handleHomeClickEvent, label: "HOME"}), 
-						    		React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewProfileClickEvent, label: "View Your Profile"}), 
-						    		React.createElement(Link, {role: "button", href: "#view-archaeologists", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewArchaeologistsClickEvent, label: "Archaeologists Near You"}), 
-						    		React.createElement(Link, {role: "button", href: "#view-excavations", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewExcavationsClickEvent, label: "Excavations Near You"}), 
-							        React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn pull-right", handleButtonClick: this.handleSignOutClickEvent, label: "Sign Out"})
+						    		React.createElement(Button, {type: "button", className: "btn btn-default btn-block navbar-btn pull-left", handleButtonClick: this.handleHomeClickEvent, label: "HOME"}), 
+						    		"// ", React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewProfileClickEvent, label: "View Your Profile"}), 
+						    		"// ", React.createElement(Link, {role: "button", href: "#view-archaeologists", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewArchaeologistsClickEvent, label: "Archaeologists Near You"}), 
+						    		"// ", React.createElement(Link, {role: "button", href: "#view-excavations", className: "btn btn-default navbar-btn", handleButtonClick: this.handleViewExcavationsClickEvent, label: "Excavations Near You"}), 
+							        React.createElement(Button, {type: "button", className: "btn btn-default navbar-btn btn-block pull-right", handleButtonClick: this.handleSignOutClickEvent, label: "Sign Out"})
 							    )
 							)
 						)
@@ -30885,33 +30885,11 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("h3", {id: "view-archaeologists"}, "Archaeologists in Your Area")
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-7"}, 
-						React.createElement("p", null, "Map of Archaeologists")
-					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-1"}, 
-						React.createElement("h3", null, "List of Archaeologists"), 
-						React.createElement("ul", null, 
-							React.createElement("li", null, "Blah"), 
-							React.createElement("li", null, "Blah Blah"), 
-							React.createElement("li", null, "Blah Blah Blah"), 
-							React.createElement("li", null, "Etc")
-						)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4"}, 
 						React.createElement("h3", {id: "view-excavations"}, "View Excavations Near You")
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-7"}, 
-						React.createElement("p", null, "Map of Excavations")
-					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-1"}, 
+					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
 						React.createElement("h3", null, "List of Excavations"), 
 						React.createElement("ul", null, 
 							React.createElement("li", null, "This One"), 
@@ -32588,29 +32566,12 @@ var Search = React.createClass({displayName: "Search",
 				), 
 				React.createElement(BasicSearch, null), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("h3", null, "Recent Archaeologists")
-				), 
-				React.createElement("div", {className: "row"}
-			
-				), 
-				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-8"}, 
 						React.createElement("h3", {id: "search-results"}, "Search Results")
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
 					this.state.isThumbnailShowing ? React.createElement(Thumbnail, null) : null
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8"}, 
-						React.createElement("h3", {id: "saved-profiles"}, "Your Saved Profiles")
-					)
-				), 
-				React.createElement("div", {className: "row"}
-					
-				), 
-				React.createElement("div", {className: "row"}
-					
 				)
 			)
 		);

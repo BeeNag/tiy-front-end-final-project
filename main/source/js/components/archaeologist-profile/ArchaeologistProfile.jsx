@@ -178,33 +178,11 @@ var ArchaeologistProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-4">
-						<h3 id="view-archaeologists">Archaeologists in Your Area</h3>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-7">
-						<p>Map of Archaeologists</p>
-					</div>
-					<div className="col-xs-4 col-xs-offset-1">
-						<h3>List of Archaeologists</h3>
-						<ul>
-							<li>Blah</li>
-							<li>Blah Blah</li>
-							<li>Blah Blah Blah</li>
-							<li>Etc</li>
-						</ul>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-4">
 						<h3 id="view-excavations">View Excavations Near You</h3>
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-7">
-						<p>Map of Excavations</p>
-					</div>
-					<div className="col-xs-4 col-xs-offset-1">
+					<div className="col-xs-8 col-xs-offset-2">
 						<h3>List of Excavations</h3>
 						<ul>
 							<li>This One</li>

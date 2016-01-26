@@ -41,29 +41,12 @@ var Search = React.createClass({
 				</div>
 				<BasicSearch />
 				<div className="row">
-					<h3>Recent Archaeologists</h3>
-				</div>
-				<div className="row">
-			
-				</div>
-				<div className="row">
 					<div className="col-xs-8">
 						<h3 id="search-results">Search Results</h3>
 					</div>
 				</div>
 				<div className="row">
 					{this.state.isThumbnailShowing ? <Thumbnail /> : null}
-				</div>
-				<div className="row">
-					<div className="col-xs-8">
-						<h3 id="saved-profiles">Your Saved Profiles</h3>
-					</div>
-				</div>
-				<div className="row">
-					
-				</div>
-				<div className="row">
-					
 				</div>
 			</div>
 		);
