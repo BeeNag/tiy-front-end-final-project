@@ -9,7 +9,7 @@ var CreateExcavation = React.createClass({
 
 	getInitialState: function () {
 		return {
-			id: '',
+			company_id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -76,8 +76,8 @@ var CreateExcavation = React.createClass({
 	handleSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
 		console.log('running');
-		this.firebaseRef.set({
-			id: SignInDetailsStore.getId(),
+		var excavationDetails = {
+			company_id: SignInDetailsStore.getId(),
 			name: this.state.name,
 			address1: this.state.address1,
 			address2: this.state.address2,
@@ -86,9 +86,9 @@ var CreateExcavation = React.createClass({
 			duration: this.state.duration,
 			excavation_url: this.state.excavation_url,
 			excavation_description: this.state.excavation_description
-		});
+		};
 		this.setState({
-			id: '',
+			company_id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -98,18 +98,8 @@ var CreateExcavation = React.createClass({
 			excavation_url: '',
 			excavation_description: ''
 		});
-	},
 
-	componentWillMount: function () {
-		var excavationId = HashID.generate();
-		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
-		this.firebaseRef.on("child_added", function () {
-			console.log('hello');
-		}.bind(this));
-	},
-
-	componentWillUnmount: function () {
-		this.firebaseRef.off();
+		CreateExcavationActionCreators.setExcavationDetails(excavationDetails);
 	},
 
 	render: function () {

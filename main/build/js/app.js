@@ -30135,6 +30135,8 @@ module.exports = {
 
 },{"../dispatcher/Dispatcher.js":230}],174:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
+var ReactFire = require('reactfire');
+var HashID = require('../services/HashID.js');
 
 function changeToCompanyProfile() {
 	var action = {
@@ -30144,11 +30146,40 @@ function changeToCompanyProfile() {
 	Dispatcher.dispatch(action);
 }
 
+function setExcavationDetails(excavationDetails) {
+
+	var excavationId = HashID.generate();
+	this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
+	this.firebaseRef.on("child_added", function () {
+		console.log('hello');
+	}.bind(this));
+
+	this.firebaseRef.set({
+		company_id: excavationDetails.company_id,
+		name: excavationDetails.name,
+		address1: excavationDetails.address1,
+		address2: excavationDetails.address2,
+		address3: excavationDetails.address3,
+		postcode: excavationDetails.postcode,
+		duration: excavationDetails.duration,
+		excavation_url: excavationDetails.excavation_url,
+		excavation_description: excavationDetails.excavation_description
+	});
+
+	var action = {
+		type: 'set-excavation-details',
+		excavationDetails: excavationDetails
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
-	changeToCompanyProfile: changeToCompanyProfile
+	changeToCompanyProfile: changeToCompanyProfile,
+	setExcavationDetails: setExcavationDetails
 };
 
-},{"../dispatcher/Dispatcher.js":230}],175:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":230,"../services/HashID.js":232,"reactfire":166}],175:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -30395,7 +30426,7 @@ var Application = React.createClass({displayName: "Application",
 
 module.exports = Application;
 
-},{"../stores/PageStateStore.js":235,"./arch-landing-page/ArchLandingPage.jsx":181,"./archaeologist-profile/ArchaeologistProfile.jsx":186,"./company-profile/CompanyProfile.jsx":202,"./create-excavation/CreateExcavation.jsx":215,"./employer-landing-page/EmployerLandingPage.jsx":216,"./landing-page/LandingPage.jsx":223,"./search/Search.jsx":226,"react":165}],180:[function(require,module,exports){
+},{"../stores/PageStateStore.js":236,"./arch-landing-page/ArchLandingPage.jsx":181,"./archaeologist-profile/ArchaeologistProfile.jsx":186,"./company-profile/CompanyProfile.jsx":202,"./create-excavation/CreateExcavation.jsx":215,"./employer-landing-page/EmployerLandingPage.jsx":216,"./landing-page/LandingPage.jsx":223,"./search/Search.jsx":226,"react":165}],180:[function(require,module,exports){
 var React = require('react');
 
 var MainButton = React.createClass({displayName: "MainButton",
@@ -30485,7 +30516,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":167,"../../stores/SignInDetailsStore.js":237,"../arch-navbar/ArchNavbar.jsx":183,"./ImageUploadForm.jsx":182,"react":165}],182:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../stores/SignInDetailsStore.js":238,"../arch-navbar/ArchNavbar.jsx":183,"./ImageUploadForm.jsx":182,"react":165}],182:[function(require,module,exports){
 var React = require('react');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
@@ -30559,7 +30590,7 @@ var ImageUploadForm = React.createClass({displayName: "ImageUploadForm",
 
 module.exports = ImageUploadForm;
 
-},{"../../stores/SignInDetailsStore.js":237,"react":165}],183:[function(require,module,exports){
+},{"../../stores/SignInDetailsStore.js":238,"react":165}],183:[function(require,module,exports){
 var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
@@ -30872,7 +30903,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 module.exports = ArchaeologistProfile;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":170,"../../services/Authentication.js":231,"../../stores/ArchProfileDetailsStore.js":233,"../../stores/SignInDetailsStore.js":237,"../arch-navbar/ArchNavbar.jsx":183,"./ContactDetailsEdit.jsx":187,"./DeleteButton.jsx":188,"./DeleteModal.jsx":189,"./DescriptionEdit.jsx":190,"./EditButton.jsx":191,"./ExperienceAndSpecialismEdit.jsx":192,"./PhotoEdit.jsx":197,"react":165}],187:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":170,"../../services/Authentication.js":231,"../../stores/ArchProfileDetailsStore.js":233,"../../stores/SignInDetailsStore.js":238,"../arch-navbar/ArchNavbar.jsx":183,"./ContactDetailsEdit.jsx":187,"./DeleteButton.jsx":188,"./DeleteModal.jsx":189,"./DescriptionEdit.jsx":190,"./EditButton.jsx":191,"./ExperienceAndSpecialismEdit.jsx":192,"./PhotoEdit.jsx":197,"react":165}],187:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31160,7 +31191,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/ArchaeologistProfileActionCreators.js":170,"../../stores/SignInDetailsStore.js":237,"react":165}],199:[function(require,module,exports){
+},{"../../actions/ArchaeologistProfileActionCreators.js":170,"../../stores/SignInDetailsStore.js":238,"react":165}],199:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -31408,73 +31439,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 				React.createElement("div", {className: "row"}, 
 					React.createElement("button", {type: "button", className: "btn btn-info", "data-toggle": "collapse", "data-target": "#excavation-view"}, "View Your Excavations"), 
 					React.createElement("div", {className: "collapse", id: "excavation-view"}, 
-						React.createElement(ExcavationDetails, null), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "container"}, 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-2"}, 
-										React.createElement("p", null, "Excavation Name")
-									), 
-									React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
-										React.createElement("p", null, "Small map of location")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-6"}, 
-										React.createElement("p", null, "Description of Excavation")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-4"}, 
-										React.createElement("a", {className: "btn btn-info", href: "#", role: "button"}, "Excavation Home Page")
-									)
-								)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "container"}, 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-2"}, 
-										React.createElement("p", null, "Excavation Name")
-									), 
-									React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
-										React.createElement("p", null, "Small map of location")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-6"}, 
-										React.createElement("p", null, "Description of Excavation")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-4"}, 
-										React.createElement("a", {className: "btn btn-info", href: "#", role: "button"}, "Excavation Home Page")
-									)
-								)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "container"}, 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-2"}, 
-										React.createElement("p", null, "Excavation Name")
-									), 
-									React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
-										React.createElement("p", null, "Small map of location")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-6"}, 
-										React.createElement("p", null, "Description of Excavation")
-									)
-								), 
-								React.createElement("div", {className: "row"}, 
-									React.createElement("div", {className: "col-xs-4"}, 
-										React.createElement("a", {className: "btn btn-info", href: "#", role: "button"}, "Excavation Home Page")
-									)
-								)
-							)
-						)
+						React.createElement(ExcavationDetails, null)
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
@@ -31488,7 +31453,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":171,"../../services/Authentication.js":231,"../../stores/CompanyProfileDetailsStore.js":234,"../../stores/SignInDetailsStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"./ContactDetailsEdit.jsx":203,"./DeleteButton.jsx":204,"./DeleteModal.jsx":205,"./DescriptionEdit.jsx":206,"./EditButton.jsx":207,"./ExcavationDetails.jsx":208,"./UrlEdit.jsx":213,"react":165,"reactfire":166}],203:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":171,"../../services/Authentication.js":231,"../../stores/CompanyProfileDetailsStore.js":234,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"./ContactDetailsEdit.jsx":203,"./DeleteButton.jsx":204,"./DeleteModal.jsx":205,"./DescriptionEdit.jsx":206,"./EditButton.jsx":207,"./ExcavationDetails.jsx":208,"./UrlEdit.jsx":213,"react":165,"reactfire":166}],203:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31627,40 +31592,47 @@ module.exports = EditButton;
 },{"react":165}],208:[function(require,module,exports){
 var React = require('react');
 var ReactFire = require('reactfire');
-var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var ExcavationStore = require('../../stores/ExcavationStore.js');
 
 var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
+	
+	addExcavations: function () {
 
-	componentWillMount: function () {
-		var firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
-		firebaseRef.on("value", function (snapshot) {
-			console.log(snapshot.val());	
-		}, function (errorObject) {
-			console.log("The read failed: " + errorObject.code);
+		var excavationArray = ExcavationStore.getExcavationDetails();
+
+		var excavations = excavationArray.map(function (element, index) {
+
+			console.log(element);
+			return (
+				React.createElement("div", {className: "container", key: index}, 
+					React.createElement("div", {className: "row"}, 
+						React.createElement("div", {className: "col-xs-2"}, 
+							React.createElement("p", null, element.name)
+						), 
+						React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
+							React.createElement("p", null, "Small map of location")
+						)
+					), 
+					React.createElement("div", {className: "row"}, 
+						React.createElement("div", {className: "col-xs-6"}, 
+							React.createElement("p", null, element.excavation_description)
+						)
+					), 
+					React.createElement("div", {className: "row"}, 
+						React.createElement("div", {className: "col-xs-4"}, 
+							React.createElement("a", {type: "submit", className: "btn btn-info", href: element.excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
+						)
+					)
+				)
+			);
 		});
+		return excavations;
 	},
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container"}, 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-2"}, 
-						React.createElement("p", null, snapshot.val().name)
-					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
-						React.createElement("p", null, "MAP")
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-6"}, 
-						React.createElement("p", null, snapshot.val().excavation_description)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("a", {type: "submit", className: "btn btn-info", href: snapshot.val().excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
-					)
-				)
+			React.createElement("div", {className: "row"}, 
+				this.addExcavations()	
 			)
 		);
 	}
@@ -31668,7 +31640,7 @@ var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
 
 module.exports = ExcavationDetails;
 
-},{"../../stores/SignInDetailsStore.js":237,"react":165,"reactfire":166}],209:[function(require,module,exports){
+},{"../../stores/ExcavationStore.js":235,"react":165,"reactfire":166}],209:[function(require,module,exports){
 var React = require('react');
 
 var ModalBody = React.createClass({displayName: "ModalBody",
@@ -31786,7 +31758,7 @@ var YesButton = React.createClass({displayName: "YesButton",
 
 module.exports = YesButton;
 
-},{"../../actions/CompanyProfileActionCreators.js":171,"../../stores/SignInDetailsStore.js":237,"react":165}],215:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":171,"../../stores/SignInDetailsStore.js":238,"react":165}],215:[function(require,module,exports){
 var React = require('react');
 var ReactFire = require('reactfire');
 var HashID = require('../../services/HashID.js');
@@ -31798,7 +31770,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 	getInitialState: function () {
 		return {
-			id: '',
+			company_id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -31865,8 +31837,8 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 	handleSubmit: function (submitEvent) {
 		submitEvent.preventDefault();
 		console.log('running');
-		this.firebaseRef.set({
-			id: SignInDetailsStore.getId(),
+		var excavationDetails = {
+			company_id: SignInDetailsStore.getId(),
 			name: this.state.name,
 			address1: this.state.address1,
 			address2: this.state.address2,
@@ -31875,9 +31847,9 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 			duration: this.state.duration,
 			excavation_url: this.state.excavation_url,
 			excavation_description: this.state.excavation_description
-		});
+		};
 		this.setState({
-			id: '',
+			company_id: '',
 			name: '',
 			address1: '',
 			address2: '',
@@ -31887,18 +31859,8 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 			excavation_url: '',
 			excavation_description: ''
 		});
-	},
 
-	componentWillMount: function () {
-		var excavationId = HashID.generate();
-		this.firebaseRef = new Firebase("https://tiy-front-end.firebaseio.com/excavations/" + excavationId);
-		this.firebaseRef.on("child_added", function () {
-			console.log('hello');
-		}.bind(this));
-	},
-
-	componentWillUnmount: function () {
-		this.firebaseRef.off();
+		CreateExcavationActionCreators.setExcavationDetails(excavationDetails);
 	},
 
 	render: function () {
@@ -31958,7 +31920,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":174,"../../services/HashID.js":232,"../../stores/SignInDetailsStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"react":165,"reactfire":166}],216:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":174,"../../services/HashID.js":232,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165,"reactfire":166}],216:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
@@ -32017,7 +31979,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":175,"../../stores/SignInDetailsStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"react":165}],217:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":175,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -32550,7 +32512,7 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 module.exports = BasicSearch;
 
-},{"../../actions/SearchActionCreators.js":177,"../../stores/SignInDetailsStore.js":237,"react":165}],226:[function(require,module,exports){
+},{"../../actions/SearchActionCreators.js":177,"../../stores/SignInDetailsStore.js":238,"react":165}],226:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
@@ -32625,7 +32587,7 @@ var Search = React.createClass({displayName: "Search",
 
 module.exports = Search;
 
-},{"../../stores/SearchStore.js":236,"../company-navbar/EmployerNavbar.jsx":200,"../thumbnail/Thumbnail.jsx":227,"./AdvancedSearch.jsx":224,"./BasicSearch.jsx":225,"react":165}],227:[function(require,module,exports){
+},{"../../stores/SearchStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"../thumbnail/Thumbnail.jsx":227,"./AdvancedSearch.jsx":224,"./BasicSearch.jsx":225,"react":165}],227:[function(require,module,exports){
 var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
@@ -32663,7 +32625,7 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":236,"./ThumbnailCaption.jsx":228,"./ThumbnailImage.jsx":229,"react":165}],228:[function(require,module,exports){
+},{"../../stores/SearchStore.js":237,"./ThumbnailCaption.jsx":228,"./ThumbnailImage.jsx":229,"react":165}],228:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
@@ -33275,6 +33237,43 @@ var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
+var excavationDetails = [];
+
+function setExcavationDetails(details) {
+	console.log(details);
+	excavationDetails.push(details);
+}
+
+var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
+
+	getExcavationDetails: function () {
+		return excavationDetails;
+	},
+
+	addChangeListener: function (changeEventHandler) {
+		this.on('change', changeEventHandler);
+	},
+
+	removeChangeListener: function (changeEventHandler) {
+		this.removeListener('change', changeEventHandler);
+	}
+});
+
+function handleAction(action) {
+	if (action.type === 'set-excavation-details') {
+		setExcavationDetails(action.excavationDetails);
+	}
+}
+
+ExcavationStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = ExcavationStore;
+
+},{"../dispatcher/Dispatcher.js":230,"events":2,"object-assign":8}],236:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher.js');
+var EventEmitter = require('events').EventEmitter;
+var objectAssign = require('object-assign');
+
 var webPages = {
 	ARCH_LANDING_PAGE: 'ARCH_LANDING_PAGE',
 	ARCHAEOLOGIST_PROFILE: 'ARCHAEOLOGIST_PROFILE',
@@ -33359,7 +33358,7 @@ PageStateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PageStateStore;
 
-},{"../dispatcher/Dispatcher.js":230,"events":2,"object-assign":8}],236:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":230,"events":2,"object-assign":8}],237:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -33400,7 +33399,7 @@ SearchStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = SearchStore;
 
-},{"../actions/SearchActionCreators.js":177,"../dispatcher/Dispatcher.js":230,"events":2,"object-assign":8}],237:[function(require,module,exports){
+},{"../actions/SearchActionCreators.js":177,"../dispatcher/Dispatcher.js":230,"events":2,"object-assign":8}],238:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
