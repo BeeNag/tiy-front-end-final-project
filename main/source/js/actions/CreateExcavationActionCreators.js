@@ -1,6 +1,8 @@
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var ReactFire = require('reactfire');
 var HashID = require('../services/HashID.js');
+var EmployerLandingPageActionCreators = require('./EmployerLandingPageActionCreators.js');
+var SignInDetailsStore = require('../stores/SignInDetailsStore.js');
 
 function changeToCompanyProfile() {
 	var action = {
@@ -38,7 +40,32 @@ function setExcavationDetails(excavationDetails) {
 	Dispatcher.dispatch(action);
 }
 
+function getExcavationDetails() {
+	var ref = new Firebase("https://tiy-front-end.firebaseio.com/excavations/");
+
+// Attach an asynchronous callback to read the data at our posts reference
+	ref.on("value", function(snapshot) {
+	  console.log(snapshot.val());
+	  var excavations = Object.keys(snapshot.val()).map(function (k) {
+	  	return snapshot.val()[k];
+	  });
+
+	  var action = {
+			type: 'get-excavation-details',
+			excavations: excavations
+		};
+
+		Dispatcher.dispatch(action);
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		EmployerLandingPageActionCreators.changeToCompanyProfile();
+
+	}, function (errorObject) {
+	  console.log("The read failed: " + errorObject.code);
+	});
+}
+
 module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile,
-	setExcavationDetails: setExcavationDetails
+	setExcavationDetails: setExcavationDetails,
+	getExcavationDetails: getExcavationDetails
 };

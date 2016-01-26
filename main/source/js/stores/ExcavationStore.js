@@ -9,6 +9,11 @@ function setExcavationDetails(details) {
 	excavationDetails.push(details);
 }
 
+function setExcavationDetailsArray(details) {
+	console.log(details);
+	excavationDetails = details;
+}
+
 var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 
 	getExcavationDetails: function () {
@@ -27,6 +32,8 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
+	} else if (action.type === 'get-excavation-details') {
+		setExcavationDetailsArray(action.excavations);
 	}
 }
 

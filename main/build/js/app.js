@@ -30137,6 +30137,8 @@ module.exports = {
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var ReactFire = require('reactfire');
 var HashID = require('../services/HashID.js');
+var EmployerLandingPageActionCreators = require('./EmployerLandingPageActionCreators.js');
+var SignInDetailsStore = require('../stores/SignInDetailsStore.js');
 
 function changeToCompanyProfile() {
 	var action = {
@@ -30174,12 +30176,37 @@ function setExcavationDetails(excavationDetails) {
 	Dispatcher.dispatch(action);
 }
 
+function getExcavationDetails() {
+	var ref = new Firebase("https://tiy-front-end.firebaseio.com/excavations/");
+
+// Attach an asynchronous callback to read the data at our posts reference
+	ref.on("value", function(snapshot) {
+	  console.log(snapshot.val());
+	  var excavations = Object.keys(snapshot.val()).map(function (k) {
+	  	return snapshot.val()[k];
+	  });
+
+	  var action = {
+			type: 'get-excavation-details',
+			excavations: excavations
+		};
+
+		Dispatcher.dispatch(action);
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		EmployerLandingPageActionCreators.changeToCompanyProfile();
+
+	}, function (errorObject) {
+	  console.log("The read failed: " + errorObject.code);
+	});
+}
+
 module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile,
-	setExcavationDetails: setExcavationDetails
+	setExcavationDetails: setExcavationDetails,
+	getExcavationDetails: getExcavationDetails
 };
 
-},{"../dispatcher/Dispatcher.js":230,"../services/HashID.js":232,"reactfire":166}],175:[function(require,module,exports){
+},{"../dispatcher/Dispatcher.js":230,"../services/HashID.js":232,"../stores/SignInDetailsStore.js":238,"./EmployerLandingPageActionCreators.js":175,"reactfire":166}],175:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher.js');
 var Authentication = require('../services/Authentication.js');
 
@@ -31599,6 +31626,7 @@ var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
 	addExcavations: function () {
 
 		var excavationArray = ExcavationStore.getExcavationDetails();
+		console.log("this is: " + excavationArray);
 
 		var excavations = excavationArray.map(function (element, index) {
 
@@ -31927,12 +31955,12 @@ var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 
 var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 	handleCompanyProfileClickEvent: function () {
-		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
-		EmployerLandingPageActionCreators.changeToCompanyProfile();
+		CreateExcavationActionCreators.getExcavationDetails();
 	},
 
 	handleCreateExcavationClickEvent: function () {
@@ -31981,7 +32009,7 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 
 module.exports = EmployerLandingPage;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":175,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165}],217:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":174,"../../actions/EmployerLandingPageActionCreators.js":175,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165}],217:[function(require,module,exports){
 var React = require('react');
 var MainButton = require('../MainButton.jsx');
 var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
@@ -33246,6 +33274,11 @@ function setExcavationDetails(details) {
 	excavationDetails.push(details);
 }
 
+function setExcavationDetailsArray(details) {
+	console.log(details);
+	excavationDetails = details;
+}
+
 var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 
 	getExcavationDetails: function () {
@@ -33264,6 +33297,8 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
+	} else if (action.type === 'get-excavation-details') {
+		setExcavationDetailsArray(action.excavations);
 	}
 }
 
