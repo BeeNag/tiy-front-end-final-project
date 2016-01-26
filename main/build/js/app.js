@@ -30298,9 +30298,27 @@ function setCompanyAuthenticationToken(token) {
 	Dispatcher.dispatch(action);
 }
 
+function removeArchaeologistAuthenticationToken() {
+	var action = {
+		type: 'remove-archaeologist-authentication-token'
+	}
+
+	Dispatcher.dispatch(action);
+}
+
+function removeCompanyAuthenticationToken() {
+	var action = {
+		type: 'remove-company-authentication-token'
+	}
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	setArchaeologistAuthenticationToken: setArchaeologistAuthenticationToken,
-	setCompanyAuthenticationToken: setCompanyAuthenticationToken
+	setCompanyAuthenticationToken: setCompanyAuthenticationToken,
+	removeArchaeologistAuthenticationToken: removeArchaeologistAuthenticationToken,
+	removeCompanyAuthenticationToken: removeCompanyAuthenticationToken
 };
 
 },{"../dispatcher/Dispatcher.js":230}],179:[function(require,module,exports){
@@ -30546,6 +30564,7 @@ var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 
 var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
@@ -30566,6 +30585,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 	},
 
 	handleSignOutClickEvent: function () {
+		TokenActionCreators.removeArchaeologistAuthenticationToken();
 		ArchLandingPageActionCreators.changeToLandingPage();
 	},
 
@@ -30598,7 +30618,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 module.exports = ArchNavbar;
 
-},{"../../actions/ArchLandingPageActionCreators.js":167,"./Button.jsx":184,"./Link.jsx":185,"react":165}],184:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../actions/TokenActionCreators.js":178,"./Button.jsx":184,"./Link.jsx":185,"react":165}],184:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -31158,6 +31178,7 @@ var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
+var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 
 var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 
@@ -31182,6 +31203,7 @@ var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 	},
 
 	handleSignOutClickEvent: function () {
+		TokenActionCreators.removeCompanyAuthenticationToken();
 		EmployerLandingPageActionCreators.changeToLandingPage();
 	},
 
@@ -31215,7 +31237,7 @@ var EmployerNavbar = React.createClass({displayName: "EmployerNavbar",
 
 module.exports = EmployerNavbar;
 
-},{"../../actions/EmployerLandingPageActionCreators.js":175,"./Button.jsx":199,"./Link.jsx":201,"react":165}],201:[function(require,module,exports){
+},{"../../actions/EmployerLandingPageActionCreators.js":175,"../../actions/TokenActionCreators.js":178,"./Button.jsx":199,"./Link.jsx":201,"react":165}],201:[function(require,module,exports){
 var React = require('react');
 
 var Link = React.createClass({displayName: "Link",
@@ -33401,6 +33423,16 @@ function setCompanyAuthenticationToken(newToken) {
 	SignInDetailsStore.emit('change');
 }
 
+function removeArchaeologistAuthenticationToken() {
+	token = null;
+	SignInDetailsStore.emit('change');
+}
+
+function removeCompanyAuthenticationToken() {
+	token = null;
+	SignInDetailsStore.emit('change');
+}
+
 function setUserId(newId) {
 	id = newId;
 	SignInDetailsStore.emit('change');
@@ -33436,6 +33468,10 @@ function handleAction (action) {
 		setUserId(action.id);
 	} else if (action.type === 'set-company-id') {
 		setUserId(action.id);
+	} else if (action.type === 'remove-archaeologist-authentication-token') {
+		removeArchaeologistAuthenticationToken();
+	} else if (action.type === 'remove-company-authentication-token') {
+		removeCompanyAuthenticationToken();
 	}
 }
 

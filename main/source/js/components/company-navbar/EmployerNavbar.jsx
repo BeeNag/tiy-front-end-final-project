@@ -2,6 +2,7 @@ var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
+var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 
 var EmployerNavbar = React.createClass({
 
@@ -26,6 +27,7 @@ var EmployerNavbar = React.createClass({
 	},
 
 	handleSignOutClickEvent: function () {
+		TokenActionCreators.removeCompanyAuthenticationToken();
 		EmployerLandingPageActionCreators.changeToLandingPage();
 	},
 

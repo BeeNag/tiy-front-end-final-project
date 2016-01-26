@@ -20,6 +20,16 @@ function setCompanyAuthenticationToken(newToken) {
 	SignInDetailsStore.emit('change');
 }
 
+function removeArchaeologistAuthenticationToken() {
+	token = null;
+	SignInDetailsStore.emit('change');
+}
+
+function removeCompanyAuthenticationToken() {
+	token = null;
+	SignInDetailsStore.emit('change');
+}
+
 function setUserId(newId) {
 	id = newId;
 	SignInDetailsStore.emit('change');
@@ -55,6 +65,10 @@ function handleAction (action) {
 		setUserId(action.id);
 	} else if (action.type === 'set-company-id') {
 		setUserId(action.id);
+	} else if (action.type === 'remove-archaeologist-authentication-token') {
+		removeArchaeologistAuthenticationToken();
+	} else if (action.type === 'remove-company-authentication-token') {
+		removeCompanyAuthenticationToken();
 	}
 }
 
