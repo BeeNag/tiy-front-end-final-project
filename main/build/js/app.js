@@ -31765,6 +31765,7 @@ var HashID = require('../../services/HashID.js');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 
 var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
@@ -31831,6 +31832,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 	},
 
 	handleCreateExcavationClickEvent: function () {
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		CreateExcavationActionCreators.changeToCompanyProfile();
 	},
 
@@ -31920,7 +31922,7 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 module.exports = CreateExcavation;
 
-},{"../../actions/CreateExcavationActionCreators.js":174,"../../services/HashID.js":232,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165,"reactfire":166}],216:[function(require,module,exports){
+},{"../../actions/CreateExcavationActionCreators.js":174,"../../actions/EmployerLandingPageActionCreators.js":175,"../../services/HashID.js":232,"../../stores/SignInDetailsStore.js":238,"../company-navbar/EmployerNavbar.jsx":200,"react":165,"reactfire":166}],216:[function(require,module,exports){
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');

@@ -4,6 +4,7 @@ var HashID = require('../../services/HashID.js');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var EmployerLandingPageActionCreators = require('../../actions/EmployerLandingPageActionCreators.js');
 
 var CreateExcavation = React.createClass({
 
@@ -70,6 +71,7 @@ var CreateExcavation = React.createClass({
 	},
 
 	handleCreateExcavationClickEvent: function () {
+		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		CreateExcavationActionCreators.changeToCompanyProfile();
 	},
 
