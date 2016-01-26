@@ -40,6 +40,8 @@ function getArchProfile(token, id) {
 
 		Dispatcher.dispatch(action);
 
+		changeToArchaeologistProfile();
+
 	});
 }
 

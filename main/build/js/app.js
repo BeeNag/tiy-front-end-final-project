@@ -29875,6 +29875,8 @@ function getArchProfile(token, id) {
 
 		Dispatcher.dispatch(action);
 
+		changeToArchaeologistProfile();
+
 	});
 }
 
@@ -32622,8 +32624,14 @@ var React = require('react');
 var ThumbnailImage = require('./ThumbnailImage.jsx');
 var ThumbnailCaption = require('./ThumbnailCaption.jsx');
 var SearchStore = require('../../stores/SearchStore.js');
+var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var Thumbnail = React.createClass({displayName: "Thumbnail",
+
+	getArchaeologistProfile: function (id) {
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), id);
+	},
 
 	addThumbnails: function () {
 
@@ -32632,15 +32640,16 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 		var thumbnails = thumbnailArray.map(function (element, index) {
 
 			console.log(element);
+			console.log(this);
 			return (
 				React.createElement("div", {className: "col-xs-3", key: index}, 
 					React.createElement("div", {className: "thumbnail"}, 
 						React.createElement(ThumbnailImage, {image: element.image}), 
-						React.createElement(ThumbnailCaption, {name: element.name, email: element.email, specialism: element.specialism, experience: element.experience})
+						React.createElement(ThumbnailCaption, {id: element.id, name: element.name, email: element.email, specialism: element.specialism, experience: element.experience, handleViewProfileClickEvent: this.getArchaeologistProfile})
 					)
 				)
 			);
-		});
+		}.bind(this));
 		return thumbnails;
 	},
 
@@ -32655,10 +32664,16 @@ var Thumbnail = React.createClass({displayName: "Thumbnail",
 
 module.exports = Thumbnail;
 
-},{"../../stores/SearchStore.js":237,"./ThumbnailCaption.jsx":228,"./ThumbnailImage.jsx":229,"react":165}],228:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../stores/SearchStore.js":237,"../../stores/SignInDetailsStore.js":238,"./ThumbnailCaption.jsx":228,"./ThumbnailImage.jsx":229,"react":165}],228:[function(require,module,exports){
 var React = require('react');
 
 var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
+
+	handleClickEvent: function () {
+		var id = this.props.id;
+		this.props.handleViewProfileClickEvent(id);
+	},
+
 	render: function () {
 		return (
 			React.createElement("div", {className: "caption"}, 
@@ -32666,7 +32681,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 				React.createElement("p", {className: "text-center"}, this.props.email), 
 				React.createElement("p", {className: "text-center"}, this.props.specialism), 
 				React.createElement("p", {className: "text-center"}, this.props.experience), 
-				React.createElement("p", {className: "text-center"}, React.createElement("button", {className: "btn btn-primary", type: "button"}, "View Profile"))
+				React.createElement("p", {className: "text-center"}, React.createElement("button", {className: "btn btn-primary", type: "button", onClick: this.handleClickEvent}, "View Profile"))
 			)
 		);
 	}
