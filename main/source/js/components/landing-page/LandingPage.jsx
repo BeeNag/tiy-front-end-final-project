@@ -5,6 +5,8 @@ var ArchSignUpForm = require('./ArchSignUpForm.jsx');
 var CompanySignUpForm = require('./CompanySignUpForm.jsx');
 var MainButton = require('../MainButton.jsx');
 var TokenActionCreators = require('../../actions/TokenActionCreators.js');
+var ArchSignInFormActionCreators = require('../../actions/ArchSignInFormActionCreators.js');
+var CompanySignInFormActionCreators = require('../../actions/CompanySignInFormActionCreators.js');
 var Authentication = require('../../services/Authentication.js');
 
 var LandingPage = React.createClass({
@@ -77,6 +79,7 @@ var LandingPage = React.createClass({
 			}
 
 			TokenActionCreators.setArchaeologistAuthenticationToken(response.token);
+			ArchSignInFormActionCreators.setArchId(response.id);
 			console.log('YES!');
 		}.bind(this));
 	},
@@ -109,6 +112,7 @@ var LandingPage = React.createClass({
 
 			TokenActionCreators.setCompanyAuthenticationToken(response.token);
 			console.log('YES!');
+			CompanySignInFormActionCreators.setCompanyId(response.id);
 		}.bind(this));
 	},
 

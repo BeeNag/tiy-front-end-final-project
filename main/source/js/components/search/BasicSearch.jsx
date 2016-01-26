@@ -14,10 +14,10 @@ var BasicSearch = React.createClass({
 	render: function () {
 		return (
 			<div className="row">
-				<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#basic-search">Basic Search</button>
+				<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#basic-search">Search</button>
 				<div className="collapse" id="basic-search">
 					<div className="col-xs-6 col-xs-offset-3">
-    					<h2>Please enter a keyword that you would like to search for</h2>
+    					<h2>Please enter a specialism that you would like to search for</h2>
             			<div id="search-input">
                 			<div className="input-group col-xs-12">
                     			<input type="text" className="form-control input-lg" placeholder="Search..." ref="input"></input>

@@ -3,6 +3,9 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var TokenActionCreators = require('../actions/TokenActionCreators.js');
 var ArchSignUpFormActionCreators = require('../actions/ArchSignUpFormActionCreators.js');
+var CompanySignUpFormActionCreators = require('../actions/CompanySignUpFormActionCreators.js');
+var ArchSignInFormActionCreators = require('../actions/ArchSignInFormActionCreators.js');
+var CompanySignInFormActionCreators = require('../actions/CompanySignInFormActionCreators.js');
 
 var token = null;
 var id = null;
@@ -47,6 +50,10 @@ function handleAction (action) {
 	} else if (action.type === 'set-company-authentication-token') {
 		setCompanyAuthenticationToken(action.token);
 	} else if (action.type === 'set-user-id') {
+		setUserId(action.id);
+	} else if (action.type === 'set-arch-id') {
+		setUserId(action.id);
+	} else if (action.type === 'set-company-id') {
 		setUserId(action.id);
 	}
 }
