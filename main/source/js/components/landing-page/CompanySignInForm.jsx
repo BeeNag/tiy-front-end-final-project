@@ -33,7 +33,7 @@ var CompanySignInForm = React.createClass({
 	        					<input type="submit" value="Sign me in!" className="form-control inputButton"></input>
 	      					</form>
 			                <div className="text-center">
-			                  	<MainButton label="Create an Account" handleButtonClick={this.handleShowCompanySignUpFormAndHideCompanySignInForm} />
+			                  	<MainButton className="btn btn-primary" label="Create an Account" handleButtonClick={this.handleShowCompanySignUpFormAndHideCompanySignInForm} />
 			                </div>
 	    				</div>
 	    			</div>

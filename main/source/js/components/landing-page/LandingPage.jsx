@@ -144,10 +144,10 @@ var LandingPage = React.createClass({
 					</div>
 					<div className="row landing-page-buttons">
 						<div className="col-xs-4 col-xs-offset-2">
-							<MainButton label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
+							<MainButton className="btn btn-primary btn-lg" label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
 						</div>
 						<div className="col-xs-4 col-xs-offset-2">
-							<MainButton label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
+							<MainButton className="btn btn-primary btn-lg" label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
 						</div>
 					</div>
 					{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }

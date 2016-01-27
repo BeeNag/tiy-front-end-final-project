@@ -30494,7 +30494,7 @@ var React = require('react');
 var MainButton = React.createClass({displayName: "MainButton",
 	render: function () {
 		return (
-			React.createElement("button", {className: "btn btn-primary", onClick: this.props.handleButtonClick}, this.props.label)
+			React.createElement("button", {className: this.props.className, onClick: this.props.handleButtonClick}, this.props.label)
 		);
 	}
 });
@@ -32079,7 +32079,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 	        					React.createElement("input", {type: "submit", value: "Sign me in!", className: "form-control inputButton"})
 	      					), 
 			                React.createElement("div", {className: "text-center"}, 
-			                  	React.createElement(MainButton, {label: "Create an Account", handleButtonClick: this.handleShowArchSignUpFormAndHideArchSignInForm})
+			                  	React.createElement(MainButton, {className: "btn btn-primary", label: "Create an Account", handleButtonClick: this.handleShowArchSignUpFormAndHideArchSignInForm})
 			                )
 	    				)
 	    			)
@@ -32234,7 +32234,7 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 	        					React.createElement("input", {type: "submit", value: "Sign me in!", className: "form-control inputButton"})
 	      					), 
 			                React.createElement("div", {className: "text-center"}, 
-			                  	React.createElement(MainButton, {label: "Create an Account", handleButtonClick: this.handleShowCompanySignUpFormAndHideCompanySignInForm})
+			                  	React.createElement(MainButton, {className: "btn btn-primary", label: "Create an Account", handleButtonClick: this.handleShowCompanySignUpFormAndHideCompanySignInForm})
 			                )
 	    				)
 	    			)
@@ -32454,10 +32454,10 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 					), 
 					React.createElement("div", {className: "row landing-page-buttons"}, 
 						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-							React.createElement(MainButton, {label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
+							React.createElement(MainButton, {className: "btn btn-primary btn-lg", label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
 						), 
 						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-							React.createElement(MainButton, {label: "Employer", handleButtonClick: this.showCompanySignInForm})
+							React.createElement(MainButton, {className: "btn btn-primary btn-lg", label: "Employer", handleButtonClick: this.showCompanySignInForm})
 						)
 					), 
 					 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
