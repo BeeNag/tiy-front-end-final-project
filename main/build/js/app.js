@@ -30541,7 +30541,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid arch-landing-page-background"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(ArchNavbar, null)
 				), 
@@ -32070,7 +32070,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", {className: "container form"}, 
-	   				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+	   				React.createElement("div", {className: "col-xs-6"}, 
 	    				React.createElement("div", {id: "logbox"}, 
 	      					React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleArchSignInFormSubmit}, 
 	        					React.createElement("h1", null, "Account Login"), 
@@ -32127,7 +32127,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 	render: function () {
 		return (
 			React.createElement("div", {className: "container form"}, 
-				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+				React.createElement("div", {className: "col-xs-6"}, 
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleArchSignUpFormSubmit}, 
 	        				React.createElement("h1", null, "Create an Account"), 
@@ -32225,7 +32225,7 @@ var CompanySignInForm = React.createClass({displayName: "CompanySignInForm",
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", {className: "container form"}, 
-	   				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+	   				React.createElement("div", {className: "col-xs-6"}, 
 	    				React.createElement("div", {id: "logbox"}, 
 	      					React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleCompanySignInFormSubmit}, 
 	        					React.createElement("h1", null, "Account Login"), 
@@ -32281,7 +32281,7 @@ var CompanySignUpForm = React.createClass({displayName: "CompanySignUpForm",
 	render: function () {
 		return (
 			React.createElement("div", {className: "container form"}, 
-				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+				React.createElement("div", {className: "col-xs-6"}, 
 	    			React.createElement("div", {id: "logbox"}, 
 	      				React.createElement("form", {id: "signup", method: "post", action: "/signup", onSubmit: this.handleCompanySignUpFormSubmit}, 
 	        				React.createElement("h1", null, "Create an Account"), 
@@ -32447,23 +32447,60 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid landing-page-background"}, 
-				React.createElement("div", {className: "container"}, 
-					React.createElement("div", {className: "jumbotron"}, 
-						React.createElement("h1", null, "Welcome to FreeArch", React.createElement("br", null), React.createElement("small", null, "Are you an Archaeologist or a potential Employer?"))
-					), 
-					React.createElement("div", {className: "row landing-page-buttons"}, 
-						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-							React.createElement(MainButton, {className: "btn btn-primary btn-lg", label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
-						), 
-						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-							React.createElement(MainButton, {className: "btn btn-primary btn-lg", label: "Employer", handleButtonClick: this.showCompanySignInForm})
+			// <div className="container-fluid landing-page-background">
+			// 	<div className="jumbotron">
+			// 		<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
+			// 	</div>
+			// 	<div className="row landing-page-buttons">
+			// 		<div className="col-xs-4 col-xs-offset-2">
+			// 			<MainButton className="btn btn-primary btn-lg" label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
+			// 		</div>
+			// 		<div className="col-xs-4 col-xs-offset-2">
+			// 			<MainButton className="btn btn-primary btn-lg" label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
+			// 		</div>
+			// 	</div>
+			// 	{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
+			// 	{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
+			// 	{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
+			// 	{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
+			// </div>
+			React.createElement("div", {className: "container-fluid"}, 
+				React.createElement("div", {className: "row text-center landing-page-background"}, 
+					React.createElement("div", {className: "welcome"}, 
+						React.createElement("h1", null, "Welcome to FreeArch"), 
+						React.createElement("br", null), 
+						React.createElement("h4", null, "We provide an easy way for companies to find the archaeologists they want")
+					)
+				), 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-6"}, 
+						 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
+						 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
+						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showArchSignInForm}, 
+							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Archaeologist Picture", className: "arch-image"}), 
+							React.createElement("div", {className: "image-overlay-content"}, 
+								React.createElement("h2", null, "Join now so that employers can start looking for your profile!")
+							)
 						)
 					), 
-					 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
-					 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
-					 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
-					 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null
+					React.createElement("div", {className: "col-xs-6"}, 
+						 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
+						 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null, 
+						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showCompanySignInForm}, 
+							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Archaeologist Picture", className: "arch-image"}), 
+							React.createElement("div", {className: "image-overlay-content"}, 
+								React.createElement("h2", null, "Join now so that you can start looking for the archaeologists that you want!")
+							)
+						)
+					)
+				), 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-6"}
+
+					), 
+					React.createElement("div", {className: "col-xs-6"}
+
+					)
 				)
 			)
 

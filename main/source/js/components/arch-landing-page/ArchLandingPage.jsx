@@ -37,7 +37,7 @@ var ArchLandingPage = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid arch-landing-page-background">
 				<div className="row">
 					<ArchNavbar />
 				</div>

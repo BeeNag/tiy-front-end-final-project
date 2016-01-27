@@ -24,7 +24,7 @@ var CompanySignInForm = React.createClass({
 		return (
 			<div>
 				<div className="container form">
-	   				<div className="col-xs-6 col-xs-offset-3">
+	   				<div className="col-xs-6">
 	    				<div id="logbox">
 	      					<form id="signup" method="post" action="/signup" onSubmit={this.handleCompanySignInFormSubmit}>
 	        					<h1>Account Login</h1>
