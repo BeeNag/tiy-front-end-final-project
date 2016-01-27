@@ -10,6 +10,9 @@ var sass = require('gulp-sass');
 var sassInput = './source/**/*.scss';
 var cssOutput = './build/';
 
+var imagesInput = './source/images/*.{png,jpg}';
+var imagesOutput = './build/images';
+
 gulp.task('browserify', function () {
   return browserify('./source/js/app.jsx')
         .transform(reactify)
@@ -25,6 +28,12 @@ gulp.task('compile-sass', function () {
     .src(sassInput)
     .pipe(sass())
     .pipe(gulp.dest(cssOutput));
+});
+
+gulp.task('transfer-images', function () {
+  return gulp
+    .src(imagesInput)
+    .pipe(gulp.dest(imagesOutput));
 });
 
 gulp.task('minifyHtml', function() {
@@ -48,6 +57,6 @@ gulp.task('watch-sass', function () {
     });
 });
 
-gulp.task('build', ['browserify', 'minifyHtml', 'compile-sass']);
+gulp.task('build', ['browserify', 'minifyHtml', 'compile-sass', 'transfer-images']);
 
 gulp.task('default', ['watch', 'browserify', 'minifyHtml', 'compile-sass', 'watch-sass']);

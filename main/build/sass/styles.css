@@ -104,7 +104,7 @@ h1 {
   font-size: 23px; }
 
 .landing-page-background {
-  background: url(../../source/images/landing-page-background.jpg) no-repeat center center fixed;
+  background: url(../images/landing-page-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -112,4 +112,4 @@ h1 {
 
 .landing-page-buttons {
   margin-top: 27vh;
-  margin-bottom: 23vh; }
+  margin-bottom: 25vh; }

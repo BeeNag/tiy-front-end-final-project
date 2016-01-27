@@ -2,6 +2,7 @@ var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 
 var ArchNavbar = React.createClass({
@@ -24,7 +25,7 @@ var ArchNavbar = React.createClass({
 
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeArchaeologistAuthenticationToken();
-		ArchLandingPageActionCreators.archaeologistSignedIn();
+		LandingPageActionCreators.archaeologistSignedIn();
 		ArchLandingPageActionCreators.changeToLandingPage();
 	},
 

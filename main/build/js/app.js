@@ -30655,6 +30655,7 @@ var React = require('react');
 var Button = require('./Button.jsx');
 var Link = require('./Link.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+var LandingPageActionCreators = require('../../actions/LandingPageActionCreators.js');
 var TokenActionCreators = require('../../actions/TokenActionCreators.js');
 
 var ArchNavbar = React.createClass({displayName: "ArchNavbar",
@@ -30677,7 +30678,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeArchaeologistAuthenticationToken();
-		ArchLandingPageActionCreators.archaeologistSignedIn();
+		LandingPageActionCreators.archaeologistSignedIn();
 		ArchLandingPageActionCreators.changeToLandingPage();
 	},
 
@@ -30710,7 +30711,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 module.exports = ArchNavbar;
 
-},{"../../actions/ArchLandingPageActionCreators.js":167,"../../actions/TokenActionCreators.js":178,"./Button.jsx":184,"./Link.jsx":185,"react":165}],184:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../actions/LandingPageActionCreators.js":176,"../../actions/TokenActionCreators.js":178,"./Button.jsx":184,"./Link.jsx":185,"react":165}],184:[function(require,module,exports){
 var React = require('react');
 
 var Button = React.createClass({displayName: "Button",
@@ -32447,21 +32448,23 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 	render: function () {
 		return (
 			React.createElement("div", {className: "container-fluid landing-page-background"}, 
-				React.createElement("div", {className: "jumbotron"}, 
-					React.createElement("h1", null, "Welcome to FreeArch", React.createElement("br", null), React.createElement("small", null, "Are you an Archaeologist or a potential Employer?"))
-				), 
-				React.createElement("div", {className: "row landing-page-buttons"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement(MainButton, {label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
+				React.createElement("div", {className: "container"}, 
+					React.createElement("div", {className: "jumbotron"}, 
+						React.createElement("h1", null, "Welcome to FreeArch", React.createElement("br", null), React.createElement("small", null, "Are you an Archaeologist or a potential Employer?"))
 					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement(MainButton, {label: "Employer", handleButtonClick: this.showCompanySignInForm})
-					)
-				), 
-				 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
-				 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
-				 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
-				 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null
+					React.createElement("div", {className: "row landing-page-buttons"}, 
+						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
+							React.createElement(MainButton, {label: "Archaeologist", handleButtonClick: this.showArchSignInForm})
+						), 
+						React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
+							React.createElement(MainButton, {label: "Employer", handleButtonClick: this.showCompanySignInForm})
+						)
+					), 
+					 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
+					 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
+					 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
+					 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null
+				)
 			)
 
 	    );

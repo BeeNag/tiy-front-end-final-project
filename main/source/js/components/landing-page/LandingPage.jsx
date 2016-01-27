@@ -138,21 +138,23 @@ var LandingPage = React.createClass({
 	render: function () {
 		return (
 			<div className="container-fluid landing-page-background">
-				<div className="jumbotron">
-					<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
-				</div>
-				<div className="row landing-page-buttons">
-					<div className="col-xs-4 col-xs-offset-2">
-						<MainButton label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
+				<div className="container">
+					<div className="jumbotron">
+						<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
 					</div>
-					<div className="col-xs-4 col-xs-offset-2">
-						<MainButton label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
+					<div className="row landing-page-buttons">
+						<div className="col-xs-4 col-xs-offset-2">
+							<MainButton label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
+						</div>
+						<div className="col-xs-4 col-xs-offset-2">
+							<MainButton label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
+						</div>
 					</div>
+					{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
+					{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
+					{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
+					{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
 				</div>
-				{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
-				{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
-				{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
-				{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
 			</div>
 
 	    );
