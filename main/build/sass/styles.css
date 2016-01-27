@@ -159,7 +159,8 @@ h1 {
 
 .welcome {
   margin-top: 50vh;
-  margin-bottom: 35vh; }
+  margin-bottom: 35vh;
+  color: #fff; }
 
 .page-break {
   border: 0;
