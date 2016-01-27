@@ -24,6 +24,7 @@ var ArchNavbar = React.createClass({
 
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeArchaeologistAuthenticationToken();
+		ArchLandingPageActionCreators.archaeologistSignedIn();
 		ArchLandingPageActionCreators.changeToLandingPage();
 	},
 

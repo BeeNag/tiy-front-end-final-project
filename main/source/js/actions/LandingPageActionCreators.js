@@ -16,8 +16,17 @@ function changeToEmployerLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
+function archaeologistSignedIn() {
+	var action = {
+		type: 'sign-in-archaeologist'
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToArchLandingPage: changeToArchLandingPage,
-	changeToEmployerLandingPage: changeToEmployerLandingPage
+	changeToEmployerLandingPage: changeToEmployerLandingPage,
+	archaeologistSignedIn: archaeologistSignedIn
 };
 

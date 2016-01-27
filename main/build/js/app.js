@@ -30321,9 +30321,18 @@ function changeToEmployerLandingPage() {
 	Dispatcher.dispatch(action);
 }
 
+function archaeologistSignedIn() {
+	var action = {
+		type: 'sign-in-archaeologist'
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToArchLandingPage: changeToArchLandingPage,
-	changeToEmployerLandingPage: changeToEmployerLandingPage
+	changeToEmployerLandingPage: changeToEmployerLandingPage,
+	archaeologistSignedIn: archaeologistSignedIn
 };
 
 
@@ -30668,6 +30677,7 @@ var ArchNavbar = React.createClass({displayName: "ArchNavbar",
 
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeArchaeologistAuthenticationToken();
+		ArchLandingPageActionCreators.archaeologistSignedIn();
 		ArchLandingPageActionCreators.changeToLandingPage();
 	},
 
@@ -30846,9 +30856,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
 					), 
 					React.createElement("div", {className: "col-xs-3"}, 
-						React.createElement("img", {src: 'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image, alt: "Profile Picture"}), 
-						React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showPhotoEdit}), 
-						 this.state.isPhoto ? React.createElement(PhotoEdit, {handlePhotoEditForm: this.hidePhotoEdit}) : null
+						React.createElement("img", {src: 'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image, alt: "Profile Picture"})
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
@@ -30875,7 +30883,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-1"}, 
-								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}), 
+								 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}) : null, 
 								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null
 							)
 						)
@@ -30893,7 +30901,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						), 
 						React.createElement("div", {className: "row"}, 
 							React.createElement("div", {className: "col-xs-1"}, 
-								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}), 
+								 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null, 
 								 this.state.isExperienceAndSpecialism ? React.createElement(ExperienceAndSpecialismEdit, {handleExperienceAndSpecialismEditForm: this.hideExperienceAndSpecialismEdit, handleExperienceAndSpecialismEditFormSubmit: this.handleUpdateSpecialismAndExperienceDetails}) : null
 							)
 						)
@@ -30902,23 +30910,23 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "container"}, 
 						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
-						React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
+						 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}) : null, 
 						 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
 					)
 				), 
-				React.createElement("div", {className: "row"}, 
+				 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("h3", {id: "view-excavations"}, "View Excavations Near You")
+						React.createElement("h3", {id: "view-excavations"}, "View Excavations")
 					)
-				), 
-				React.createElement("div", {className: "row"}, 
+				) : null, 
+				 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
 						React.createElement("h3", null, "List of Excavations"), 
 						React.createElement(ExcavationList, null)
 					)
-				), 
+				) : null, 
 				React.createElement("div", {className: "row"}, 
-					React.createElement(DeleteButton, null), 
+					 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(DeleteButton, null) : null, 
 					React.createElement(DeleteModal, null)
 				)
 			)
@@ -32049,6 +32057,7 @@ var ArchSignInForm = React.createClass({displayName: "ArchSignInForm",
     	this.props.handleArchSignInForm();
     	this.props.handleArchSignInFormSubmit(email, password);
 
+    	LandingPageActionCreators.archaeologistSignedIn();
     	LandingPageActionCreators.changeToArchLandingPage();
   	},
 
@@ -32110,6 +32119,7 @@ var ArchSignUpForm = React.createClass({displayName: "ArchSignUpForm",
 
 	    ArchSignUpFormActionCreators.setUserId(this.archFormValues.id);
 
+	    LandingPageActionCreators.archaeologistSignedIn();
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},
 
@@ -33175,6 +33185,16 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 
 var archaeologistProfile = {};
 
+var isArchaeologistSignedIn = false;
+
+function toggleArchaeologistSignedStatus() {
+	if (isArchaeologistSignedIn === true) {
+		isArchaeologistSignedIn = false;
+	} else {
+		isArchaeologistSignedIn = true;
+	}
+} 
+
 function setArchaeologistProfile(profile) {
 	console.log(profile);
 	archaeologistProfile = profile;
@@ -33197,6 +33217,10 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 		return archaeologistProfile;
 	},
 
+	getArchaeologistSignedInStatus: function () {
+		return isArchaeologistSignedIn;
+	},
+
 	addChangeListener: function (changeEventHandler) {
 		this.on('change', changeEventHandler);
 	},
@@ -33217,7 +33241,9 @@ function handleAction(action) {
 		updateArchaeologistProfile(action.data);
 	} else if (action.type === 'delete-archaeologist-profile') {
 		deleteArchaeologistProfile();
-	}
+	} else if (action.type === 'sign-in-archaeologist') {
+		toggleArchaeologistSignedStatus();
+	} 
 }
 
 ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);

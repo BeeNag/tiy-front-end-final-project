@@ -13,6 +13,7 @@ var ArchSignInForm = React.createClass({
     	this.props.handleArchSignInForm();
     	this.props.handleArchSignInFormSubmit(email, password);
 
+    	LandingPageActionCreators.archaeologistSignedIn();
     	LandingPageActionCreators.changeToArchLandingPage();
   	},
 

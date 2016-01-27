@@ -118,8 +118,6 @@ var ArchaeologistProfile = React.createClass({
 					</div>
 					<div className="col-xs-3">
 						<img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture"></img>
-						<EditButton label="Edit" handleButtonClick={this.showPhotoEdit} />
-						{ this.state.isPhoto ? <PhotoEdit handlePhotoEditForm={this.hidePhotoEdit} /> : null }
 					</div>
 				</div>
 				<div className="row">
@@ -146,7 +144,7 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
+								{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /> : null }
 								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
 							</div>
 						</div>
@@ -164,7 +162,7 @@ var ArchaeologistProfile = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-1">
-								<EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} />
+								{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }
 								{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
 							</div>
 						</div>
@@ -173,23 +171,23 @@ var ArchaeologistProfile = React.createClass({
 				<div className="row">
 					<div className="container">
 						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</p>
-						<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
+						{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} /> : null }
 						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
 					</div>
 				</div>
-				<div className="row">
+				{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <div className="row">
 					<div className="col-xs-4">
-						<h3 id="view-excavations">View Excavations Near You</h3>
+						<h3 id="view-excavations">View Excavations</h3>
 					</div>
-				</div>
-				<div className="row">
+				</div> : null }
+				{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
 						<h3>List of Excavations</h3>
 						<ExcavationList />
 					</div>
-				</div>
+				</div> : null }
 				<div className="row">
-					<DeleteButton />
+					{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <DeleteButton /> : null }
 					<DeleteModal />
 				</div>
 			</div>

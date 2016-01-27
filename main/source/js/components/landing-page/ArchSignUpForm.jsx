@@ -26,6 +26,7 @@ var ArchSignUpForm = React.createClass({
 
 	    ArchSignUpFormActionCreators.setUserId(this.archFormValues.id);
 
+	    LandingPageActionCreators.archaeologistSignedIn();
 	    LandingPageActionCreators.changeToArchLandingPage();
   	},
 

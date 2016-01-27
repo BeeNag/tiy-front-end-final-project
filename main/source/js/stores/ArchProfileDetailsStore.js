@@ -5,6 +5,16 @@ var ArchLandingPageActionCreators = require('../actions/ArchLandingPageActionCre
 
 var archaeologistProfile = {};
 
+var isArchaeologistSignedIn = false;
+
+function toggleArchaeologistSignedStatus() {
+	if (isArchaeologistSignedIn === true) {
+		isArchaeologistSignedIn = false;
+	} else {
+		isArchaeologistSignedIn = true;
+	}
+} 
+
 function setArchaeologistProfile(profile) {
 	console.log(profile);
 	archaeologistProfile = profile;
@@ -27,6 +37,10 @@ var ArchProfileDetailsStore = objectAssign({}, EventEmitter.prototype, {
 		return archaeologistProfile;
 	},
 
+	getArchaeologistSignedInStatus: function () {
+		return isArchaeologistSignedIn;
+	},
+
 	addChangeListener: function (changeEventHandler) {
 		this.on('change', changeEventHandler);
 	},
@@ -47,7 +61,9 @@ function handleAction(action) {
 		updateArchaeologistProfile(action.data);
 	} else if (action.type === 'delete-archaeologist-profile') {
 		deleteArchaeologistProfile();
-	}
+	} else if (action.type === 'sign-in-archaeologist') {
+		toggleArchaeologistSignedStatus();
+	} 
 }
 
 ArchProfileDetailsStore.dispatchToken = Dispatcher.register(handleAction);
