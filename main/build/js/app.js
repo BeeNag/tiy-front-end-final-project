@@ -32473,21 +32473,23 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-6"}, 
+					React.createElement("div", {className: "col-xs-6 image-lp"}, 
 						 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
 						 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
 						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showArchSignInForm}, 
 							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Archaeologist Picture", className: "arch-image"}), 
+							React.createElement("p", {className: "image-text-arch"}, "If you are an archaeologist check this out!"), 
 							React.createElement("div", {className: "image-overlay-content"}, 
 								React.createElement("h2", null, "Join now so that employers can start looking for your profile!")
 							)
 						)
 					), 
-					React.createElement("div", {className: "col-xs-6"}, 
+					React.createElement("div", {className: "col-xs-6 image-lp"}, 
 						 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
 						 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null, 
 						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showCompanySignInForm}, 
-							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Archaeologist Picture", className: "arch-image"}), 
+							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Company Picture", className: "company-image"}), 
+							React.createElement("p", {className: "image-text-company"}, "Are you from a company looking to hire"), 
 							React.createElement("div", {className: "image-overlay-content"}, 
 								React.createElement("h2", null, "Join now so that you can start looking for the archaeologists that you want!")
 							)

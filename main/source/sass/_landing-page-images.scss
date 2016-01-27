@@ -5,14 +5,53 @@ $global-radius: 4px;
   width: 100%;
 }
 
+.company-image {
+  height: 100%;
+  width: 100%;
+}
+
+.image-lp {
+  padding: 0;
+}
+
+.image-text-arch {
+  position: absolute;
+  bottom: 5px;
+  font-size: 150%;
+  color: #fff;
+  padding: 0 20px;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+:hover .image-text-arch {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+.image-text-company {
+  position: absolute;
+  bottom: 5px;
+  font-size: 150%;
+  color: #fff;
+  padding: 0 20px;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+:hover .image-text-company {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
 .image-wrapper {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(0,0,0,0.04);
   overflow: hidden;
   position: relative;
   text-align: center;
-  border-radius: $global-radius;
 }
 
 .image-overlay-content {
