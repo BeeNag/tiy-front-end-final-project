@@ -32494,14 +32494,25 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 						)
 					)
 				), 
+				React.createElement("div", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-6"}
-
+					React.createElement("div", {className: "col-xs-12 process-title"}, 
+						React.createElement("h2", {className: "text-center"}, "Here is what you do to get started")
 					), 
-					React.createElement("div", {className: "col-xs-6"}
-
+					React.createElement("div", {className: "col-xs-4 text-center"}, 
+						React.createElement("h2", null, "Step 1"), 
+						React.createElement("p", null, "Enter your details and sign up")
+					), 
+					React.createElement("div", {className: "col-xs-4 text-center"}, 
+						React.createElement("h2", null, "Step 2"), 
+						React.createElement("p", null, "You will be taken to the landing page for archaeologists or companies and see the options available to you")
+					), 
+					React.createElement("div", {className: "col-xs-4 text-center"}, 
+						React.createElement("h2", null, "Step 3"), 
+						React.createElement("p", null, "Select an option and away you go!")
 					)
-				)
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 
 	    );

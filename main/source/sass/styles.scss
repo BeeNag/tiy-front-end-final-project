@@ -15,3 +15,20 @@
   margin-top: 50vh;
   margin-bottom: 35vh;
 }
+
+.page-break {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+footer {
+  border-top: 1px solid #eee;
+  background: #f5f5f5;
+  padding: 30px 0;
+  color: #ccc;
+  margin-top: 40px;
+}
