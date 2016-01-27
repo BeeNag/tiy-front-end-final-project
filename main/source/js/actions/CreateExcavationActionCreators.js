@@ -2,6 +2,7 @@ var Dispatcher = require('../dispatcher/Dispatcher.js');
 var ReactFire = require('reactfire');
 var HashID = require('../services/HashID.js');
 var EmployerLandingPageActionCreators = require('./EmployerLandingPageActionCreators.js');
+var ArchLandingPageActionCreators = require('./ArchLandingPageActionCreators.js');
 var SignInDetailsStore = require('../stores/SignInDetailsStore.js');
 
 function changeToCompanyProfile() {
@@ -40,10 +41,9 @@ function setExcavationDetails(excavationDetails) {
 	Dispatcher.dispatch(action);
 }
 
-function getExcavationDetails() {
+function getCompanyExcavationDetails() {
 	var ref = new Firebase("https://tiy-front-end.firebaseio.com/excavations/");
 
-// Attach an asynchronous callback to read the data at our posts reference
 	ref.on("value", function(snapshot) {
 	  console.log(snapshot.val());
 	  var excavations = Object.keys(snapshot.val()).map(function (k) {
@@ -51,7 +51,7 @@ function getExcavationDetails() {
 	  });
 
 	  var action = {
-			type: 'get-excavation-details',
+			type: 'get-company-excavation-details',
 			excavations: excavations
 		};
 
@@ -64,8 +64,32 @@ function getExcavationDetails() {
 	});
 }
 
+function getArchaeologyExcavationDetails() {
+	var ref = new Firebase("https://tiy-front-end.firebaseio.com/excavations/");
+
+	ref.on("value", function(snapshot) {
+	  console.log(snapshot.val());
+	  var excavations = Object.keys(snapshot.val()).map(function (k) {
+	  	return snapshot.val()[k];
+	  });
+
+	  var action = {
+			type: 'get-archaeology-excavation-details',
+			excavations: excavations
+		};
+
+		Dispatcher.dispatch(action);
+		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
+		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+
+	}, function (errorObject) {
+	  console.log("The read failed: " + errorObject.code);
+	});
+}
+
 module.exports = {
 	changeToCompanyProfile: changeToCompanyProfile,
 	setExcavationDetails: setExcavationDetails,
-	getExcavationDetails: getExcavationDetails
+	getCompanyExcavationDetails: getCompanyExcavationDetails,
+	getArchaeologyExcavationDetails: getArchaeologyExcavationDetails
 };

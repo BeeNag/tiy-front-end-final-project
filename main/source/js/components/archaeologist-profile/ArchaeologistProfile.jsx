@@ -5,6 +5,7 @@ var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var ExperienceAndSpecialismEdit = require('./ExperienceAndSpecialismEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
+var ExcavationList = require('./ExcavationList.jsx');
 var DeleteButton = require('./DeleteButton.jsx');
 var DeleteModal = require('./DeleteModal.jsx');
 var ArchaeologistProfileActionCreators = require('../../actions/ArchaeologistProfileActionCreators.js');
@@ -184,12 +185,7 @@ var ArchaeologistProfile = React.createClass({
 				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
 						<h3>List of Excavations</h3>
-						<ul>
-							<li>This One</li>
-							<li>That One</li>
-							<li>The Other One</li>
-							<li>Etc</li>
-						</ul>
+						<ExcavationList />
 					</div>
 				</div>
 				<div className="row">

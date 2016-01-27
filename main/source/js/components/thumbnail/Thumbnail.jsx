@@ -16,9 +16,6 @@ var Thumbnail = React.createClass({
 		var thumbnailArray = SearchStore.getThumbnailSearchData();
 
 		var thumbnails = thumbnailArray.map(function (element, index) {
-
-			console.log(element);
-			console.log(this);
 			return (
 				<div className="col-xs-3" key={index}>
 					<div className="thumbnail">

@@ -7,7 +7,6 @@ var ExcavationDetails = React.createClass({
 	addExcavations: function () {
 
 		var excavationArray = ExcavationStore.getExcavationDetails();
-		console.log("this is: " + excavationArray);
 
 		var excavations = excavationArray.map(function (element, index) {
 

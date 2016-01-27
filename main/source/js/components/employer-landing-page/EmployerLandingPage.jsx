@@ -7,7 +7,7 @@ var CreateExcavationActionCreators = require('../../actions/CreateExcavationActi
 var EmployerLandingPage = React.createClass({
 
 	handleCompanyProfileClickEvent: function () {
-		CreateExcavationActionCreators.getExcavationDetails();
+		CreateExcavationActionCreators.getCompanyExcavationDetails();
 	},
 
 	handleCreateExcavationClickEvent: function () {

@@ -2,6 +2,7 @@ var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ImageUploadForm = require('./ImageUploadForm.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
+var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ArchLandingPage = React.createClass({
@@ -19,10 +20,7 @@ var ArchLandingPage = React.createClass({
 	},
 
 	handleArchaeologistProfileClickEvent: function () {
-		console.log(SignInDetailsStore.getToken());
-		console.log(SignInDetailsStore.getId());
-		ArchLandingPageActionCreators.getArchProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
+		CreateExcavationActionCreators.getArchaeologyExcavationDetails();
 	},
 
 	handleViewArchaeologistsClickEvent: function () {
