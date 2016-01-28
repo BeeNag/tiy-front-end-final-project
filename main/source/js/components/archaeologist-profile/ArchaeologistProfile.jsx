@@ -2,7 +2,6 @@ var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
-var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
 var ExperienceAndSpecialismEdit = require('./ExperienceAndSpecialismEdit.jsx');
 var DescriptionEdit = require('./DescriptionEdit.jsx');
@@ -116,8 +115,11 @@ var ArchaeologistProfile = React.createClass({
             		</div>
             		<div className="panel-body">
               			<div className="row">
-                			<div className="col-md-3 col-lg-3 " align="center"><img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture" className="img-circle"></img></div>
-                			<div className=" col-md-9 col-lg-9 "> 
+                			<div className="col-md-3 col-lg-3" align="center"><img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture" className="img-circle"></img></div>
+                			<div className=" col-md-9 col-lg-9">
+                				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
+                  				{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
+                  				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null } 
                   				<table className="table table-user-information">
                     				<tbody>
                     					<tr>
@@ -162,9 +164,6 @@ var ArchaeologistProfile = React.createClass({
                       					</tr>
                     				</tbody>
                   				</table>
-                  				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
-                  				{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
-                  				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
                 			</div>
               			</div>
             		</div>

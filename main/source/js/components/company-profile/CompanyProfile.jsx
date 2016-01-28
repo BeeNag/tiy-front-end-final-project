@@ -102,8 +102,11 @@ var CompanyProfile = React.createClass({
             		</div>
             		<div className="panel-body">
               			<div className="row">
-                			<div className="col-md-3 col-lg-3 " align="center"><i className="fa fa-info-circle fa-5x"></i></div>
-                			<div className=" col-md-9 col-lg-9 "> 
+                			<div className="col-md-3 col-lg-3" align="center"><i className="fa fa-info-circle fa-5x"></i></div>
+                			<div className=" col-md-9 col-lg-9">
+                				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
+                				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
+                  				{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null } 
                   				<table className="table table-user-information">
                     				<tbody>
                     					<tr>
@@ -138,9 +141,6 @@ var CompanyProfile = React.createClass({
                       					</tr>
                     				</tbody>
                   				</table>
-                  				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
-                  				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
-                  				{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null }
                 			</div>
               			</div>
             		</div>

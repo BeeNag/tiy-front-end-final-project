@@ -15,8 +15,8 @@ var ExperienceAndSpecialismEdit = React.createClass({
 	render: function () {
 		return (
 			<div className="container form">
-				<div className="col-xs-6 col-xs-offset-3">
-	    			<div id="logbox">
+				<div className="col-xs-4">
+	    			<div id="logbox-profile">
 	      				<form id="update" method="post" action="/update" onSubmit={this.handleExperienceAndSpecialismEditFormSubmit}>
 	        				<h1>Update Your Specialism and/or Experience</h1>
 	        				<input type="number" placeholder="Experience" className="form-control input pass" ref="experience"></input>
