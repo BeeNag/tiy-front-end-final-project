@@ -3,6 +3,7 @@ var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ImageUploadForm = require('./ImageUploadForm.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
+var TokenActionCreators =require('../../actions/TokenActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ArchLandingPage = React.createClass({
@@ -23,18 +24,6 @@ var ArchLandingPage = React.createClass({
 		CreateExcavationActionCreators.getArchaeologyExcavationDetails();
 	},
 
-	handleViewArchaeologistsClickEvent: function () {
-		SignInDetailsStore.getToken();
-		TokenActionCreators.isUserSignedIn();
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewExcavationsClickEvent: function () {
-		SignInDetailsStore.getToken();
-		TokenActionCreators.isUserSignedIn();
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
 	render: function () {
 		return (
 			<div className="container-fluid arch-landing-page-background">
@@ -42,29 +31,26 @@ var ArchLandingPage = React.createClass({
 					<ArchNavbar />
 				</div>
 				<div className="row">
-					<div className="col-xs-8 col-xs-offset-2">
+					<div className="jumbotron">
 						<h1>Welcome to the Homepage for Archaeologists <br></br><small>Here are the available options</small></h1>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-4 col-xs-offset-2">
-						<button onClick={this.handleArchaeologistProfileClickEvent} type="button" className="btn btn-success">View Your Profile</button>
+						<button onClick={this.handleArchaeologistProfileClickEvent} type="button" className="btn btn-success btn-lg alp-button">View Your Profile</button>
 					</div>
 					<div className="col-xs-4 col-xs-offset-2">
-						<button onClick={this.handleImageUploadButtonClickEvent} type="button" className="btn btn-primary">Upload An Image For Your Profile</button>
+						<button onClick={this.handleImageUploadButtonClickEvent} type="button" className="btn btn-primary btn-lg alp-button">Upload An Image For Your Profile</button>
 					</div>
 				</div>
 				<div className="row">
 					{ this.state.isImageUpload ? <ImageUploadForm /> : null }
 				</div>
+				<hr className="page-break" />
 				<div className="row">
-					<div className="col-xs-4 col-xs-offset-2">
-						<a onClick={this.handleViewArchaeologistsClickEvent} className="btn btn-info" href="#view-archaeologists" role="button">Archaeologists Near You</a>
-					</div>
-					<div className="col-xs-4 col-xs-offset-2">
-						<a onClick={this.handleViewExcavationsClickEvent} className="btn btn-info" href="#view-excavations" role="button">Excavations Near You</a>
-					</div>
+					<h3 className="text-center">More content coming soon</h3>
 				</div>
+				<hr className="page-break" />
 			</div>
 		);
 	}

@@ -1,3 +1,15 @@
+.landing-page-background {
+  background: url(../images/landing-page-background.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+.welcome {
+  margin-top: 50vh;
+  margin-bottom: 35vh;
+  color: #fff; }
+
 .arch-image {
   height: 100%;
   width: 100%; }
@@ -77,6 +89,36 @@
 .overlay-fade-in:hover h2 {
   opacity: 1; }
 
+.arch-landing-page-background {
+  background: url(../images/arch-landing-page-background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+.alp-button {
+  margin-top: 200px;
+  margin-bottom: 50px; }
+
+.company-landing-page-background {
+  background: url(../images/company-landing-page-background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
+.clp-button {
+  text-align: center;
+  margin-top: 200px;
+  margin-bottom: 50px; }
+
+.archaeologist-profile {
+  background: #905047; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
 .container .form {
   display: -webkit-flex;
   display: flex;
@@ -87,7 +129,7 @@
   z-index: 999;
   padding: 10px;
   margin: 50px 100px;
-  width: 340px;
+  width: 60%;
   background-color: #fff;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
@@ -183,29 +225,8 @@ h1 {
 #search-input .glyphicon-search {
   font-size: 23px; }
 
-.landing-page-background {
-  background: url(../images/landing-page-background.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
-
-.welcome {
-  margin-top: 50vh;
-  margin-bottom: 35vh;
-  color: #fff; }
-
-.page-break {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  margin-top: 10vh;
-  margin-bottom: 10vh; }
-
 footer {
   border-top: 1px solid #eee;
   background: #f5f5f5;
   padding: 30px 0;
-  color: #ccc;
-  margin-top: 40px; }
+  color: #ccc; }

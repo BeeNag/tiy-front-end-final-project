@@ -137,23 +137,6 @@ var LandingPage = React.createClass({
 
 	render: function () {
 		return (
-			// <div className="container-fluid landing-page-background">
-			// 	<div className="jumbotron">
-			// 		<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
-			// 	</div>
-			// 	<div className="row landing-page-buttons">
-			// 		<div className="col-xs-4 col-xs-offset-2">
-			// 			<MainButton className="btn btn-primary btn-lg" label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
-			// 		</div>
-			// 		<div className="col-xs-4 col-xs-offset-2">
-			// 			<MainButton className="btn btn-primary btn-lg" label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
-			// 		</div>
-			// 	</div>
-			// 	{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
-			// 	{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
-			// 	{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
-			// 	{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
-			// </div>
 			<div className="container-fluid">
 				<div className="row text-center landing-page-background">
 					<div className="welcome">
@@ -167,7 +150,7 @@ var LandingPage = React.createClass({
 						{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
 						{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
 						<div className="image-wrapper overlay-fade-in" onClick={this.showArchSignInForm}>
-							<img src="https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d" alt="Archaeologist Picture" className="arch-image"></img>
+							<img src="./images/archaeologist.jpg" alt="Archaeologist Picture" className="arch-image"></img>
 							<p className="image-text-arch">If you are an archaeologist check this out!</p>
 							<div className="image-overlay-content">
 								<h2>Join now so that employers can start looking for your profile!</h2>
@@ -178,8 +161,8 @@ var LandingPage = React.createClass({
 						{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
 						{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
 						<div className="image-wrapper overlay-fade-in" onClick={this.showCompanySignInForm}>
-							<img src="https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d" alt="Company Picture" className="company-image"></img>
-							<p className="image-text-company">Are you from a company looking to hire</p>
+							<img src="./images/company.jpg" alt="Company Picture" className="company-image"></img>
+							<p className="image-text-company">Are you from a company looking to hire?</p>
 							<div className="image-overlay-content">
 								<h2>Join now so that you can start looking for the archaeologists that you want!</h2>
 							</div>

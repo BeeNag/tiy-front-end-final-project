@@ -100,7 +100,7 @@ var ArchaeologistProfile = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid archaeologist-profile">
 				<div className="row">
 					<ArchNavbar />
 				</div>
@@ -109,72 +109,58 @@ var ArchaeologistProfile = React.createClass({
 						<h1>Your Profile</h1>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-xs-1">
-						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name}</p>
-					</div>
-					<div className="col-xs-1">
-						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth}</p>
-					</div>
-					<div className="col-xs-3">
-						<img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture"></img>
-					</div>
-				</div>
-				<div className="row">
-					<div className="container">
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().address1}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address2}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address3}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().city}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().email}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-1">
-								{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /> : null }
-								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
-							</div>
-						</div>
-					</div>
-					<div className="container">
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-2">
-								<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience}</p>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-1">
-								{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }
-								{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="container">
-						<p>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</p>
-						{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} /> : null }
-						{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
-					</div>
-				</div>
+				<div className="panel panel-info">
+            		<div className="panel-heading">
+              			<h3 className="panel-title">{ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name}</h3>
+            		</div>
+            		<div className="panel-body">
+              			<div className="row">
+                			<div className="col-md-3 col-lg-3 " align="center"><img src={'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image} alt="Profile Picture" className="img-circle"></img></div>
+                			<div className=" col-md-9 col-lg-9 "> 
+                  				<table className="table table-user-information">
+                    				<tbody>
+                    					<tr>
+                    						<td>About Me:</td>
+                    						<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</td>
+                    						<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} /> : null }</td>
+                    					</tr>
+                      					<tr>
+                        					<td>Specialism:</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism}</td>
+                        					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }</td>
+                      					</tr>
+                      					<tr>
+                        					<td>Experience:</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience}</td>
+                        					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }</td>
+                      					</tr>
+                      					<tr>
+                        					<td>Date of Birth</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth}</td>
+                      					</tr>
+                        				<tr>
+                        					<td>Home Address</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().address1}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address2}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().address3}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().city}<br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode}</td>
+                        					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /> : null }</td>
+                      					</tr>
+                      					<tr>
+                        					<td>Email</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().email}</td>
+                      					</tr>
+                      					<tr>
+                        					<td>Phone Number</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number}(Landline)<br /><br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number}(Mobile)</td>
+                        					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /> : null }</td>
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                  				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
+                  				{ this.state.isExperienceAndSpecialism ? <ExperienceAndSpecialismEdit handleExperienceAndSpecialismEditForm={this.hideExperienceAndSpecialismEdit} handleExperienceAndSpecialismEditFormSubmit={this.handleUpdateSpecialismAndExperienceDetails} /> : null }
+                  				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
+                			</div>
+              			</div>
+            		</div>
+            	</div>
 				{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <div className="row">
 					<div className="col-xs-4">
 						<h3 id="view-excavations">View Excavations</h3>

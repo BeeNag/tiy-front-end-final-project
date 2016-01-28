@@ -30507,6 +30507,7 @@ var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
 var ImageUploadForm = require('./ImageUploadForm.jsx');
 var ArchLandingPageActionCreators = require('../../actions/ArchLandingPageActionCreators.js');
 var CreateExcavationActionCreators = require('../../actions/CreateExcavationActionCreators.js');
+var TokenActionCreators =require('../../actions/TokenActionCreators.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
 var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
@@ -30527,18 +30528,6 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 		CreateExcavationActionCreators.getArchaeologyExcavationDetails();
 	},
 
-	handleViewArchaeologistsClickEvent: function () {
-		SignInDetailsStore.getToken();
-		TokenActionCreators.isUserSignedIn();
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewExcavationsClickEvent: function () {
-		SignInDetailsStore.getToken();
-		TokenActionCreators.isUserSignedIn();
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
 	render: function () {
 		return (
 			React.createElement("div", {className: "container-fluid arch-landing-page-background"}, 
@@ -30546,29 +30535,26 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 					React.createElement(ArchNavbar, null)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+					React.createElement("div", {className: "jumbotron"}, 
 						React.createElement("h1", null, "Welcome to the Homepage for Archaeologists ", React.createElement("br", null), React.createElement("small", null, "Here are the available options"))
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("button", {onClick: this.handleArchaeologistProfileClickEvent, type: "button", className: "btn btn-success"}, "View Your Profile")
+						React.createElement("button", {onClick: this.handleArchaeologistProfileClickEvent, type: "button", className: "btn btn-success btn-lg alp-button"}, "View Your Profile")
 					), 
 					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("button", {onClick: this.handleImageUploadButtonClickEvent, type: "button", className: "btn btn-primary"}, "Upload An Image For Your Profile")
+						React.createElement("button", {onClick: this.handleImageUploadButtonClickEvent, type: "button", className: "btn btn-primary btn-lg alp-button"}, "Upload An Image For Your Profile")
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
 					 this.state.isImageUpload ? React.createElement(ImageUploadForm, null) : null
 				), 
+				React.createElement("hr", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("a", {onClick: this.handleViewArchaeologistsClickEvent, className: "btn btn-info", href: "#view-archaeologists", role: "button"}, "Archaeologists Near You")
-					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("a", {onClick: this.handleViewExcavationsClickEvent, className: "btn btn-info", href: "#view-excavations", role: "button"}, "Excavations Near You")
-					)
-				)
+					React.createElement("h3", {className: "text-center"}, "More content coming soon")
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
@@ -30576,7 +30562,7 @@ var ArchLandingPage = React.createClass({displayName: "ArchLandingPage",
 
 module.exports = ArchLandingPage;
 
-},{"../../actions/ArchLandingPageActionCreators.js":167,"../../actions/CreateExcavationActionCreators.js":174,"../../stores/SignInDetailsStore.js":239,"../arch-navbar/ArchNavbar.jsx":183,"./ImageUploadForm.jsx":182,"react":165}],182:[function(require,module,exports){
+},{"../../actions/ArchLandingPageActionCreators.js":167,"../../actions/CreateExcavationActionCreators.js":174,"../../actions/TokenActionCreators.js":178,"../../stores/SignInDetailsStore.js":239,"../arch-navbar/ArchNavbar.jsx":183,"./ImageUploadForm.jsx":182,"react":165}],182:[function(require,module,exports){
 var React = require('react');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
 
@@ -30840,7 +30826,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid archaeologist-profile"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(ArchNavbar, null)
 				), 
@@ -30849,72 +30835,58 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("h1", null, "Your Profile")
 					)
 				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-1"}, 
-						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name)
-					), 
-					React.createElement("div", {className: "col-xs-1"}, 
-						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
-					), 
-					React.createElement("div", {className: "col-xs-3"}, 
-						React.createElement("img", {src: 'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image, alt: "Profile Picture"})
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "container"}, 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().address1, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address2, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address3, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().city, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().email)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-1"}, 
-								 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}) : null, 
-								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null
-							)
-						)
-					), 
-					React.createElement("div", {className: "container"}, 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-2"}, 
-								React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience)
-							)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("div", {className: "col-xs-1"}, 
-								 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null, 
-								 this.state.isExperienceAndSpecialism ? React.createElement(ExperienceAndSpecialismEdit, {handleExperienceAndSpecialismEditForm: this.hideExperienceAndSpecialismEdit, handleExperienceAndSpecialismEditFormSubmit: this.handleUpdateSpecialismAndExperienceDetails}) : null
-							)
-						)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "container"}, 
-						React.createElement("p", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
-						 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}) : null, 
-						 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
-					)
-				), 
+				React.createElement("div", {className: "panel panel-info"}, 
+            		React.createElement("div", {className: "panel-heading"}, 
+              			React.createElement("h3", {className: "panel-title"}, ArchProfileDetailsStore.getArchaeologistProfileDetails().first_name + ' ' + ArchProfileDetailsStore.getArchaeologistProfileDetails().last_name)
+            		), 
+            		React.createElement("div", {className: "panel-body"}, 
+              			React.createElement("div", {className: "row"}, 
+                			React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, React.createElement("img", {src: 'http://localhost:8383/uploads/' + ArchProfileDetailsStore.getArchaeologistProfileDetails().image, alt: "Profile Picture", className: "img-circle"})), 
+                			React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+                  				React.createElement("table", {className: "table table-user-information"}, 
+                    				React.createElement("tbody", null, 
+                    					React.createElement("tr", null, 
+                    						React.createElement("td", null, "About Me:"), 
+                    						React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
+                    						React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}) : null)
+                    					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Specialism:"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism), 
+                        					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null)
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Experience:"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience), 
+                        					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null)
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Date of Birth"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
+                      					), 
+                        				React.createElement("tr", null, 
+                        					React.createElement("td", null, "Home Address"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().address1, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address2, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().address3, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().city, React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().postcode), 
+                        					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}) : null)
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Email"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().email)
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Phone Number"), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number, "(Landline)", React.createElement("br", null), React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number, "(Mobile)"), 
+                        					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}) : null)
+                      					)
+                    				)
+                  				), 
+                  				 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null, 
+                  				 this.state.isExperienceAndSpecialism ? React.createElement(ExperienceAndSpecialismEdit, {handleExperienceAndSpecialismEditForm: this.hideExperienceAndSpecialismEdit, handleExperienceAndSpecialismEditFormSubmit: this.handleUpdateSpecialismAndExperienceDetails}) : null, 
+                  				 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
+                			)
+              			)
+            		)
+            	), 
 				 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4"}, 
 						React.createElement("h3", {id: "view-excavations"}, "View Excavations")
@@ -32004,37 +31976,33 @@ var EmployerLandingPage = React.createClass({displayName: "EmployerLandingPage",
 		EmployerLandingPageActionCreators.changeToSearch();
 	},
 
-	handleSavedProfilesClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToSearch();
-	},
-
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid company-landing-page-background"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(EmployerNavbar, null)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+					React.createElement("div", {className: "jumbotron"}, 
 						React.createElement("h1", null, "Welcome to the Homepage for Employers ", React.createElement("br", null), React.createElement("small", null, "Here are the available options"))
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("button", {onClick: this.handleCompanyProfileClickEvent, type: "button", className: "btn btn-success"}, "View Company Profile")
+					React.createElement("div", {className: "col-xs-4 clp-button"}, 
+						React.createElement("button", {onClick: this.handleCompanyProfileClickEvent, type: "button", className: "btn btn-success btn-lg"}, "View Company Profile")
 					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("button", {onClick: this.handleCreateExcavationClickEvent, type: "button", className: "btn btn-success"}, "Create an Excavation")
+					React.createElement("div", {className: "col-xs-4 clp-button"}, 
+						React.createElement("button", {onClick: this.handleSearchClickEvent, type: "button", className: "btn btn-info btn-lg"}, "Search for a Profile")
+					), 
+					React.createElement("div", {className: "col-xs-4 clp-button"}, 
+						React.createElement("button", {onClick: this.handleCreateExcavationClickEvent, type: "button", className: "btn btn-success btn-lg"}, "Create an Excavation")
 					)
 				), 
+				React.createElement("hr", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("button", {onClick: this.handleSearchClickEvent, type: "button", className: "btn btn-info"}, "Search for a Profile")
-					), 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-2"}, 
-						React.createElement("a", {onClick: this.handleSavedProfilesClickEvent, className: "btn btn-info", href: "#saved-profiles", role: "button"}, "Saved Profiles")
-					)
-				)
+					React.createElement("h3", {className: "text-center"}, "More content coming soon")
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
@@ -32447,23 +32415,6 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 
 	render: function () {
 		return (
-			// <div className="container-fluid landing-page-background">
-			// 	<div className="jumbotron">
-			// 		<h1>Welcome to FreeArch<br /><small>Are you an Archaeologist or a potential Employer?</small></h1>
-			// 	</div>
-			// 	<div className="row landing-page-buttons">
-			// 		<div className="col-xs-4 col-xs-offset-2">
-			// 			<MainButton className="btn btn-primary btn-lg" label="Archaeologist" handleButtonClick={this.showArchSignInForm} /> 
-			// 		</div>
-			// 		<div className="col-xs-4 col-xs-offset-2">
-			// 			<MainButton className="btn btn-primary btn-lg" label="Employer" handleButtonClick={this.showCompanySignInForm} /> 
-			// 		</div>
-			// 	</div>
-			// 	{ this.state.isArchSignIn ? <ArchSignInForm handleArchSignInForm={this.hideArchSignInForm} handleArchSignInFormSubmit={this.handleArchSignInFormSubmit} handleArchChangeForm={this.showArchSignUpFormAndHideArchSignInForm} /> : null }
-			// 	{ this.state.isArchSignUp ? <ArchSignUpForm handleArchSignUpForm={this.hideArchSignUpForm} handleArchSignUpFormSubmit={this.handleArchSignUpFormSubmit} /> : null }
-			// 	{ this.state.isCompanySignIn ? <CompanySignInForm handleCompanySignInForm={this.hideCompanySignInForm} handleCompanySignInFormSubmit={this.handleCompanySignInFormSubmit} handleCompanyChangeForm={this.showCompanySignUpFormAndHideCompanySignInForm} /> : null }
-			// 	{ this.state.isCompanySignUp ? <CompanySignUpForm handleCompanySignUpForm={this.hideCompanySignUpForm} handleCompanySignUpFormSubmit={this.handleCompanySignUpFormSubmit} /> : null }
-			// </div>
 			React.createElement("div", {className: "container-fluid"}, 
 				React.createElement("div", {className: "row text-center landing-page-background"}, 
 					React.createElement("div", {className: "welcome"}, 
@@ -32477,7 +32428,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 						 this.state.isArchSignIn ? React.createElement(ArchSignInForm, {handleArchSignInForm: this.hideArchSignInForm, handleArchSignInFormSubmit: this.handleArchSignInFormSubmit, handleArchChangeForm: this.showArchSignUpFormAndHideArchSignInForm}) : null, 
 						 this.state.isArchSignUp ? React.createElement(ArchSignUpForm, {handleArchSignUpForm: this.hideArchSignUpForm, handleArchSignUpFormSubmit: this.handleArchSignUpFormSubmit}) : null, 
 						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showArchSignInForm}, 
-							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Archaeologist Picture", className: "arch-image"}), 
+							React.createElement("img", {src: "./images/archaeologist.jpg", alt: "Archaeologist Picture", className: "arch-image"}), 
 							React.createElement("p", {className: "image-text-arch"}, "If you are an archaeologist check this out!"), 
 							React.createElement("div", {className: "image-overlay-content"}, 
 								React.createElement("h2", null, "Join now so that employers can start looking for your profile!")
@@ -32488,8 +32439,8 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 						 this.state.isCompanySignIn ? React.createElement(CompanySignInForm, {handleCompanySignInForm: this.hideCompanySignInForm, handleCompanySignInFormSubmit: this.handleCompanySignInFormSubmit, handleCompanyChangeForm: this.showCompanySignUpFormAndHideCompanySignInForm}) : null, 
 						 this.state.isCompanySignUp ? React.createElement(CompanySignUpForm, {handleCompanySignUpForm: this.hideCompanySignUpForm, handleCompanySignUpFormSubmit: this.handleCompanySignUpFormSubmit}) : null, 
 						React.createElement("div", {className: "image-wrapper overlay-fade-in", onClick: this.showCompanySignInForm}, 
-							React.createElement("img", {src: "https://images.unsplash.com/photo-1420824471541-fe7e0ae0baa4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0b29693aefa19092ec9c514fac266c2d", alt: "Company Picture", className: "company-image"}), 
-							React.createElement("p", {className: "image-text-company"}, "Are you from a company looking to hire"), 
+							React.createElement("img", {src: "./images/company.jpg", alt: "Company Picture", className: "company-image"}), 
+							React.createElement("p", {className: "image-text-company"}, "Are you from a company looking to hire?"), 
 							React.createElement("div", {className: "image-overlay-content"}, 
 								React.createElement("h2", null, "Join now so that you can start looking for the archaeologists that you want!")
 							)
