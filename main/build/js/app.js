@@ -30862,7 +30862,8 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
                       					), 
                       					React.createElement("tr", null, 
                         					React.createElement("td", null, "Date of Birth"), 
-                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth)
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth), 
+                        					React.createElement("td", null)
                       					), 
                         				React.createElement("tr", null, 
                         					React.createElement("td", null, "Home Address"), 
@@ -30871,12 +30872,18 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
                       					), 
                       					React.createElement("tr", null, 
                         					React.createElement("td", null, "Email"), 
-                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().email)
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().email), 
+                        					React.createElement("td", null)
                       					), 
                       					React.createElement("tr", null, 
                         					React.createElement("td", null, "Phone Number"), 
                         					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number, "(Landline)", React.createElement("br", null), React.createElement("br", null), ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number, "(Mobile)"), 
                         					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}) : null)
+                      					), 
+                      					React.createElement("tr", null, 
+                      						React.createElement("td", null), 
+                      						React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(DeleteButton, null) : null), 
+                      						React.createElement("td", null)
                       					)
                     				)
                   				), 
@@ -30897,11 +30904,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 						React.createElement("h3", null, "List of Excavations"), 
 						React.createElement(ExcavationList, null)
 					)
-				) : null, 
-				React.createElement("div", {className: "row"}, 
-					 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(DeleteButton, null) : null, 
-					React.createElement(DeleteModal, null)
-				)
+				) : null
 			)
 		);
 	}

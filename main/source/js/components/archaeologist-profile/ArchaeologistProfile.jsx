@@ -137,6 +137,7 @@ var ArchaeologistProfile = React.createClass({
                       					<tr>
                         					<td>Date of Birth</td>
                         					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().date_of_birth}</td>
+                        					<td></td>
                       					</tr>
                         				<tr>
                         					<td>Home Address</td>
@@ -146,11 +147,17 @@ var ArchaeologistProfile = React.createClass({
                       					<tr>
                         					<td>Email</td>
                         					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().email}</td>
+                        					<td></td>
                       					</tr>
                       					<tr>
                         					<td>Phone Number</td>
                         					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().home_phone_number}(Landline)<br /><br />{ArchProfileDetailsStore.getArchaeologistProfileDetails().mobile_phone_number}(Mobile)</td>
                         					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /> : null }</td>
+                      					</tr>
+                      					<tr>
+                      						<td></td>
+                      						<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <DeleteButton /> : null }</td>
+                      						<td></td>
                       					</tr>
                     				</tbody>
                   				</table>
@@ -172,10 +179,6 @@ var ArchaeologistProfile = React.createClass({
 						<ExcavationList />
 					</div>
 				</div> : null }
-				<div className="row">
-					{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <DeleteButton /> : null }
-					<DeleteModal />
-				</div>
 			</div>
 		);
 	}
