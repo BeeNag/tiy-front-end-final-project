@@ -1,7 +1,6 @@
 var React = require('react');
 var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var BasicSearch = require('./BasicSearch.jsx');
-var AdvancedSearch = require('./AdvancedSearch.jsx');
 var Thumbnail = require('../thumbnail/Thumbnail.jsx');
 var SearchStore = require('../../stores/SearchStore.js');
 
@@ -41,8 +40,8 @@ var Search = React.createClass({
 				</div>
 				<BasicSearch />
 				<div className="row">
-					<div className="col-xs-8">
-						<h3 id="search-results">Search Results</h3>
+					<div className="col-xs-12">
+						<h3 id="search-results" className="text-center">Search Results</h3>
 					</div>
 				</div>
 				<div className="row">

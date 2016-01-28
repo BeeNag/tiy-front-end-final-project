@@ -1,5 +1,6 @@
 var React = require('react');
 var ArchNavbar = require('../arch-navbar/ArchNavbar.jsx');
+var EmployerNavbar = require('../company-navbar/EmployerNavbar.jsx');
 var EditButton = require('./EditButton.jsx');
 var PhotoEdit = require('./PhotoEdit.jsx');
 var ContactDetailsEdit = require('./ContactDetailsEdit.jsx');
@@ -102,7 +103,7 @@ var ArchaeologistProfile = React.createClass({
 		return (
 			<div className="container-fluid archaeologist-profile">
 				<div className="row">
-					<ArchNavbar />
+					{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <ArchNavbar /> : <EmployerNavbar /> }
 				</div>
 				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">

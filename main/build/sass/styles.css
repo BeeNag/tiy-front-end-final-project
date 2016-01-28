@@ -103,8 +103,10 @@
   background-size: cover; }
 
 .alp-button {
-  margin-top: 200px;
-  margin-bottom: 50px; }
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  display: inline-block; }
 
 .company-landing-page-background {
   background: url(../images/company-landing-page-background.jpg) no-repeat center center fixed;
@@ -115,8 +117,9 @@
 
 .clp-button {
   text-align: center;
-  margin-top: 200px;
-  margin-bottom: 50px; }
+  margin-top: 100px;
+  margin-bottom: 50px;
+  display: inline-block; }
 
 .archaeologist-profile {
   background: #905047; }
@@ -244,6 +247,20 @@ hr.page-break {
 
 .jumbotron {
   background: rgba(220, 220, 220, 0.5); }
+
+.jumbotron-small {
+  color: rgba(32, 32, 32, 0.7); }
+
+.mc-background {
+  background: #fff; }
+
+.coming-soon {
+  margin-top: 200px;
+  margin-bottom: 200px; }
+
+.logo {
+  width: 4%;
+  min-width: 50px; }
 
 footer {
   border-top: 1px solid #eee;

@@ -10,22 +10,6 @@ var EmployerNavbar = React.createClass({
 		EmployerLandingPageActionCreators.changeToEmployerLandingPage();
 	},
 
-	handleViewCompanyProfileClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToCompanyProfile();
-	},
-
-	handleSearchClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToSearch();
-	},
-
-	handleSavedProfilesClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToSearch();
-	},
-
-	handleCreateExcavationClickEvent: function () {
-		EmployerLandingPageActionCreators.changeToCreateExcavation();
-	},
-
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeCompanyAuthenticationToken();
 		EmployerLandingPageActionCreators.changeToLandingPage();
@@ -46,10 +30,7 @@ var EmployerNavbar = React.createClass({
 						    <div className="collapse navbar-collapse" id="landing-page-nav">
 						    	<ul className="nav navbar-nav">
 						    		<Button type="button" className="btn btn-default navbar-btn pull-left" handleButtonClick={this.handleHomeClickEvent} label="HOME" />
-						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewCompanyProfileClickEvent} label="View Company Profile" />
-						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleSearchClickEvent} label="Search" />
-						    		<Link role="button" href="#saved-profiles" className="btn btn-default navbar-btn" handleButtonClick={this.handleSavedProfilesClickEvent} label="Saved Profiles" />
-						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleCreateExcavationClickEvent} label="Create Excavation" />
+						    		<img src="./images/FreeArch-Logo.png" alt="Logo" className="logo"></img>
 							        <Button type="button" className="btn btn-default navbar-btn pull-right" handleButtonClick={this.handleSignOutClickEvent} label="Sign Out" />
 							    </ul>
 							</div>

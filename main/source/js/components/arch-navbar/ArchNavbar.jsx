@@ -11,18 +11,6 @@ var ArchNavbar = React.createClass({
 		ArchLandingPageActionCreators.changeToArchLandingPage();
 	},
 
-	handleViewProfileClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewArchaeologistsClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
-	handleViewExcavationsClickEvent: function () {
-		ArchLandingPageActionCreators.changeToArchaeologistProfile();
-	},
-
 	handleSignOutClickEvent: function () {
 		TokenActionCreators.removeArchaeologistAuthenticationToken();
 		LandingPageActionCreators.archaeologistSignedIn();
@@ -44,9 +32,7 @@ var ArchNavbar = React.createClass({
 						    <div className="collapse navbar-collapse" id="landing-page-nav">
 						    	<ul className="nav navbar-nav">
 						    		<Button type="button" className="btn btn-default navbar-btn pull-left" handleButtonClick={this.handleHomeClickEvent} label="HOME" />
-						    		<Button type="button" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewProfileClickEvent} label="View Your Profile" />
-						    		<Link role="button" href="#view-archaeologists" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewArchaeologistsClickEvent} label="Archaeologists Near You" />
-						    		<Link role="button" href="#view-excavations" className="btn btn-default navbar-btn" handleButtonClick={this.handleViewExcavationsClickEvent} label="Excavations Near You" />
+						    		<img src="./images/FreeArch-Logo.png" alt="Logo" className="logo"></img>
 							        <Button type="button" className="btn btn-default navbar-btn pull-right" handleButtonClick={this.handleSignOutClickEvent} label="Sign Out" />
 							    </ul>
 							</div>

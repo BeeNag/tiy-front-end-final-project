@@ -26,7 +26,7 @@ var EmployerLandingPage = React.createClass({
 				</div>
 				<div className="row">
 					<div className="jumbotron">
-						<h1>Welcome to the Homepage for Employers <br></br><small>Here are the available options</small></h1>
+						<h1>Welcome to the Homepage for Employers <br></br><small className="jumbotron-small">Here are the available options</small></h1>
 					</div>
 				</div>
 				<div className="row">
@@ -41,8 +41,8 @@ var EmployerLandingPage = React.createClass({
 					</div>
 				</div>
 				<hr className="page-break" />
-				<div className="row">
-					<h3 className="text-center">More content coming soon</h3>
+				<div className="row mc-background">
+					<h3 className="text-center coming-soon">More content coming soon</h3>
 				</div>
 				<hr className="page-break" />
 			</div>
