@@ -6,9 +6,15 @@
   background-size: cover; }
 
 .welcome {
-  margin-top: 50vh;
-  margin-bottom: 35vh;
+  margin-top: 300px;
+  margin-bottom: 220px;
   color: #fff; }
+
+.welcome-text {
+  font-size: 50px; }
+
+.welcome-text-sub {
+  font-size: 25px; }
 
 .arch-image {
   height: 100%;
@@ -32,7 +38,7 @@
   background: rgba(0, 0, 0, 0.7); }
 
 :hover .image-text-arch {
-  transition: opacity 1s;
+  transition: opacity 100s;
   opacity: 0; }
 
 .image-text-company {
@@ -46,7 +52,7 @@
   background: rgba(0, 0, 0, 0.7); }
 
 :hover .image-text-company {
-  transition: opacity 1s;
+  transition: opacity 100s;
   opacity: 0; }
 
 .image-wrapper {
@@ -227,6 +233,17 @@ h1 {
 
 #search-input .glyphicon-search {
   font-size: 23px; }
+
+hr.page-break {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 50px;
+  margin-bottom: 50px; }
+
+.jumbotron {
+  background: rgba(220, 220, 220, 0.5); }
 
 footer {
   border-top: 1px solid #eee;

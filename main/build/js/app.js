@@ -32410,9 +32410,9 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 			React.createElement("div", {className: "container-fluid"}, 
 				React.createElement("div", {className: "row text-center landing-page-background"}, 
 					React.createElement("div", {className: "welcome"}, 
-						React.createElement("h1", null, "Welcome to FreeArch"), 
+						React.createElement("h1", {className: "welcome-text"}, "Welcome to FreeArch"), 
 						React.createElement("br", null), 
-						React.createElement("h4", null, "We provide an easy way for companies to find the archaeologists they want")
+						React.createElement("h4", {className: "welcome-text-sub"}, "We provide an easy way for companies to find the archaeologists they want")
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
@@ -32439,7 +32439,7 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 						)
 					)
 				), 
-				React.createElement("div", {className: "page-break"}), 
+				React.createElement("hr", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-12 process-title"}, 
 						React.createElement("h2", {className: "text-center"}, "Here is what you do to get started")

@@ -7,6 +7,11 @@
 @import 'form';
 @import 'navbar';
 @import 'search';
+@import 'page-break';
+
+.jumbotron {
+  background: rgba(220, 220, 220, 0.5);
+}
 
 footer {
   border-top: 1px solid #eee;

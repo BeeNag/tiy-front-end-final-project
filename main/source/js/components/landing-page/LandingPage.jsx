@@ -140,9 +140,9 @@ var LandingPage = React.createClass({
 			<div className="container-fluid">
 				<div className="row text-center landing-page-background">
 					<div className="welcome">
-						<h1>Welcome to FreeArch</h1>
+						<h1 className="welcome-text">Welcome to FreeArch</h1>
 						<br />
-						<h4>We provide an easy way for companies to find the archaeologists they want</h4>
+						<h4 className="welcome-text-sub">We provide an easy way for companies to find the archaeologists they want</h4>
 					</div>
 				</div>
 				<div className="row">
@@ -169,7 +169,7 @@ var LandingPage = React.createClass({
 						</div>
 					</div>
 				</div>
-				<div className="page-break" />
+				<hr className="page-break" />
 				<div className="row">
 					<div className="col-xs-12 process-title">
 						<h2 className="text-center">Here is what you do to get started</h2>
