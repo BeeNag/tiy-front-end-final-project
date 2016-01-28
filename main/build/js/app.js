@@ -30193,6 +30193,8 @@ function getCompanyExcavationDetails() {
 			excavations: excavations
 		};
 
+		console.log('value for:', excavations);
+
 		Dispatcher.dispatch(action);
 		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		EmployerLandingPageActionCreators.changeToCompanyProfile();
@@ -30818,7 +30820,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-						React.createElement("h1", null, "Your Profile")
+						React.createElement("h1", {className: "ap-title"}, "Your Profile")
 					)
 				), 
 				React.createElement("div", {className: "panel panel-info"}, 
@@ -30880,17 +30882,18 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
               			)
             		)
             	), 
+            	 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("hr", {className: "page-break"}) : null, 
 				 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("h3", {id: "view-excavations"}, "View Excavations")
+					React.createElement("div", {className: "col-xs-12 view-excavations"}, 
+						React.createElement("h1", null, "Excavations")
 					)
 				) : null, 
 				 ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-						React.createElement("h3", null, "List of Excavations"), 
+					React.createElement("div", {className: "col-xs-4 col-xs-offset-5"}, 
 						React.createElement(ExcavationList, null)
 					)
-				) : null
+				) : null, 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
@@ -31046,7 +31049,7 @@ var ExcavationList = React.createClass({displayName: "ExcavationList",
 
 		var list = excavationList.map(function (element, index) {
 			return (
-				React.createElement("li", {key: index}, React.createElement("a", {href: element.excavation_url, type: "submit", target: "_blank"}, element.name))
+				React.createElement("li", {key: index}, React.createElement("a", {href: element.excavation_url, type: "submit", target: "_blank", className: "excavations-list"}, element.name))
 			);
 		});
 		return list;
@@ -31268,6 +31271,7 @@ var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var ExcavationStore = require('../../stores/ExcavationStore.js');
 var Authentication = require('../../services/Authentication.js');
 
 var CompanyProfile = React.createClass({displayName: "CompanyProfile",
@@ -31336,10 +31340,12 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
+		ExcavationStore.addChangeListener(this.updateState);
 	},
 
 	componentWillUnmount: function () {
 		CompanyProfileDetailsStore.removeChangeListener(this.updateState);
+		ExcavationStore.removeChangeListener(this.updateState);
 	},
 
 	render: function () {
@@ -31360,7 +31366,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
             		React.createElement("div", {className: "panel-body"}, 
               			React.createElement("div", {className: "row"}, 
                 			React.createElement("div", {className: "col-md-3 col-lg-3", align: "center"}, React.createElement("i", {className: "fa fa-info-circle fa-5x"})), 
-                			React.createElement("div", {className: " col-md-9 col-lg-9"}, 
+                			React.createElement("div", {className: "col-md-9 col-lg-9"}, 
                 				 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null, 
                 				 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null, 
                   				 this.state.isUrl ? React.createElement(UrlEdit, {handleUrlEditForm: this.hideUrlEdit, handleUrlEditFormSubmit: this.handleUpdateUrl}) : null, 
@@ -31405,7 +31411,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
             	React.createElement("hr", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-12 cp-button"}, 
-						React.createElement("h1", null, "View Your Excavations"), 
+						React.createElement("h1", {className: "excavations-title"}, "View Your Excavations"), 
 						React.createElement(ExcavationDetails, null)
 					)
 				), 
@@ -31417,7 +31423,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 module.exports = CompanyProfile;
 
-},{"../../actions/CompanyProfileActionCreators.js":171,"../../services/Authentication.js":230,"../../stores/CompanyProfileDetailsStore.js":233,"../../stores/SignInDetailsStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"./ContactDetailsEdit.jsx":203,"./DeleteButton.jsx":204,"./DeleteModal.jsx":205,"./DescriptionEdit.jsx":206,"./EditButton.jsx":207,"./ExcavationDetails.jsx":208,"./UrlEdit.jsx":213,"react":165,"reactfire":166}],203:[function(require,module,exports){
+},{"../../actions/CompanyProfileActionCreators.js":171,"../../services/Authentication.js":230,"../../stores/CompanyProfileDetailsStore.js":233,"../../stores/ExcavationStore.js":234,"../../stores/SignInDetailsStore.js":237,"../company-navbar/EmployerNavbar.jsx":200,"./ContactDetailsEdit.jsx":203,"./DeleteButton.jsx":204,"./DeleteModal.jsx":205,"./DescriptionEdit.jsx":206,"./EditButton.jsx":207,"./ExcavationDetails.jsx":208,"./UrlEdit.jsx":213,"react":165,"reactfire":166}],203:[function(require,module,exports){
 var React = require('react');
 
 var ContactDetailsEdit = React.createClass({displayName: "ContactDetailsEdit",
@@ -31564,32 +31570,57 @@ var ExcavationDetails = React.createClass({displayName: "ExcavationDetails",
 
 		var excavationArray = ExcavationStore.getExcavationDetails();
 
+		console.log('this is:' + excavationArray);
+
 		var excavations = excavationArray.map(function (element, index) {
 
 			console.log(element);
 			return (
 				React.createElement("div", {className: "container", key: index}, 
-					React.createElement("div", {className: "row"}, 
-						React.createElement("div", {className: "col-xs-2"}, 
-							React.createElement("p", null, element.name)
-						), 
-						React.createElement("div", {className: "col-xs-4 col-xs-offset-6"}, 
-							React.createElement("p", null, "Small map of location")
-						)
-					), 
-					React.createElement("div", {className: "row"}, 
-						React.createElement("div", {className: "col-xs-6"}, 
-							React.createElement("p", null, element.excavation_description)
-						)
-					), 
-					React.createElement("div", {className: "row"}, 
-						React.createElement("div", {className: "col-xs-4"}, 
-							React.createElement("a", {type: "submit", className: "btn btn-info", href: element.excavation_url, target: "_blank", role: "button"}, "Excavation Home Page")
-						)
-					)
-				)
+					React.createElement("div", {className: "panel panel-info"}, 
+	            		React.createElement("div", {className: "panel-heading"}, 
+	              			React.createElement("h3", {className: "panel-title"}, element.name)
+	            		), 
+	            		React.createElement("div", {className: "panel-body"}, 
+	              			React.createElement("div", {className: "row"}, 
+	                			React.createElement("div", {className: "col-md-9 col-lg-9"}, 
+	                  				React.createElement("table", {className: "table table-user-information"}, 
+	                    				React.createElement("tbody", null, 
+	                    					React.createElement("tr", null, 
+	                    						React.createElement("td", null, "Overview"), 
+	                    						React.createElement("td", null, element.excavation_description), 
+	                    						React.createElement("td", null)
+	                    					), 
+	                        				React.createElement("tr", null, 
+	                        					React.createElement("td", null, "Excavation Home Page"), 
+	                        					React.createElement("td", null, React.createElement("a", {type: "submit", href: element.excavation_url, target: "_blank"}, "Excavation Home Page")), 
+	                        					React.createElement("td", null)
+	                      					)
+	                    				)
+	                  				)
+	                			)
+	              			)
+	            		)
+	            	)
+            	)
+					// <div className="row">
+					// 	<div className="col-xs-12 excavation-name">
+					// 		<p>{element.name}</p>
+					// 	</div>
+					// </div>
+					// <div className="row">
+					// 	<div className="col-xs-6">
+					// 		<p>{element.excavation_description}</p>
+					// 	</div>
+					// </div>
+					// <div className="row">
+					// 	<div className="col-xs-4">
+					// 		<a type="submit" className="btn btn-info" href={element.excavation_url} target="_blank" role="button">Excavation Home Page</a>
+					// 	</div>
+					// </div>
 			);
 		});
+		console.log(excavations);
 		return excavations;
 	},
 
@@ -33193,11 +33224,13 @@ var excavationDetails = [];
 function setExcavationDetails(details) {
 	console.log(details);
 	excavationDetails.push(details);
+	ExcavationStore.emit('change');
 }
 
 function setExcavationDetailsArray(details) {
 	console.log(details);
 	excavationDetails = details;
+	ExcavationStore.emit('change');
 }
 
 var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
@@ -33218,7 +33251,7 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
-	} else if (action.type === 'get-comapany-excavation-details') {
+	} else if (action.type === 'get-company-excavation-details') {
 		setExcavationDetailsArray(action.excavations);
 	} else if (action.type === 'get-archaeology-excavation-details') {
 		setExcavationDetailsArray(action.excavations);

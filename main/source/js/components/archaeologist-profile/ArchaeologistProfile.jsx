@@ -106,7 +106,7 @@ var ArchaeologistProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
-						<h1>Your Profile</h1>
+						<h1 className="ap-title">Your Profile</h1>
 					</div>
 				</div>
 				<div className="panel panel-info">
@@ -168,17 +168,18 @@ var ArchaeologistProfile = React.createClass({
               			</div>
             		</div>
             	</div>
+            	{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <hr className="page-break" /> : null }
 				{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <div className="row">
-					<div className="col-xs-4">
-						<h3 id="view-excavations">View Excavations</h3>
+					<div className="col-xs-12 view-excavations">
+						<h1>Excavations</h1>
 					</div>
 				</div> : null }
 				{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <div className="row">
-					<div className="col-xs-8 col-xs-offset-2">
-						<h3>List of Excavations</h3>
+					<div className="col-xs-4 col-xs-offset-5">
 						<ExcavationList />
 					</div>
 				</div> : null }
+				<hr className="page-break" />
 			</div>
 		);
 	}

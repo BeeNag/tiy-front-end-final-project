@@ -6,15 +6,16 @@
   background-size: cover; }
 
 .welcome {
-  margin-top: 300px;
-  margin-bottom: 220px;
+  margin-top: 250px;
+  margin-bottom: 170px;
   color: #fff; }
 
 .welcome-text {
-  font-size: 50px; }
+  font-size: 5em;
+  text-shadow: 2px 2px black; }
 
 .welcome-text-sub {
-  font-size: 25px; }
+  font-size: 3em; }
 
 .arch-image {
   height: 100%;
@@ -37,10 +38,6 @@
   background: black;
   background: rgba(0, 0, 0, 0.7); }
 
-:hover .image-text-arch {
-  transition: opacity 100s;
-  opacity: 0; }
-
 .image-text-company {
   position: absolute;
   bottom: 5px;
@@ -50,10 +47,6 @@
   width: 100%;
   background: black;
   background: rgba(0, 0, 0, 0.7); }
-
-:hover .image-text-company {
-  transition: opacity 100s;
-  opacity: 0; }
 
 .image-wrapper {
   width: 100%;
@@ -124,9 +117,21 @@
 .archaeologist-profile {
   background: #905047; }
 
-img {
+.ap-title {
+  margin-bottom: 50px; }
+
+.img-circle {
   max-width: 100%;
   height: auto; }
+
+.view-excavations {
+  text-align: center; }
+
+.excavations-list {
+  color: #000; }
+
+.excavations-list:hover {
+  color: #0ff; }
 
 .company-profile {
   background: #2162A6; }
@@ -137,14 +142,18 @@ img {
 .cp-button {
   text-align: center; }
 
+.excavations-title {
+  margin-bottom: 50px; }
+
+.excavation-name {
+  text-align: center; }
+
 .container .form {
-  display: -webkit-flex;
-  display: flex;
   height: 100%; }
 
 #logbox {
   position: absolute;
-  z-index: 999;
+  z-index: 1;
   padding: 10px;
   margin: 50px 100px;
   width: 60%;

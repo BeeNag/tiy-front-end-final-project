@@ -2,7 +2,23 @@
 	background: #905047;
 }
 
-img {
+.ap-title {
+	margin-bottom: 50px;
+}
+
+.img-circle {
 	max-width:100%;
 	height: auto;
+}
+
+.view-excavations {
+	text-align: center;
+}
+
+.excavations-list {
+	color: #000;
+}
+
+.excavations-list:hover {
+	color: #0ff;
 }

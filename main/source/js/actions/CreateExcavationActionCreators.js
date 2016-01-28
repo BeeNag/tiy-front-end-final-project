@@ -55,6 +55,8 @@ function getCompanyExcavationDetails() {
 			excavations: excavations
 		};
 
+		console.log('value for:', excavations);
+
 		Dispatcher.dispatch(action);
 		EmployerLandingPageActionCreators.getCompanyProfile(SignInDetailsStore.getToken(), SignInDetailsStore.getId());
 		EmployerLandingPageActionCreators.changeToCompanyProfile();

@@ -7,7 +7,7 @@ var ExcavationList = React.createClass({
 
 		var list = excavationList.map(function (element, index) {
 			return (
-				<li key={index}><a href={element.excavation_url} type="submit" target="_blank">{element.name}</a></li>
+				<li key={index}><a href={element.excavation_url} type="submit" target="_blank" className="excavations-list">{element.name}</a></li>
 			);
 		});
 		return list;

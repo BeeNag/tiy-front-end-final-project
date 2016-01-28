@@ -7,11 +7,13 @@ var excavationDetails = [];
 function setExcavationDetails(details) {
 	console.log(details);
 	excavationDetails.push(details);
+	ExcavationStore.emit('change');
 }
 
 function setExcavationDetailsArray(details) {
 	console.log(details);
 	excavationDetails = details;
+	ExcavationStore.emit('change');
 }
 
 var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
@@ -32,7 +34,7 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
-	} else if (action.type === 'get-comapany-excavation-details') {
+	} else if (action.type === 'get-company-excavation-details') {
 		setExcavationDetailsArray(action.excavations);
 	} else if (action.type === 'get-archaeology-excavation-details') {
 		setExcavationDetailsArray(action.excavations);

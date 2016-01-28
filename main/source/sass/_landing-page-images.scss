@@ -25,11 +25,6 @@ $global-radius: 4px;
   background: rgba(0, 0, 0, 0.7);
 }
 
-:hover .image-text-arch {
-  transition: opacity 100s;
-  opacity: 0;
-}
-
 .image-text-company {
   position: absolute;
   bottom: 5px;
@@ -39,11 +34,6 @@ $global-radius: 4px;
   width: 100%;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.7);
-}
-
-:hover .image-text-company {
-  transition: opacity 100s;
-  opacity: 0;
 }
 
 .image-wrapper {

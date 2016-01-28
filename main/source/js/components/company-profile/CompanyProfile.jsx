@@ -11,6 +11,7 @@ var DeleteModal = require('./DeleteModal.jsx');
 var CompanyProfileActionCreators = require('../../actions/CompanyProfileActionCreators.js');
 var CompanyProfileDetailsStore = require('../../stores/CompanyProfileDetailsStore.js');
 var SignInDetailsStore = require('../../stores/SignInDetailsStore.js');
+var ExcavationStore = require('../../stores/ExcavationStore.js');
 var Authentication = require('../../services/Authentication.js');
 
 var CompanyProfile = React.createClass({
@@ -79,10 +80,12 @@ var CompanyProfile = React.createClass({
 
 	componentDidMount: function () {
 		CompanyProfileDetailsStore.addChangeListener(this.updateState);
+		ExcavationStore.addChangeListener(this.updateState);
 	},
 
 	componentWillUnmount: function () {
 		CompanyProfileDetailsStore.removeChangeListener(this.updateState);
+		ExcavationStore.removeChangeListener(this.updateState);
 	},
 
 	render: function () {
@@ -103,7 +106,7 @@ var CompanyProfile = React.createClass({
             		<div className="panel-body">
               			<div className="row">
                 			<div className="col-md-3 col-lg-3" align="center"><i className="fa fa-info-circle fa-5x"></i></div>
-                			<div className=" col-md-9 col-lg-9">
+                			<div className="col-md-9 col-lg-9">
                 				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
                 				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
                   				{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null } 
@@ -148,7 +151,7 @@ var CompanyProfile = React.createClass({
             	<hr className="page-break" />
 				<div className="row">
 					<div className="col-xs-12 cp-button">
-						<h1>View Your Excavations</h1>
+						<h1 className="excavations-title">View Your Excavations</h1>
 						<ExcavationDetails />
 					</div>
 				</div>
