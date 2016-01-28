@@ -87,7 +87,7 @@ var CompanyProfile = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid company-profile">
 				<div className="row">
 					<EmployerNavbar />
 				</div>
@@ -96,71 +96,60 @@ var CompanyProfile = React.createClass({
 						<h1>Company Profile</h1>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-xs-4 col-xs-offset-3">
-						<h2>{CompanyProfileDetailsStore.getCompanyProfileDetails().name}</h2>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-4 col-xs-offset-3">
-						<div className="container">
-							<div className="row">
-								<div className="col-xs-4">
-									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().address1}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address2}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address3}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().city}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().postcode}</p>
-								</div>
-							</div>
-							<div className="row">
-								<div className="col-xs-4">
-									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number}</p>
-								</div>
-							</div>
-							<div className="row">
-								<div className="col-xs-4">
-									<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().email}</p>
-								</div>
-							</div>
-							<div className="row">
-								<EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} />
-								{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-4 col-xs-offset-3">
-						<div className="container">
-							<div className="row">
-								<div className="col-xs-4">
-									<a type="submit" className="btn btn-info" href={CompanyProfileDetailsStore.getCompanyProfileDetails().url} target="_blank" role="button">Company Home Page</a>
-								</div>
-							</div>
-							<div className="row">
-								<EditButton label="Edit" handleButtonClick={this.showUrlEdit} />
-								{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null }
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="container">
-						<div className="row">
-							<p>{CompanyProfileDetailsStore.getCompanyProfileDetails().description}</p>
-						</div>
-						<div className="row">
-							<EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} />
-							{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
-						</div>
-					</div>
-				</div>
+				<div className="panel panel-info">
+            		<div className="panel-heading">
+              			<h3 className="panel-title">{CompanyProfileDetailsStore.getCompanyProfileDetails().name}</h3>
+            		</div>
+            		<div className="panel-body">
+              			<div className="row">
+                			<div className="col-md-3 col-lg-3 " align="center"><i className="fa fa-info-circle fa-5x"></i></div>
+                			<div className=" col-md-9 col-lg-9 "> 
+                  				<table className="table table-user-information">
+                    				<tbody>
+                    					<tr>
+                    						<td>About Us</td>
+                    						<td>{CompanyProfileDetailsStore.getCompanyProfileDetails().description}</td>
+                    						<td><EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} /></td>
+                    					</tr>
+                        				<tr>
+                        					<td>Address</td>
+                        					<td>{CompanyProfileDetailsStore.getCompanyProfileDetails().address1}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address2}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().address3}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().city}<br />{CompanyProfileDetailsStore.getCompanyProfileDetails().postcode}</td>
+                        					<td><EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /></td>
+                      					</tr>
+                      					<tr>
+                        					<td>Email</td>
+                        					<td>{CompanyProfileDetailsStore.getCompanyProfileDetails().email}</td>
+                        					<td></td>
+                      					</tr>
+                      					<tr>
+                        					<td>Phone Number</td>
+                        					<td>{CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number}</td>
+                        					<td><EditButton label="Edit" handleButtonClick={this.showContactDetailsEdit} /></td>
+                      					</tr>
+                      					<tr>
+                      						<td>Visit Us</td>
+                      						<td><a type="submit" href={CompanyProfileDetailsStore.getCompanyProfileDetails().url} target="_blank">{CompanyProfileDetailsStore.getCompanyProfileDetails().name} Home Page</a></td>
+                      						<td><EditButton label="Edit" handleButtonClick={this.showUrlEdit} /></td>
+                      					</tr>
+                      					<tr>
+                      						<td></td>
+                      						<td><DeleteButton /></td>
+                      						<td></td>
+                      					</tr>
+                    				</tbody>
+                  				</table>
+                  				{ this.state.isDescription ? <DescriptionEdit handleDescriptionEditForm={this.hideDescriptionEdit} handleDescriptionEditFormSubmit={this.handleUpdateDescriptionDetails} /> : null }
+                  				{ this.state.isContactDetails ? <ContactDetailsEdit handleContactDetailsEditForm={this.hideContactDetailsEdit} handleContactDetailsEditFormSubmit={this.handleUpdateContactDetails} /> : null }
+                  				{ this.state.isUrl ? <UrlEdit handleUrlEditForm={this.hideUrlEdit} handleUrlEditFormSubmit={this.handleUpdateUrl} /> : null }
+                			</div>
+              			</div>
+            		</div>
+            	</div>
 				<div className="row">
 					<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#excavation-view">View Your Excavations</button>
 					<div className="collapse" id="excavation-view">
 						<ExcavationDetails />
 					</div>
-				</div>
-				<div className="row">
-					<DeleteButton />
-					<DeleteModal />
 				</div>
 			</div>
 		);

@@ -30846,17 +30846,17 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
                   				React.createElement("table", {className: "table table-user-information"}, 
                     				React.createElement("tbody", null, 
                     					React.createElement("tr", null, 
-                    						React.createElement("td", null, "About Me:"), 
+                    						React.createElement("td", null, "About Me"), 
                     						React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().description), 
                     						React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}) : null)
                     					), 
                       					React.createElement("tr", null, 
-                        					React.createElement("td", null, "Specialism:"), 
+                        					React.createElement("td", null, "Specialism"), 
                         					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism), 
                         					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null)
                       					), 
                       					React.createElement("tr", null, 
-                        					React.createElement("td", null, "Experience:"), 
+                        					React.createElement("td", null, "Experience"), 
                         					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience), 
                         					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null)
                       					), 
@@ -31407,7 +31407,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid company-profile"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(EmployerNavbar, null)
 				), 
@@ -31416,71 +31416,60 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 						React.createElement("h1", null, "Company Profile")
 					)
 				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-3"}, 
-						React.createElement("h2", null, CompanyProfileDetailsStore.getCompanyProfileDetails().name)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-3"}, 
-						React.createElement("div", {className: "container"}, 
-							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().address1, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address2, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address3, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().city, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().postcode)
-								)
-							), 
-							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number)
-								)
-							), 
-							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().email)
-								)
-							), 
-							React.createElement("div", {className: "row"}, 
-								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}), 
-								 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null
-							)
-						)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4 col-xs-offset-3"}, 
-						React.createElement("div", {className: "container"}, 
-							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-xs-4"}, 
-									React.createElement("a", {type: "submit", className: "btn btn-info", href: CompanyProfileDetailsStore.getCompanyProfileDetails().url, target: "_blank", role: "button"}, "Company Home Page")
-								)
-							), 
-							React.createElement("div", {className: "row"}, 
-								React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showUrlEdit}), 
-								 this.state.isUrl ? React.createElement(UrlEdit, {handleUrlEditForm: this.hideUrlEdit, handleUrlEditFormSubmit: this.handleUpdateUrl}) : null
-							)
-						)
-					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "container"}, 
-						React.createElement("div", {className: "row"}, 
-							React.createElement("p", null, CompanyProfileDetailsStore.getCompanyProfileDetails().description)
-						), 
-						React.createElement("div", {className: "row"}, 
-							React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}), 
-							 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null
-						)
-					)
-				), 
+				React.createElement("div", {className: "panel panel-info"}, 
+            		React.createElement("div", {className: "panel-heading"}, 
+              			React.createElement("h3", {className: "panel-title"}, CompanyProfileDetailsStore.getCompanyProfileDetails().name)
+            		), 
+            		React.createElement("div", {className: "panel-body"}, 
+              			React.createElement("div", {className: "row"}, 
+                			React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, React.createElement("i", {className: "fa fa-info-circle fa-5x"})), 
+                			React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+                  				React.createElement("table", {className: "table table-user-information"}, 
+                    				React.createElement("tbody", null, 
+                    					React.createElement("tr", null, 
+                    						React.createElement("td", null, "About Us"), 
+                    						React.createElement("td", null, CompanyProfileDetailsStore.getCompanyProfileDetails().description), 
+                    						React.createElement("td", null, React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showDescriptionEdit}))
+                    					), 
+                        				React.createElement("tr", null, 
+                        					React.createElement("td", null, "Address"), 
+                        					React.createElement("td", null, CompanyProfileDetailsStore.getCompanyProfileDetails().address1, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address2, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().address3, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().city, React.createElement("br", null), CompanyProfileDetailsStore.getCompanyProfileDetails().postcode), 
+                        					React.createElement("td", null, React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}))
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Email"), 
+                        					React.createElement("td", null, CompanyProfileDetailsStore.getCompanyProfileDetails().email), 
+                        					React.createElement("td", null)
+                      					), 
+                      					React.createElement("tr", null, 
+                        					React.createElement("td", null, "Phone Number"), 
+                        					React.createElement("td", null, CompanyProfileDetailsStore.getCompanyProfileDetails().phone_number), 
+                        					React.createElement("td", null, React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showContactDetailsEdit}))
+                      					), 
+                      					React.createElement("tr", null, 
+                      						React.createElement("td", null, "Visit Us"), 
+                      						React.createElement("td", null, React.createElement("a", {type: "submit", href: CompanyProfileDetailsStore.getCompanyProfileDetails().url, target: "_blank"}, CompanyProfileDetailsStore.getCompanyProfileDetails().name, " Home Page")), 
+                      						React.createElement("td", null, React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showUrlEdit}))
+                      					), 
+                      					React.createElement("tr", null, 
+                      						React.createElement("td", null), 
+                      						React.createElement("td", null, React.createElement(DeleteButton, null)), 
+                      						React.createElement("td", null)
+                      					)
+                    				)
+                  				), 
+                  				 this.state.isDescription ? React.createElement(DescriptionEdit, {handleDescriptionEditForm: this.hideDescriptionEdit, handleDescriptionEditFormSubmit: this.handleUpdateDescriptionDetails}) : null, 
+                  				 this.state.isContactDetails ? React.createElement(ContactDetailsEdit, {handleContactDetailsEditForm: this.hideContactDetailsEdit, handleContactDetailsEditFormSubmit: this.handleUpdateContactDetails}) : null, 
+                  				 this.state.isUrl ? React.createElement(UrlEdit, {handleUrlEditForm: this.hideUrlEdit, handleUrlEditFormSubmit: this.handleUpdateUrl}) : null
+                			)
+              			)
+            		)
+            	), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("button", {type: "button", className: "btn btn-info", "data-toggle": "collapse", "data-target": "#excavation-view"}, "View Your Excavations"), 
 					React.createElement("div", {className: "collapse", id: "excavation-view"}, 
 						React.createElement(ExcavationDetails, null)
 					)
-				), 
-				React.createElement("div", {className: "row"}, 
-					React.createElement(DeleteButton, null), 
-					React.createElement(DeleteModal, null)
 				)
 			)
 		);

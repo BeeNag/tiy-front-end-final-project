@@ -119,6 +119,9 @@ img {
   max-width: 100%;
   height: auto; }
 
+.company-profile {
+  background: #10073D; }
+
 .container .form {
   display: -webkit-flex;
   display: flex;

@@ -120,17 +120,17 @@ var ArchaeologistProfile = React.createClass({
                   				<table className="table table-user-information">
                     				<tbody>
                     					<tr>
-                    						<td>About Me:</td>
+                    						<td>About Me</td>
                     						<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().description}</td>
                     						<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showDescriptionEdit} /> : null }</td>
                     					</tr>
                       					<tr>
-                        					<td>Specialism:</td>
+                        					<td>Specialism</td>
                         					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().specialism}</td>
                         					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }</td>
                       					</tr>
                       					<tr>
-                        					<td>Experience:</td>
+                        					<td>Experience</td>
                         					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience}</td>
                         					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }</td>
                       					</tr>
