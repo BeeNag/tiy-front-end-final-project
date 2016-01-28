@@ -1,0 +1,45 @@
+.excavation-page {
+	background: #C0FFEE;
+}
+
+.excavation-title {
+	margin-bottom: 50px;
+}
+
+.excavation-button {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#logbox-excavation {
+  padding: 10px;
+  
+  width: 100%;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+.input {
+  width: 75%;
+  height: 50px;
+  display: block;
+  margin: 0 auto 15px;
+  padding: 0 15px;
+  border: none;
+  border-bottom: 2px solid #ebebeb;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: #3CC !important;
+}
+
+.input:hover {
+  border-bottom-color: #dcdcdc;
+}
+
+.input:invalid {
+  box-shadow: none;
+}

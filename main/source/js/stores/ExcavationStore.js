@@ -32,7 +32,7 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
-	} else if (action.type === 'get-comapny-excavation-details') {
+	} else if (action.type === 'get-comapany-excavation-details') {
 		setExcavationDetailsArray(action.excavations);
 	} else if (action.type === 'get-archaeology-excavation-details') {
 		setExcavationDetailsArray(action.excavations);

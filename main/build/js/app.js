@@ -31860,54 +31860,62 @@ var CreateExcavation = React.createClass({displayName: "CreateExcavation",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid excavation-page"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(EmployerNavbar, null)
 				), 
-				React.createElement("div", {id: "logbox"}, 
-					React.createElement("form", {onSubmit: this.handleSubmit}, 
-						React.createElement("div", {className: "form-group"}, 
-							React.createElement("label", {htmlFor: "inputExcavationName"}, "Excavation Name"), 
-							React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name", value: this.state.name, onChange: this.updateNameState})
-						), 
-						React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "inputAddressLineOne"}, "Address Line 1"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1", value: this.state.address1, onChange: this.updateAddressOneState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "inputAddressLineTwo"}, "Address Line 2"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2", value: this.state.address2, onChange: this.updateAddressTwoState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "inputAddressLineThree"}, "Address Line 3"), 
-	                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3", value: this.state.address3, onChange: this.updateAddressThreeState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "inputPostcode"}, "Postcode"), 
-	                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode", value: this.state.postcode, onChange: this.updatePostcodeState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "selectDuration"}, "Duration of Excavation"), 
-	                    	React.createElement("input", {type: "text", className: "form-control", id: "selectDuration", placeholder: "Duration", value: this.state.duration, onChange: this.updateDurationState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-      						React.createElement("label", {htmlFor: "enterExcavationUrl"}, "Excavation Home Page"), 
-      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL", value: this.state.excavation_url, onChange: this.updateExcavationUrlState})
-    					), 
-    					React.createElement("div", {className: "form-group"}, 
-	                    	React.createElement("label", {htmlFor: "describeExcavation"}, "Please Enter a Brief Description of the Excavation (max. 250 words)"), 
-	                    	React.createElement("input", {type: "text", className: "form-control", id: "describeExcavation", placeholder: "Description", value: this.state.excavation_description, onChange: this.updateExcavationDescriptionState})
-	                    ), 
-	                    React.createElement("div", {className: "form-group"}, 
-							React.createElement("input", {type: "submit", value: "Submit Your Excavation Details", className: "form-control inputButton"})
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-12"}, 
+						React.createElement("h1", {className: "text-center excavation-title"}, "Please enter the details of the excavation")
+					)
+				), 
+				React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+					React.createElement("div", {id: "logbox-excavation"}, 
+						React.createElement("form", {onSubmit: this.handleSubmit}, 
+							React.createElement("div", {className: "form-group"}, 
+								React.createElement("label", {htmlFor: "inputExcavationName"}, "Excavation Name"), 
+								React.createElement("input", {type: "text", className: "form-control", id: "inputExcavationName", placeholder: "Excavation Name", value: this.state.name, onChange: this.updateNameState})
+							), 
+							React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "inputAddressLineOne"}, "Address Line 1"), 
+		                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineOne", placeholder: "Address Line 1", value: this.state.address1, onChange: this.updateAddressOneState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "inputAddressLineTwo"}, "Address Line 2"), 
+		                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineTwo", placeholder: "Address Line 2", value: this.state.address2, onChange: this.updateAddressTwoState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "inputAddressLineThree"}, "Address Line 3"), 
+		                    	React.createElement("input", {type: "address", className: "form-control", id: "inputAddressLineThree", placeholder: "Address Line 3", value: this.state.address3, onChange: this.updateAddressThreeState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "inputPostcode"}, "Postcode"), 
+		                    	React.createElement("input", {type: "postcode", className: "form-control", id: "inputPostcode", placeholder: "Postcode", value: this.state.postcode, onChange: this.updatePostcodeState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "selectDuration"}, "Duration of Excavation"), 
+		                    	React.createElement("input", {type: "text", className: "form-control", id: "selectDuration", placeholder: "Duration", value: this.state.duration, onChange: this.updateDurationState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+	      						React.createElement("label", {htmlFor: "enterExcavationUrl"}, "Excavation Home Page"), 
+	      						React.createElement("input", {type: "url", className: "form-control", id: "enterExcavationUrl", placeholder: "Excavation Home Page URL", value: this.state.excavation_url, onChange: this.updateExcavationUrlState})
+	    					), 
+	    					React.createElement("div", {className: "form-group"}, 
+		                    	React.createElement("label", {htmlFor: "describeExcavation"}, "Please Enter a Brief Description of the Excavation (max. 250 words)"), 
+		                    	React.createElement("input", {type: "text", className: "form-control", id: "describeExcavation", placeholder: "Description", value: this.state.excavation_description, onChange: this.updateExcavationDescriptionState})
+		                    ), 
+		                    React.createElement("div", {className: "form-group"}, 
+								React.createElement("input", {type: "submit", value: "Submit Your Excavation Details", className: "form-control inputButton"})
+							)
 						)
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+					React.createElement("div", {className: "col-xs-6 col-xs-offset-3 excavation-button"}, 
 						React.createElement("button", {type: "button", onClick: this.handleCreateExcavationClickEvent, className: "btn btn-success"}, "Create Excavation Profile")
 					)
-				)
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
@@ -32450,8 +32458,8 @@ var BasicSearch = React.createClass({displayName: "BasicSearch",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "row"}, 
-				React.createElement("button", {type: "button", className: "btn btn-info", "data-toggle": "collapse", "data-target": "#basic-search"}, "Search"), 
+			React.createElement("div", {className: "col-xs-12 show-search"}, 
+				React.createElement("button", {type: "button", className: "btn btn-info btn-lg", "data-toggle": "collapse", "data-target": "#basic-search"}, "Search"), 
 				React.createElement("div", {className: "collapse", id: "basic-search"}, 
 					React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
     					React.createElement("h2", null, "Please enter a specialism that you would like to search for"), 
@@ -32506,24 +32514,26 @@ var Search = React.createClass({displayName: "Search",
 
 	render: function () {
 		return (
-			React.createElement("div", {className: "container-fluid"}, 
+			React.createElement("div", {className: "container-fluid search-page"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement(EmployerNavbar, null)
 				), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-						React.createElement("h1", null, "Search for an Archaeologist")
+					React.createElement("div", {className: "col-xs-12"}, 
+						React.createElement("h1", {className: "text-center"}, "Search for an Archaeologist")
 					)
 				), 
+				React.createElement("hr", {className: "page-break"}), 
 				React.createElement(BasicSearch, null), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-12"}, 
+					React.createElement("div", {className: "col-xs-12 search-results"}, 
 						React.createElement("h3", {id: "search-results", className: "text-center"}, "Search Results")
 					)
 				), 
 				React.createElement("div", {className: "row"}, 
 					this.state.isThumbnailShowing ? React.createElement(Thumbnail, null) : null
-				)
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
@@ -33237,7 +33247,7 @@ var ExcavationStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-excavation-details') {
 		setExcavationDetails(action.excavationDetails);
-	} else if (action.type === 'get-comapny-excavation-details') {
+	} else if (action.type === 'get-comapany-excavation-details') {
 		setExcavationDetailsArray(action.excavations);
 	} else if (action.type === 'get-archaeology-excavation-details') {
 		setExcavationDetailsArray(action.excavations);

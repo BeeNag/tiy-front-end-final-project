@@ -13,8 +13,8 @@ var BasicSearch = React.createClass({
 
 	render: function () {
 		return (
-			<div className="row">
-				<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#basic-search">Search</button>
+			<div className="col-xs-12 show-search">
+				<button type="button" className="btn btn-info btn-lg" data-toggle="collapse" data-target="#basic-search">Search</button>
 				<div className="collapse" id="basic-search">
 					<div className="col-xs-6 col-xs-offset-3">
     					<h2>Please enter a specialism that you would like to search for</h2>

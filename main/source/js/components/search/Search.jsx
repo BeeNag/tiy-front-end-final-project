@@ -29,24 +29,26 @@ var Search = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid search-page">
 				<div className="row">
 					<EmployerNavbar />
 				</div>
 				<div className="row">
-					<div className="col-xs-8 col-xs-offset-2">
-						<h1>Search for an Archaeologist</h1>
+					<div className="col-xs-12">
+						<h1 className="text-center">Search for an Archaeologist</h1>
 					</div>
 				</div>
+				<hr className="page-break" />
 				<BasicSearch />
 				<div className="row">
-					<div className="col-xs-12">
+					<div className="col-xs-12 search-results">
 						<h3 id="search-results" className="text-center">Search Results</h3>
 					</div>
 				</div>
 				<div className="row">
 					{this.state.isThumbnailShowing ? <Thumbnail /> : null}
 				</div>
+				<hr className="page-break" />
 			</div>
 		);
 	}

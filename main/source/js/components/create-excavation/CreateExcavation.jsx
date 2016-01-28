@@ -106,54 +106,62 @@ var CreateExcavation = React.createClass({
 
 	render: function () {
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid excavation-page">
 				<div className="row">
 					<EmployerNavbar />
 				</div>
-				<div id="logbox">
-					<form onSubmit={this.handleSubmit}>
-						<div className="form-group">
-							<label htmlFor="inputExcavationName">Excavation Name</label>
-							<input type="text" className="form-control" id="inputExcavationName" placeholder="Excavation Name" value={this.state.name} onChange={this.updateNameState}></input>
-						</div>
-						<div className="form-group">
-	                    	<label htmlFor="inputAddressLineOne">Address Line 1</label>
-	                    	<input type="address" className="form-control" id="inputAddressLineOne" placeholder="Address Line 1" value={this.state.address1} onChange={this.updateAddressOneState}></input>
-	                    </div>
-	                    <div className="form-group">
-	                    	<label htmlFor="inputAddressLineTwo">Address Line 2</label>
-	                    	<input type="address" className="form-control" id="inputAddressLineTwo" placeholder="Address Line 2" value={this.state.address2} onChange={this.updateAddressTwoState}></input>
-	                    </div>
-	                    <div className="form-group">
-	                    	<label htmlFor="inputAddressLineThree">Address Line 3</label>
-	                    	<input type="address" className="form-control" id="inputAddressLineThree" placeholder="Address Line 3" value={this.state.address3} onChange={this.updateAddressThreeState}></input>
-	                    </div>
-	                    <div className="form-group">
-	                    	<label htmlFor="inputPostcode">Postcode</label>
-	                    	<input type="postcode" className="form-control" id="inputPostcode" placeholder="Postcode" value={this.state.postcode} onChange={this.updatePostcodeState}></input>
-	                    </div>
-	                    <div className="form-group">
-	                    	<label htmlFor="selectDuration">Duration of Excavation</label>
-	                    	<input type="text" className="form-control" id="selectDuration" placeholder="Duration" value={this.state.duration} onChange={this.updateDurationState}></input>
-	                    </div>
-	                    <div className="form-group">
-      						<label htmlFor="enterExcavationUrl">Excavation Home Page</label>
-      						<input type="url" className="form-control" id="enterExcavationUrl" placeholder="Excavation Home Page URL" value={this.state.excavation_url} onChange={this.updateExcavationUrlState}></input>
-    					</div>
-    					<div className="form-group">
-	                    	<label htmlFor="describeExcavation">Please Enter a Brief Description of the Excavation (max. 250 words)</label>
-	                    	<input type="text" className="form-control" id="describeExcavation" placeholder="Description" value={this.state.excavation_description} onChange={this.updateExcavationDescriptionState}></input>
-	                    </div>
-	                    <div className="form-group">
-							<input type="submit" value="Submit Your Excavation Details" className="form-control inputButton"></input>
-						</div>
-					</form>
+				<div className="row">
+					<div className="col-xs-12">
+						<h1 className="text-center excavation-title">Please enter the details of the excavation</h1>
+					</div>
+				</div>
+				<div className="col-xs-6 col-xs-offset-3">
+					<div id="logbox-excavation">
+						<form onSubmit={this.handleSubmit}>
+							<div className="form-group">
+								<label htmlFor="inputExcavationName">Excavation Name</label>
+								<input type="text" className="form-control" id="inputExcavationName" placeholder="Excavation Name" value={this.state.name} onChange={this.updateNameState}></input>
+							</div>
+							<div className="form-group">
+		                    	<label htmlFor="inputAddressLineOne">Address Line 1</label>
+		                    	<input type="address" className="form-control" id="inputAddressLineOne" placeholder="Address Line 1" value={this.state.address1} onChange={this.updateAddressOneState}></input>
+		                    </div>
+		                    <div className="form-group">
+		                    	<label htmlFor="inputAddressLineTwo">Address Line 2</label>
+		                    	<input type="address" className="form-control" id="inputAddressLineTwo" placeholder="Address Line 2" value={this.state.address2} onChange={this.updateAddressTwoState}></input>
+		                    </div>
+		                    <div className="form-group">
+		                    	<label htmlFor="inputAddressLineThree">Address Line 3</label>
+		                    	<input type="address" className="form-control" id="inputAddressLineThree" placeholder="Address Line 3" value={this.state.address3} onChange={this.updateAddressThreeState}></input>
+		                    </div>
+		                    <div className="form-group">
+		                    	<label htmlFor="inputPostcode">Postcode</label>
+		                    	<input type="postcode" className="form-control" id="inputPostcode" placeholder="Postcode" value={this.state.postcode} onChange={this.updatePostcodeState}></input>
+		                    </div>
+		                    <div className="form-group">
+		                    	<label htmlFor="selectDuration">Duration of Excavation</label>
+		                    	<input type="text" className="form-control" id="selectDuration" placeholder="Duration" value={this.state.duration} onChange={this.updateDurationState}></input>
+		                    </div>
+		                    <div className="form-group">
+	      						<label htmlFor="enterExcavationUrl">Excavation Home Page</label>
+	      						<input type="url" className="form-control" id="enterExcavationUrl" placeholder="Excavation Home Page URL" value={this.state.excavation_url} onChange={this.updateExcavationUrlState}></input>
+	    					</div>
+	    					<div className="form-group">
+		                    	<label htmlFor="describeExcavation">Please Enter a Brief Description of the Excavation (max. 250 words)</label>
+		                    	<input type="text" className="form-control" id="describeExcavation" placeholder="Description" value={this.state.excavation_description} onChange={this.updateExcavationDescriptionState}></input>
+		                    </div>
+		                    <div className="form-group">
+								<input type="submit" value="Submit Your Excavation Details" className="form-control inputButton"></input>
+							</div>
+						</form>
+					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-6 col-xs-offset-3">
+					<div className="col-xs-6 col-xs-offset-3 excavation-button">
 						<button  type="button" onClick={this.handleCreateExcavationClickEvent} className="btn btn-success">Create Excavation Profile</button>
 					</div>
 				</div>
+				<hr className="page-break" />
 			</div>
 		);
 	}
