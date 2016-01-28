@@ -93,7 +93,7 @@ var CompanyProfile = React.createClass({
 				</div>
 				<div className="row">
 					<div className="col-xs-8 col-xs-offset-2">
-						<h1>Company Profile</h1>
+						<h1 className="cp-title">Company Profile</h1>
 					</div>
 				</div>
 				<div className="panel panel-info">
@@ -145,12 +145,14 @@ var CompanyProfile = React.createClass({
               			</div>
             		</div>
             	</div>
+            	<hr className="page-break" />
 				<div className="row">
-					<button type="button" className="btn btn-info" data-toggle="collapse" data-target="#excavation-view">View Your Excavations</button>
-					<div className="collapse" id="excavation-view">
+					<div className="col-xs-12 cp-button">
+						<h1>View Your Excavations</h1>
 						<ExcavationDetails />
 					</div>
 				</div>
+				<hr className="page-break" />
 			</div>
 		);
 	}

@@ -31381,7 +31381,7 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
 				), 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-						React.createElement("h1", null, "Company Profile")
+						React.createElement("h1", {className: "cp-title"}, "Company Profile")
 					)
 				), 
 				React.createElement("div", {className: "panel panel-info"}, 
@@ -31433,12 +31433,14 @@ var CompanyProfile = React.createClass({displayName: "CompanyProfile",
               			)
             		)
             	), 
+            	React.createElement("hr", {className: "page-break"}), 
 				React.createElement("div", {className: "row"}, 
-					React.createElement("button", {type: "button", className: "btn btn-info", "data-toggle": "collapse", "data-target": "#excavation-view"}, "View Your Excavations"), 
-					React.createElement("div", {className: "collapse", id: "excavation-view"}, 
+					React.createElement("div", {className: "col-xs-12 cp-button"}, 
+						React.createElement("h1", null, "View Your Excavations"), 
 						React.createElement(ExcavationDetails, null)
 					)
-				)
+				), 
+				React.createElement("hr", {className: "page-break"})
 			)
 		);
 	}
