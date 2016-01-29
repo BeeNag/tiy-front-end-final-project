@@ -174,15 +174,15 @@ var LandingPage = React.createClass({
 					<div className="col-xs-12 process-title">
 						<h2 className="text-center">Here is what you do to get started</h2>
 					</div>
-					<div className="col-xs-4 text-center">
+					<div className="col-xs-4 text-center steps">
 						<h2>Step 1</h2>
 						<p>Enter your details and sign up</p>
 					</div>
-					<div className="col-xs-4 text-center">
+					<div className="col-xs-4 text-center steps">
 						<h2>Step 2</h2>
 						<p>You will be taken to the landing page for archaeologists or companies and see the options available to you</p>
 					</div>
-					<div className="col-xs-4 text-center">
+					<div className="col-xs-4 text-center steps">
 						<h2>Step 3</h2>
 						<p>Select an option and away you go!</p>
 					</div>

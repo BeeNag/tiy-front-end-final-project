@@ -30848,7 +30848,7 @@ var ArchaeologistProfile = React.createClass({displayName: "ArchaeologistProfile
                       					), 
                       					React.createElement("tr", null, 
                         					React.createElement("td", null, "Experience"), 
-                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience), 
+                        					React.createElement("td", null, ArchProfileDetailsStore.getArchaeologistProfileDetails().experience, " Year(s)"), 
                         					React.createElement("td", null,  ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? React.createElement(EditButton, {label: "Edit", handleButtonClick: this.showExperienceAndSpecialismEdit}) : null)
                       					), 
                       					React.createElement("tr", null, 
@@ -32422,15 +32422,15 @@ var LandingPage = React.createClass({displayName: "LandingPage",
 					React.createElement("div", {className: "col-xs-12 process-title"}, 
 						React.createElement("h2", {className: "text-center"}, "Here is what you do to get started")
 					), 
-					React.createElement("div", {className: "col-xs-4 text-center"}, 
+					React.createElement("div", {className: "col-xs-4 text-center steps"}, 
 						React.createElement("h2", null, "Step 1"), 
 						React.createElement("p", null, "Enter your details and sign up")
 					), 
-					React.createElement("div", {className: "col-xs-4 text-center"}, 
+					React.createElement("div", {className: "col-xs-4 text-center steps"}, 
 						React.createElement("h2", null, "Step 2"), 
 						React.createElement("p", null, "You will be taken to the landing page for archaeologists or companies and see the options available to you")
 					), 
-					React.createElement("div", {className: "col-xs-4 text-center"}, 
+					React.createElement("div", {className: "col-xs-4 text-center steps"}, 
 						React.createElement("h2", null, "Step 3"), 
 						React.createElement("p", null, "Select an option and away you go!")
 					)
@@ -32601,7 +32601,7 @@ var ThumbnailCaption = React.createClass({displayName: "ThumbnailCaption",
 				React.createElement("h4", {className: "text-center"}, this.props.name), 
 				React.createElement("p", {className: "text-center"}, this.props.email), 
 				React.createElement("p", {className: "text-center"}, this.props.specialism), 
-				React.createElement("p", {className: "text-center"}, this.props.experience), 
+				React.createElement("p", {className: "text-center"}, this.props.experience, " Year(s)"), 
 				React.createElement("p", {className: "text-center"}, React.createElement("button", {className: "btn btn-primary", type: "button", onClick: this.handleClickEvent}, "View Profile"))
 			)
 		);

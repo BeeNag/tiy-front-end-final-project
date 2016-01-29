@@ -134,7 +134,7 @@ var ArchaeologistProfile = React.createClass({
                       					</tr>
                       					<tr>
                         					<td>Experience</td>
-                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience}</td>
+                        					<td>{ArchProfileDetailsStore.getArchaeologistProfileDetails().experience} Year(s)</td>
                         					<td>{ ArchProfileDetailsStore.getArchaeologistSignedInStatus() ? <EditButton label="Edit" handleButtonClick={this.showExperienceAndSpecialismEdit} /> : null }</td>
                       					</tr>
                       					<tr>

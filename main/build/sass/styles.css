@@ -17,6 +17,13 @@
 .welcome-text-sub {
   font-size: 3em; }
 
+.process-title {
+  margin-top: 150px;
+  margin-bottom: 100px; }
+
+.steps {
+  margin-bottom: 75px; }
+
 .arch-image {
   height: 100%;
   width: 100%; }
@@ -225,7 +232,7 @@ h1 {
 
 #logbox-profile {
   position: absolute;
-  z-index: 999;
+  z-index: 1;
   padding: 10px;
   margin: 50px 100px;
   width: 100%;
